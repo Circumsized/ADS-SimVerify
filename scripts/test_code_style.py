@@ -7,9 +7,10 @@ import check_code_style
 
 class CodeStyleCheckerTests(unittest.TestCase):
     def test_scope_excludes_frozen_and_documentation_directories(self):
-        self.assertFalse(check_code_style.in_scope(Path("d:/FSD/contracts/x.py")))
-        self.assertFalse(check_code_style.in_scope(Path("d:/FSD/assets/x.py")))
-        self.assertTrue(check_code_style.in_scope(Path("d:/FSD/scripts/check_code_style.py")))
+        root = check_code_style.ROOT
+        self.assertFalse(check_code_style.in_scope(root / "contracts/x.py"))
+        self.assertFalse(check_code_style.in_scope(root / "assets/x.py"))
+        self.assertTrue(check_code_style.in_scope(root / "scripts/check_code_style.py"))
 
     def test_code_cjk_is_checked_but_comments_are_allowed(self):
         self.assertNotIn("中文", check_code_style.code_without_strings_and_comments("x = '中文'\n# 中文", ".py"))

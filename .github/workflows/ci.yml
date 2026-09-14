@@ -44,6 +44,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install --upgrade pip
+      - run: python -m pip install pyyaml
       - name: Phase 1 data contracts
         run: python contracts/v1/validate_contracts.py
       - name: Real-vehicle pre-hardware gate
@@ -52,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update && sudo apt-get install -y libopencv-dev
+      - run: sudo apt-get update && sudo apt-get install -y libopencv-dev clang libclang-dev llvm
       - name: Download onnxruntime (runtime, load-dynamic)
         run: |
           V=1.27.0
