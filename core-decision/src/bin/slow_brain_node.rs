@@ -422,13 +422,10 @@ mod tests {
         Arc::new(Field::new(name, DataType::Float32, false))
     }
 
-    fn descriptor_field() -> Arc<Field> {
+    fn descriptor_field(descriptor: &ArrayRef) -> Arc<Field> {
         Arc::new(Field::new(
             "descriptor",
-            DataType::FixedSizeList(
-                Arc::new(Field::new("item", DataType::Float32, false)),
-                XFEAT_DESCRIPTOR_DIM as i32,
-            ),
+            descriptor.data_type().clone(),
             false,
         ))
     }
@@ -443,7 +440,7 @@ mod tests {
             (f32_field("x"), x),
             (f32_field("y"), y),
             (f32_field("score"), score),
-            (descriptor_field(), descriptor),
+            (descriptor_field(&descriptor), descriptor),
         ])
     }
 
