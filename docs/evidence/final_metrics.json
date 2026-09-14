@@ -1,0 +1,50 @@
+{
+  "schema_version": "fsd-simverify-final-metrics-v1",
+  "frozen_at": "2026-07-16T18:59:13+08:00",
+  "phase2": {
+    "verdict": "pidnet_sim_domain_collapse",
+    "frames": 1057,
+    "pidnet_roi_occupied_ratio_mean": 0.9997136881939948,
+    "pidnet_false_occupied_rate_mean": 0.9993564476966902
+  },
+  "phase5": {
+    "candidate_model": "warehouse_nav14_candidate.onnx",
+    "candidate_shadow_frames": 1000,
+    "dora_sensor_to_wheel_p95_ms": 31.6015761375427,
+    "hour_endurance_frames": 72000,
+    "hour_endurance_duration_s": 3611.331572029,
+    "hour_collision_count": 0,
+    "maximum_fault_stop_latency_frames": 1
+  },
+  "phase6": {
+    "matrix_cases": 12,
+    "reached_cases": 12,
+    "collision_count": 0,
+    "solver_failures": 0,
+    "sensor_to_wheel_p95_ms_max": 33.061333399999995,
+    "path_error_p95_m_max": 0.09135130608362248
+  },
+  "phase7": {
+    "control_pipeline_p95_ms": 17.06741735,
+    "semantic_inference_p95_ms": 5.841891599999999,
+    "depth_lift_bev_p95_ms": 8.25620705,
+    "nmpc_p95_ms": 1.2040345,
+    "xfeat_640x640_p95_ms": 3.8491119,
+    "process_rss_incremental_peak_mib": 1211.97265625,
+    "desktop_gpu_vram_incremental_peak_mib": 253.0,
+    "recommended_compute": "NVIDIA Jetson Orin NX 16GB Super"
+  },
+  "real_vehicle": {
+    "status": "blocked_pre_hardware",
+    "blocked_gates": [
+      "topology",
+      "camera",
+      "localization",
+      "global_planning",
+      "collision_supervisor",
+      "actuator"
+    ],
+    "real_vehicle_control_allowed": false
+  },
+  "raw_evidence_policy": "Raw frames, CSV telemetry, datasets and failure-injection logs remain local and are excluded from Git. Frozen status files retain their original hashes."
+}
