@@ -1,0 +1,32 @@
+{
+  "schema_version": "phase4-semantic-overlay-v1",
+  "taxonomy_id": "warehouse_nav14_v1",
+  "vendor_usd": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Environments/Simple_Warehouse/warehouse_multiple_shelves.usd",
+  "vendor_sha256_before": "eb27e4bad446bba981b81c27529a284dfb55a30adc01eaadb80bb0fe997a0dc0",
+  "vendor_sha256_after": "eb27e4bad446bba981b81c27529a284dfb55a30adc01eaadb80bb0fe997a0dc0",
+  "overlay_usd": "assets/phase4/warehouse_nav14_overlay.usda",
+  "mesh_count": 1878,
+  "labeled_mesh_count": 1878,
+  "stage_metadata": {
+    "meters_per_unit": 1.0,
+    "up_axis": "Z",
+    "default_prim": "/Root"
+  },
+  "class_mesh_counts": {
+    "traversable_floor": 25,
+    "floor_marking": 31,
+    "curb_or_step": 0,
+    "wall_or_door": 72,
+    "fence_or_guardrail": 15,
+    "shelf_or_rack": 177,
+    "pole_or_column": 25,
+    "traffic_control_or_sign": 114,
+    "pallet_or_load": 55,
+    "box_or_small_obstacle": 1278,
+    "person": 0,
+    "robot_or_cart": 2,
+    "forklift_or_heavy_vehicle": 0,
+    "unknown_or_unlabeled": 84
+  },
+  "mapping_basis": "ordered stable prim-path rules over frozen Isaac Sim 6.0 asset"
+}

@@ -1,0 +1,353 @@
+{
+    "version": "1.0",
+    "file_records": [
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_EuroCase_A1_Albedo.png",
+            "source_hash": "b73a6351329fe552b32a20f123bbf821f31b0b1a",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_EuroCase_A1_Albedo.png",
+            "target_hash": "b73a6351329fe552b32a20f123bbf821f31b0b1a"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_EuroCase_A1_Normal.png",
+            "source_hash": "020beb675aa5c6ee90d5842a019dadb82902eaa9",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_EuroCase_A1_Normal.png",
+            "target_hash": "020beb675aa5c6ee90d5842a019dadb82902eaa9"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_EuroCase_A1_ORM.png",
+            "source_hash": "78c53223c75da5c19a2c5d3cc51efde0daac10f4",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_EuroCase_A1_ORM.png",
+            "target_hash": "78c53223c75da5c19a2c5d3cc51efde0daac10f4"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PalletWooden_A_Albedo.png",
+            "source_hash": "4a6b844cc64e326fab29d50ce2682a08fb614afa",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PalletWooden_A_Albedo.png",
+            "target_hash": "4a6b844cc64e326fab29d50ce2682a08fb614afa"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PalletWooden_A_Normal.png",
+            "source_hash": "d9ad06de5f3e71881cc3fa5866fca584ed01cfd2",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PalletWooden_A_Normal.png",
+            "target_hash": "d9ad06de5f3e71881cc3fa5866fca584ed01cfd2"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PalletWooden_A_ORM.png",
+            "source_hash": "2c44c3c578320509edbf32757eb29f570f07049d",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PalletWooden_A_ORM.png",
+            "target_hash": "2c44c3c578320509edbf32757eb29f570f07049d"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PlasticTape_A1_Albedo.png",
+            "source_hash": "9dfbb326dc95cfdb16bd9f4fea3b6d677e07f4f1",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PlasticTape_A1_Albedo.png",
+            "target_hash": "9dfbb326dc95cfdb16bd9f4fea3b6d677e07f4f1"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PlasticTape_A1_Normal.png",
+            "source_hash": "10aceb77f5b3d8333e544ead069243304aa42813",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PlasticTape_A1_Normal.png",
+            "target_hash": "10aceb77f5b3d8333e544ead069243304aa42813"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PlasticTape_A1_ORM.png",
+            "source_hash": "9eba2e8f0cf85890ecb304aaf4c6a39cbbbb6b9f",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Pallet/Materials/Textures/T_PlasticTape_A1_ORM.png",
+            "target_hash": "9eba2e8f0cf85890ecb304aaf4c6a39cbbbb6b9f"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/YCB/Axis_Aligned/Materials/Textures/005_tomato_soup_can_COLOR.png",
+            "source_hash": "7fe9717573934670ed74e8d857908e81425b270f",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/YCB/Axis_Aligned/Materials/Textures/005_tomato_soup_can_COLOR.png",
+            "target_hash": "7fe9717573934670ed74e8d857908e81425b270f"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/YCB/Axis_Aligned/Materials/Textures/006_mustard_bottle_COLOR.png",
+            "source_hash": "7ee51a47746aa3dde03a33be36efd5c54505048a",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/YCB/Axis_Aligned/Materials/Textures/006_mustard_bottle_COLOR.png",
+            "target_hash": "7ee51a47746aa3dde03a33be36efd5c54505048a"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/YCB/Axis_Aligned/Materials/Textures/003_cracker_box_COLOR.png",
+            "source_hash": "7bfb452ebb429aac922d39d2d90a804a16c10c01",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/YCB/Axis_Aligned/Materials/Textures/003_cracker_box_COLOR.png",
+            "target_hash": "7bfb452ebb429aac922d39d2d90a804a16c10c01"
+        },
+        {
+            "source_url": "D:/isaac_assets/Assets/Isaac/6.0/Isaac/Props/YCB/Axis_Aligned/Materials/Textures/004_sugar_box_COLOR.png",
+            "source_hash": "e71506a7f5ed2c9725023cdb32e1cd6d62d2e992",
+            "target_url": "./D/isaac_assets/Assets/Isaac/6.0/Isaac/Props/YCB/Axis_Aligned/Materials/Textures/004_sugar_box_COLOR.png",
+            "target_hash": "e71506a7f5ed2c9725023cdb32e1cd6d62d2e992"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/YCB/Axis_Aligned/Materials/Textures/006_mustard_bottle_COLOR.png",
+            "source_hash": "de1404f8636ce018b089719115ed322b77791ba6",
+            "target_url": "./Collected_fsd_car_racetrack/Props/YCB/Axis_Aligned/Materials/Textures/006_mustard_bottle_COLOR.png",
+            "target_hash": "cd55575a107772b89f711136a57f55188b93df0f"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_EuroCase_A1_Albedo.png",
+            "source_hash": "2b34583942d1bfacee03ab9c9bd95570eaae609a",
+            "target_url": "./Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_EuroCase_A1_Albedo.png",
+            "target_hash": "ec3c9502609325630b91c39de89d6815a2f2677a"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_EuroCase_A1_Normal.png",
+            "source_hash": "f99f57dbf5ba30d4681b1c776bb940d1c918e76d",
+            "target_url": "./Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_EuroCase_A1_Normal.png",
+            "target_hash": "b72c5923f0c4cc2af4a390b52c786e8e9f626848"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_EuroCase_A1_ORM.png",
+            "source_hash": "49945da7c4b6440b0d1c393b66a3430d0b9b17e6",
+            "target_url": "./Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_EuroCase_A1_ORM.png",
+            "target_hash": "8ca3bd40abaf034162fee223eec77a4970d8c688"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PalletWooden_A_Albedo.png",
+            "source_hash": "9ceb9ca510171f4974e69895d18e69ec95a8ef4c",
+            "target_url": "./Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PalletWooden_A_Albedo.png",
+            "target_hash": "c992951950a5e57313c790f0f21fbf34ed53320f"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PalletWooden_A_Normal.png",
+            "source_hash": "4ae5dce4d2a65cdeee201439eb30b240b6ee63f0",
+            "target_url": "./Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PalletWooden_A_Normal.png",
+            "target_hash": "fdcbce7ac89d68aed9d20b625d6527cddcec7715"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PalletWooden_A_ORM.png",
+            "source_hash": "714a68f9945d78c9b2a167cf5e1253d816d7953e",
+            "target_url": "./Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PalletWooden_A_ORM.png",
+            "target_hash": "4e2392663d86bd9742dc84bb27c034659a8f6ae4"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PlasticTape_A1_Albedo.png",
+            "source_hash": "acac484b9b825c90e9e3b048c90532a94ea4ae4b",
+            "target_url": "./Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PlasticTape_A1_Albedo.png",
+            "target_hash": "d8a6d4b4abb1d1486a78d4eb523d49ac1a01a29a"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PlasticTape_A1_Normal.png",
+            "source_hash": "6553e57953e7b19b8defb28a833c1189d02c5ad0",
+            "target_url": "./Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PlasticTape_A1_Normal.png",
+            "target_hash": "c6feccb793d9da396e604f8b55317b0bba0ddf64"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PlasticTape_A1_ORM.png",
+            "source_hash": "0792f1dba386054b93be15fc3f0da097555a92e5",
+            "target_url": "./Collected_fsd_car_racetrack/Props/Pallet/Materials/Textures/T_PlasticTape_A1_ORM.png",
+            "target_hash": "7d74c019f31526083376a241f2cc89011ec04951"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/YCB/Axis_Aligned/Materials/Textures/003_cracker_box_COLOR.png",
+            "source_hash": "388b48db6c14c8d47db6bfc12af32fce2b971436",
+            "target_url": "./Collected_fsd_car_racetrack/Props/YCB/Axis_Aligned/Materials/Textures/003_cracker_box_COLOR.png",
+            "target_hash": "39aca91189864852bc26a8f1a3b4762da9c2fac7"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/YCB/Axis_Aligned/Materials/Textures/004_sugar_box_COLOR.png",
+            "source_hash": "1a45cedb8cc0ef815f165542d8474ff4cef72957",
+            "target_url": "./Collected_fsd_car_racetrack/Props/YCB/Axis_Aligned/Materials/Textures/004_sugar_box_COLOR.png",
+            "target_hash": "571fb7ff3a0098182d7b66dc6dab434a760c5c36"
+        },
+        {
+            "source_url": "/home/zhz/fsd-car/assets/Collected_fsd_car_racetrack/Props/YCB/Axis_Aligned/Materials/Textures/005_tomato_soup_can_COLOR.png",
+            "source_hash": "36e72252d65cebc97e03e2b5b9632d24def78d50",
+            "target_url": "./Collected_fsd_car_racetrack/Props/YCB/Axis_Aligned/Materials/Textures/005_tomato_soup_can_COLOR.png",
+            "target_hash": "1a93a64154d35d0d51feec34d372fc0195fd8752"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_decal_albedo.png",
+            "source_hash": "838b37671431e6907dddeca4dc6ac6ffc34aebf5",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_decal_albedo.png",
+            "target_hash": "66926340503d3f012d1b9a309e0b6e25869c789d"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_decal_opacity.png",
+            "source_hash": "f0d3bd0cd389e466ff44bc65887c888b2fced851",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_decal_opacity.png",
+            "target_hash": "b2d8eac66428343c04e7cd68ced661f31f2692ca"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_decal_orm.png",
+            "source_hash": "d20886694addf0c95a0db572d8a4521aa7865ab6",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_decal_orm.png",
+            "target_hash": "00acb381bf5560a8c4c5ece6983a226062800536"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile02_albedo.png",
+            "source_hash": "6d938ae9b3fb6121ee8ef740a16b5c4402ff4033",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile02_albedo.png",
+            "target_hash": "5277a09a289256f9f7925c2d9202713ba5a1a2b4"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile02_normal.png",
+            "source_hash": "cc2d7431dec72abac8efb8f20349ba0a2569d745",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile02_normal.png",
+            "target_hash": "f4a306e7cc495ba88efbb026b6173646508889c9"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile02_orm.png",
+            "source_hash": "87adfbbd778342d5de8318e1bd12aaf551f025c0",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile02_orm.png",
+            "target_hash": "f5b4b4a75d572fbc3932f3b52acdfeb06706d325"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_trim_Albedo.png",
+            "source_hash": "d27940a158cc42d7c1768a305cc34fbac10431db",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_trim_Albedo.png",
+            "target_hash": "8ff663bd28b0c7ceb5f723c75c9e8ca677106fb8"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_trim_normal.png",
+            "source_hash": "f9b31b5a4f321fdd17ed0e9897e3c999f36a9acb",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_trim_normal.png",
+            "target_hash": "a2faed6cd3f671fcd1af260787a53a2bc5a45f01"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_trim_opacity.png",
+            "source_hash": "63d7869985d78134b566dad5ab0d0c0800cecf75",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_trim_opacity.png",
+            "target_hash": "52b24a3e57e29bfd166b1ebab0461394d56fff8e"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_trim_orm.png",
+            "source_hash": "4d6a130369c1ba38f8348ae6d7c108780c0d5d8b",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_trim_orm.png",
+            "target_hash": "b98b17c7884710d080721d7c7a04d56b118a566a"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Forklift/Materials/Textures/T_Forklift_D.png",
+            "source_hash": "c55d825dfd662caebd505136c2f449f4d31cc5a6",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Forklift/Materials/Textures/T_Forklift_D.png",
+            "target_hash": "72d3847386d7be880193597c63c79af9437a56d9"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Forklift/Materials/Textures/T_Forklift_N.png",
+            "source_hash": "c57df69558e3c976906126cd9c57f544a4ffd8b3",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Forklift/Materials/Textures/T_Forklift_N.png",
+            "target_hash": "b10a28fcb545466bcb17b4928d92623c5325caef"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Forklift/Materials/Textures/T_Forklift_ORM.png",
+            "source_hash": "8aa062d9251d356cb9dff6f840c4156595637fd0",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/Forklift/Materials/Textures/T_Forklift_ORM.png",
+            "target_hash": "39b7ab62f4eea6100d74d37223198940d763fbd3"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile01_albedo.png",
+            "source_hash": "596a39c8f59710e7cd51b0a8100131337c20a5d7",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile01_albedo.png",
+            "target_hash": "1e427c0f4d9fd1afe54ba54f118513ab6e925104"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile01_normal.png",
+            "source_hash": "41bed818c12b529082656e67329ce34c7864a9f0",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile01_normal.png",
+            "target_hash": "60f052bcdd74a473b128ba42b34ad88602583cab"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile01_orm.png",
+            "source_hash": "935b3458c4247630bf0d6bdbc19abb8882b99771",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/sm_whitecorrugatedbox_b/materials/textures/t_corrugatedboxes_b01_tile01_orm.png",
+            "target_hash": "bdcc89f225b60bae6342d356b872b060ba2d6768"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/MetalPainted_White_Glossy_A.mdl",
+            "source_hash": "840bd34174242013e0c37412e55c58268abad5b0",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/MetalPainted_White_Glossy_A.mdl",
+            "target_hash": "72a4e1c8cb7af57a2e9b41c418861c4d826f45e4"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/Metal_Glossy_A.mdl",
+            "source_hash": "54d5fd241f591403a23a553babe538098cba6c7d",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/Metal_Glossy_A.mdl",
+            "target_hash": "19755194ffb8f63ed713ccd7afb21173816c8b1d"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/Wood_Laminate_Gray_A.mdl",
+            "source_hash": "805aa4a852526ab433e2fc1b6745cbaecd3cab39",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/Wood_Laminate_Gray_A.mdl",
+            "target_hash": "85db9591ca0124b12658ff6539238156cfce697f"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/Wood_Pressed_A.mdl",
+            "source_hash": "08b0aa599f162094f98479c718b7c0e3faa31b25",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/Wood_Pressed_A.mdl",
+            "target_hash": "7a6b5e538161ee7a136d06e090c7919e050995b2"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Metal_Glossy_A/T_Metal_Glossy_A_Albedo.png",
+            "source_hash": "56b77a81d9ddbe6223fa57764bb6da330acefefb",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Metal_Glossy_A/T_Metal_Glossy_A_Albedo.png",
+            "target_hash": "f65651bd401de7fc4a19f655a9469d403f56dd27"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/MetalPainted_White_Glossy_A/T_MetalPainted_White_Glossy_A_Albedo.png",
+            "source_hash": "785275fe21be11134fdfc2bcdee0bfbe4d72d98d",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/MetalPainted_White_Glossy_A/T_MetalPainted_White_Glossy_A_Albedo.png",
+            "target_hash": "19f955bbabea93710be5fd759df63e1349e046b7"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Laminate_Gray_A/T_Wood_Laminate_Gray_A_Albedo.png",
+            "source_hash": "b1a2c9c7345267c57dcf7218630c807b82add0e8",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Laminate_Gray_A/T_Wood_Laminate_Gray_A_Albedo.png",
+            "target_hash": "5bac09e9b891834cc28656270d702b094e29373a"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Pressed_A/T_Wood_Pressed_A1_Albedo.png",
+            "source_hash": "370efe09eb0720e51698efb6f6c9e4a0fe025d10",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Pressed_A/T_Wood_Pressed_A1_Albedo.png",
+            "target_hash": "61cabae7cb27120af7e85ed120a3755ceb250c24"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Metal_Glossy_A/T_Metal_Glossy_A_Normal.png",
+            "source_hash": "90c5aa874108bf49be8781dc78e120d105353f8b",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Metal_Glossy_A/T_Metal_Glossy_A_Normal.png",
+            "target_hash": "00f456566f70481c69b886817d1caeffc0a20362"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/MetalPainted_White_Glossy_A/T_MetalPainted_White_Glossy_A_Normal.png",
+            "source_hash": "c6c874dc2b7cc570c13d987e0bb714531c2e6676",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/MetalPainted_White_Glossy_A/T_MetalPainted_White_Glossy_A_Normal.png",
+            "target_hash": "abcbdfbae84e3119c16b39824c5920bcfeb8fb90"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Laminate_Gray_A/T_Wood_Laminate_Gray_A_ORM.png",
+            "source_hash": "b60226906ff24252242891bd7727242b8bfbea2e",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Laminate_Gray_A/T_Wood_Laminate_Gray_A_ORM.png",
+            "target_hash": "7c3bf697fcf0ef6603db2ea7d5f8cbb7685f77fa"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Pressed_A/T_Wood_Pressed_A1_Normal.png",
+            "source_hash": "0fe3d7839108bcbab69a7a30312ceabe78636804",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Pressed_A/T_Wood_Pressed_A1_Normal.png",
+            "target_hash": "8bbe4fc3ac35c42728a1a48bd3c489a68329cef3"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Metal_Glossy_A/T_Metal_Glossy_A_ORM.png",
+            "source_hash": "6342555dc9286c1a98d3ffc10f636381d1ec1321",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Metal_Glossy_A/T_Metal_Glossy_A_ORM.png",
+            "target_hash": "5791f2477a363aec80964f9a0ec77ad06ab1a967"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/MetalPainted_White_Glossy_A/T_MetalPainted_White_Glossy_A_ORM.png",
+            "source_hash": "2d868064ac017d43c826f1e76ef89f60b2c7c9b2",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/MetalPainted_White_Glossy_A/T_MetalPainted_White_Glossy_A_ORM.png",
+            "target_hash": "3b28eb0bb5a9781a22d011b20ba6a7dcdbee7899"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Laminate_Gray_A/T_Wood_Laminate_Gray_A_Normal.png",
+            "source_hash": "a8c69c9bc36acfdd3110ae61e24264d3c7393996",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Laminate_Gray_A/T_Wood_Laminate_Gray_A_Normal.png",
+            "target_hash": "826ffd604c846a1e88b2f3ade26ae440560c82e2"
+        },
+        {
+            "source_url": "/run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Pressed_A/T_Wood_Pressed_A1_ORM.png",
+            "source_hash": "1b075926b32e128021c29121f44ea3ea0e103a77",
+            "target_url": "./run/media/zhz/\u6570\u636e/isaac_assets/Assets/Isaac/6.0/Isaac/Props/PackingTable/props/SM_HeavyDutyPackingTable_C02_01/materials/textures/Wood_Pressed_A/T_Wood_Pressed_A1_ORM.png",
+            "target_hash": "2f20728017829ff3b9776cdc3e230fba7bb9a76b"
+        }
+    ]
+}
