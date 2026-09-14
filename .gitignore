@@ -33,7 +33,7 @@ topo_memory.json
 *.csv
 
 # Generated reports
-fsd-simverify.xml
+ads.xml
 repomix-output.*
 dora_dataflow_phase5i_control-graph.html
 

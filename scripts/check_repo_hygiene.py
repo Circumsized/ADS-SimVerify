@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""仓库卫生检查 — FSD-SimVerify 验收脚本。
+"""仓库卫生检查 — ADS 验收脚本。
 
 该脚本保证 push 出去的 main 分支始终满足"白盒发布"约束:
 
@@ -40,7 +40,7 @@ OBSOLETE_README_CLAIMS = (
     "零样本、零真实数据、一字不改",
     "百元级边缘算力",
 )
-REPORT_SCHEMA_VERSION = "fsd-simverify-hygiene-v1"
+REPORT_SCHEMA_VERSION = "ads-hygiene-v1"
 
 
 def forbidden_tracked_path(path: str) -> bool:

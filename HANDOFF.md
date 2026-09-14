@@ -1,4 +1,4 @@
-# FSD 自动驾驶仿真测试验证 工程交接卡
+# ADS 自动驾驶仿真测试验证 工程交接卡
 
 ## 1. 一句话状态
 
@@ -75,8 +75,8 @@ XFeat 以 2 Hz、640x640 运行在慢路径。它能输出匹配证据，但当�
 基础工具版本：Dora 0.3.13、Rust 1.96.1、uv 0.11.26、pnpm 11.10、Isaac Sim 2026。
 
 ```bash
-git clone <your-repo-url> FSD-SimVerify
-cd FSD-SimVerify
+git clone <your-repo-url> ADS
+cd ADS
 cp .env.example .env
 ```
 

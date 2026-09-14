@@ -1,5 +1,5 @@
 {
-  "schema_version": "fsd-simverify-runtime-contract-v1",
+  "schema_version": "ads-runtime-contract-v1",
   "status": "frozen",
   "frozen_at": "2026-09-03",
   "purpose": "冻结 Phase 5-I/Phase 5-J/Phase 5-K 白盒通过的 Dora 仿真主链节点边界、启动条件与失败模式。docs/evidence/final_metrics.json 与 HANDOFF.md 仍负责总体指标与交接说明,本文件只描述运行时契约。",

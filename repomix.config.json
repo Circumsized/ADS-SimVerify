@@ -4,11 +4,11 @@
     "maxFileSize": 1048576
   },
   "output": {
-    "filePath": "fsd-simverify.xml",
+    "filePath": "ads.xml",
     "style": "xml",
     "parsableStyle": false,
     "compress": false,
-    "headerText": "这是我 FSD-SimVerify 项目当前的最新全量源码,当前的我开始打算从零开始自研一套FSD自动驾驶架构，来实现小车的纯视觉下能自动化导航驾驶到目标点位！我的愿景是从成本、效率、速度、安全进行开发",
+    "headerText": "这是我 ADS 项目当前的最新全量源码,当前的我开始打算从零开始自研一套ADS自动驾驶架构，来实现小车的纯视觉下能自动化导航驾驶到目标点位！我的愿景是从成本、效率、速度、安全进行开发",
     "fileSummary": true,
     "directoryStructure": true,
     "files": true,
@@ -49,7 +49,7 @@
       "**/c_generated_code/**",
       "**/Cargo.lock",
       "**/repomix-output.xml",
-      "fsd-simverify.xml",
+      "ads.xml",
       "artifacts/**",
       "assets/**",
       "simulation-env/acados_ocp.json",

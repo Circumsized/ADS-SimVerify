@@ -1,5 +1,5 @@
 {
-  "schema_version": "fsd-simverify-final-metrics-v1",
+  "schema_version": "ads-final-metrics-v1",
   "frozen_at": "2026-07-16T18:59:13+08:00",
   "phase2": {
     "verdict": "pidnet_sim_domain_collapse",

@@ -1,4 +1,4 @@
-# FSD-SimVerify: Spice BC Coach closed-loop validation topology.
+# ADS: Spice BC Coach closed-loop validation topology.
 # Validates model/spiced_brain.onnx drives Isaac Sim goals.
 nodes:
   - id: isaac_sim_env

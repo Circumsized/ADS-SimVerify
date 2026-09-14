@@ -1,4 +1,4 @@
-# FSD-SimVerify: Spice BC closed-loop validation with passive safety probe.
+# ADS: Spice BC closed-loop validation with passive safety probe.
 # Collects synchronized cmd/odom/goal/BEV evidence before tuning.
 nodes:
   - id: isaac_sim_env
