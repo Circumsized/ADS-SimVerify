@@ -1,0 +1,141 @@
+<mujoco model="China_Residential_Estate_Estates">
+  <compiler angle="degree" coordinate="local"/>
+  
+  <option timestep="0.01" integrator="RK4"/>
+
+  <!-- 材质与纹理定义：高精度还原图三的真实色彩 -->
+  <asset>
+    <texture name="sky" type="skybox" builtin="gradient" rgb1="0.4 0.6 0.8" rgb2="0.07 0.09 0.15" width="512" height="512"/>
+    <!-- 沥青路面暗灰材质 -->
+    <texture name="asphalt" type="2d" builtin="checker" rgb1="0.12 0.12 0.12" rgb2="0.15 0.15 0.15" width="512" height="512"/>
+    <material name="road_material" texture="asphalt" texrepeat="5 5" reflectance="0.05"/>
+    <!-- 人行道淡灰色花岗岩砖纹理 -->
+    <texture name="paving" type="2d" builtin="checker" rgb1="0.75 0.75 0.75" rgb2="0.78 0.78 0.78" width="512" height="512"/>
+    <material name="paving_material" texture="paving" texrepeat="10 10" reflectance="0.02"/>
+  </asset>
+
+  <worldbody>
+    <light diffuse=".6 .6 .6" pos="0 0 20" dir="0 0 -1" directional="true"/>
+
+    <!-- 1. 小区大面积中央绿化草坪（图三中的大草坪底座） -->
+    <geom name="central_lawn" type="plane" size="30 25 0.01" rgba="0.25 0.55 0.25 1.0"/>
+
+    <!-- ========================================================= -->
+    <!-- 2. 斜向环形车道构建（对应图二上半部分的斜向回路，完美测试小车转向） -->
+    <!-- ========================================================= -->
+    
+    <!-- 顶端斜向主干道（倾斜 15 度，长 36m） -->
+    <geom name="road_top" type="box" pos="0 6.0 0.002" size="18 1.2 0.001" euler="0 0 15" material="road_material"/>
+    <!-- 顶端道路中心虚线 -->
+    <geom name="road_top_line" type="box" pos="0 6.0 0.003" size="18 0.03 0.001" euler="0 0 15" rgba="1.0 1.0 1.0 0.8"/>
+
+    <!-- 底端平行斜车道（倾斜 15 度，长 36m） -->
+    <geom name="road_bottom" type="box" pos="0 -6.0 0.002" size="18 1.2 0.001" euler="0 0 15" material="road_material"/>
+    <geom name="road_bottom_line" type="box" pos="0 -6.0 0.003" size="18 0.03 0.001" euler="0 0 15" rgba="1.0 1.0 1.0 0.8"/>
+
+    <!-- 左侧连接弯道（长 14m，旋转 -45 度闭合回路） -->
+    <geom name="road_left_connector" type="box" pos="-15.5 0 0.002" size="7 1.2 0.001" euler="0 0 -45" material="road_material"/>
+    <!-- 右侧连接弯道（长 14m，旋转 -45 度闭合回路） -->
+    <geom name="road_right_connector" type="box" pos="15.5 0 0.002" size="7 1.2 0.001" euler="0 0 -45" material="road_material"/>
+
+
+    <!-- ========================================================= -->
+    <!-- 3. 蜿蜒人行步道构建（还原图三中弯曲铺装道路，为 XFeat 神经网络画线提供强边缘） -->
+    <!-- ========================================================= -->
+    <geom name="walkpath_1" type="box" pos="-4.0 2.0 0.003" size="5.0 0.4 0.001" euler="0 0 -30" material="paving_material"/>
+    <geom name="walkpath_2" type="box" pos="3.0 1.0 0.003" size="6.0 0.4 0.001" euler="0 0 10" material="paving_material"/>
+    <geom name="walkpath_3" type="box" pos="8.0 -2.0 0.003" size="4.0 0.4 0.001" euler="0 0 -50" material="paving_material"/>
+
+
+    <!-- ========================================================= -->
+    <!-- 4. 建筑群数字孪生（5栋高楼 vs 联调低矮别墅群） -->
+    <!-- ========================================================= -->
+
+    <!-- 🏢 左侧巨型高层住宅楼（代表你所在的 5 栋 - 20层高度视觉，浅灰色砖墙） -->
+    <body name="building_5_tower" pos="-22.0 8.0 6.0">
+      <geom type="box" size="2.5 4.0 6.0" rgba="0.9 0.9 0.88 1.0"/>
+      <!-- 阳台侧边线条，丰富视觉垂直梯度 -->
+      <geom type="box" pos="0 -4.01 2.0" size="2.3 0.02 0.2" rgba="0.4 0.4 0.4 1.0"/>
+      <geom type="box" pos="0 -4.01 4.0" size="2.3 0.02 0.2" rgba="0.4 0.4 0.4 1.0"/>
+      <geom type="box" pos="0 -4.01 6.0" size="2.3 0.02 0.2" rgba="0.4 0.4 0.4 1.0"/>
+      <geom type="box" pos="0 -4.01 8.0" size="2.3 0.02 0.2" rgba="0.4 0.4 0.4 1.0"/>
+      <geom type="box" pos="0 -4.01 10.0" size="2.3 0.02 0.2" rgba="0.4 0.4 0.4 1.0"/>
+    </body>
+
+    <!-- 🏡 内环错落有致的联排低矮别墅群（图三右侧红褐斜屋顶别墅） -->
+    <!-- 别墅 1 -->
+    <body name="villa_1" pos="2.0 -1.0 0.6">
+      <geom type="box" size="1.2 1.6 0.6" rgba="0.92 0.9 0.85 1.0"/> <!-- 米白色主墙 -->
+      <geom type="box" pos="0 0 0.75" size="1.1 1.5 0.15" rgba="0.32 0.22 0.22 1.0"/> <!-- 深褐斜坡屋顶 -->
+    </body>
+    <!-- 别墅 2 -->
+    <body name="villa_2" pos="8.0 -2.0 0.6">
+      <geom type="box" size="1.2 1.6 0.6" rgba="0.92 0.9 0.85 1.0"/>
+      <geom type="box" pos="0 0 0.75" size="1.1 1.5 0.15" rgba="0.32 0.22 0.22 1.0"/>
+    </body>
+    <!-- 别墅 3 -->
+    <body name="villa_3" pos="14.0 -3.0 0.6">
+      <geom type="box" size="1.2 1.6 0.6" rgba="0.92 0.9 0.85 1.0"/>
+      <geom type="box" pos="0 0 0.75" size="1.1 1.5 0.15" rgba="0.32 0.22 0.22 1.0"/>
+    </body>
+
+
+    <!-- ========================================================= -->
+    <!-- 5. 植被与园林障碍物（图三中的散落绿化树木） -->
+    <!-- ========================================================= -->
+    <body name="tree_1" pos="-2.0 1.5 0.5">
+      <geom type="cylinder" size="0.08 0.5" rgba="0.4 0.25 0.15 1.0"/> <!-- 树干 -->
+      <geom type="ellipsoid" pos="0 0 0.6" size="0.4 0.4 0.5" rgba="0.1 0.4 0.1 0.95"/> <!-- 树冠 -->
+    </body>
+    <body name="tree_2" pos="6.0 0.0 0.5">
+      <geom type="cylinder" size="0.08 0.5" rgba="0.4 0.25 0.15 1.0"/>
+      <geom type="ellipsoid" pos="0 0 0.6" size="0.4 0.4 0.5" rgba="0.15 0.4 0.15 0.95"/>
+    </body>
+    <body name="tree_3" pos="11.0 -0.5 0.5">
+      <geom type="cylinder" size="0.08 0.5" rgba="0.4 0.25 0.15 1.0"/>
+      <geom type="ellipsoid" pos="0 0 0.6" size="0.4 0.4 0.5" rgba="0.1 0.4 0.1 0.95"/>
+    </body>
+
+
+    <!-- ========================================================= -->
+    <!-- 6. Scout Mini 差速控制底盘（车体方向与斜向车道完美平行倾斜 15 度） -->
+    <!-- ========================================================= -->
+    <body name="car" pos="-10.0 3.32 0.12" euler="0 0 15">
+      <freejoint/>
+      <!-- 车身底盘 -->
+      <geom name="chassis" type="box" size="0.3 0.2 0.06" rgba="0.0 0.5 0.8 1.0"/>
+
+      <!-- 🛡️ 注入虚拟摄像头：视场 70 度，笔直朝向小车车头前方 -->
+      <camera name="front_camera" pos="0.3 0.0 0.08" xyaxes="0 -1 0 0 0 1" fovy="70"/>
+
+      <!-- 左前轮 -->
+      <body name="wheel_lf" pos="0.2 0.22 -0.04">
+        <joint name="hinge_lf" type="hinge" axis="0 1 0" damping="0.05"/>
+        <geom type="cylinder" size="0.08 0.04" zaxis="0 1 0" rgba="0.1 0.1 0.1 1.0" friction="1.5 0.01 0.001"/>
+      </body>
+      <!-- 右前轮 -->
+      <body name="wheel_rf" pos="0.2 -0.22 -0.04">
+        <joint name="hinge_rf" type="hinge" axis="0 1 0" damping="0.05"/>
+        <geom type="cylinder" size="0.08 0.04" zaxis="0 1 0" rgba="0.1 0.1 0.1 1.0" friction="1.5 0.01 0.001"/>
+      </body>
+      <!-- 左后轮 -->
+      <body name="wheel_lr" pos="-0.2 0.22 -0.04">
+        <joint name="hinge_lr" type="hinge" axis="0 1 0" damping="0.05"/>
+        <geom type="cylinder" size="0.08 0.04" zaxis="0 1 0" rgba="0.1 0.1 0.1 1.0" friction="1.5 0.01 0.001"/>
+      </body>
+      <!-- 右后轮 -->
+      <body name="wheel_rr" pos="-0.2 -0.22 -0.04">
+        <joint name="hinge_rr" type="hinge" axis="0 1 0" damping="0.05"/>
+        <geom type="cylinder" size="0.08 0.04" zaxis="0 1 0" rgba="0.1 0.1 0.1 1.0" friction="1.5 0.01 0.001"/>
+      </body>
+    </body >
+  </worldbody>
+
+  <!-- 执行通道：四驱速度执行器 -->
+  <actuator>
+    <velocity name="motor_lf" joint="hinge_lf" kv="150" forcerange="-15 15"/>
+    <velocity name="motor_rf" joint="hinge_rf" kv="150" forcerange="-15 15"/>
+    <velocity name="motor_lr" joint="hinge_lr" kv="150" forcerange="-15 15"/>
+    <velocity name="motor_rr" joint="hinge_rr" kv="150" forcerange="-15 15"/>
+  </actuator>
+</mujoco>
