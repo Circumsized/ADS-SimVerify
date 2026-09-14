@@ -377,19 +377,23 @@ mod tests {
 
     #[test]
     fn history_fingerprint_skips_when_keypoints_missing() {
-        let mut node = TopologicalNode::default();
-        node.descriptors = vec![0.1; XFEAT_DESCRIPTOR_DIM * 2];
+        let node = TopologicalNode {
+            descriptors: vec![0.1; XFEAT_DESCRIPTOR_DIM * 2],
+            ..Default::default()
+        };
 
         assert!(recover_history_visual_fingerprint(&node).is_empty());
     }
 
     #[test]
     fn history_fingerprint_restores_64d_descriptor_and_xy_pairs() {
-        let mut node = TopologicalNode::default();
-        node.descriptors = vec![0.0; XFEAT_DESCRIPTOR_DIM * 2];
+        let mut node = TopologicalNode {
+            descriptors: vec![0.0; XFEAT_DESCRIPTOR_DIM * 2],
+            keypoints: vec![10.0, 20.0, 30.0, 40.0],
+            ..Default::default()
+        };
         node.descriptors[3] = 1.0;
         node.descriptors[XFEAT_DESCRIPTOR_DIM + 7] = 1.0;
-        node.keypoints = vec![10.0, 20.0, 30.0, 40.0];
 
         let features = recover_history_visual_fingerprint(&node);
 
