@@ -592,10 +592,18 @@ mod tests {
         // The session registers the CUDA EP first; on CPU-only hosts (e.g. CI)
         // that registration fails, so skip rather than panic — mirroring the
         // PIDNet real-inference test's graceful-skip policy.
-        let engine = match XfeatExtractor::new(model) {
-            Ok(engine) => engine,
-            Err(error) => {
+        // onnxruntime's `load-dynamic` backend panics (rather than returning Err)
+        // when the shared library cannot be dlopen'd, so catch that here too.
+        let session =
+            std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| XfeatExtractor::new(model)));
+        let engine = match session {
+            Ok(Ok(engine)) => engine,
+            Ok(Err(error)) => {
                 eprintln!("skipping: XFeat session unavailable here: {error}");
+                return;
+            }
+            Err(_) => {
+                eprintln!("skipping: XFeat ONNX Runtime dylib unavailable here");
                 return;
             }
         };

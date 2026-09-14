@@ -58,7 +58,10 @@ jobs:
         run: |
           V=1.27.0
           curl -sL https://github.com/microsoft/onnxruntime/releases/download/v$V/onnxruntime-linux-x64-$V.tgz | tar xz
-          echo "ORT_DYLIB_PATH=$(find . -name 'libonnxruntime.so*' | head -1)" >> "$GITHUB_ENV"
+          ORT_DIR="$(pwd)/onnxruntime-linux-x64-$V/lib"
+          ORT_LIB="$(find "$ORT_DIR" -name 'libonnxruntime.so' | head -1)"
+          echo "ORT_DYLIB_PATH=$ORT_LIB" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$ORT_DIR:${LD_LIBRARY_PATH}" >> "$GITHUB_ENV"
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
