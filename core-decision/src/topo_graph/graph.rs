@@ -63,7 +63,7 @@ impl TopologicalGraph {
     pub fn add_edge(&mut self, from: u32, to: u32, weight: f32, relative_yaw: f32) {
         self.adjacency_list
             .entry(from)
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(Edge {
                 target_id: to,
                 weight,
