@@ -61,14 +61,11 @@ impl TopologicalGraph {
 
     /// 往地图中铺设一条有向道路
     pub fn add_edge(&mut self, from: u32, to: u32, weight: f32, relative_yaw: f32) {
-        self.adjacency_list
-            .entry(from)
-            .or_default()
-            .push(Edge {
-                target_id: to,
-                weight,
-                relative_yaw,
-            });
+        self.adjacency_list.entry(from).or_default().push(Edge {
+            target_id: to,
+            weight,
+            relative_yaw,
+        });
     }
 
     /// A* 全局路径寻路引擎:结合启发式几何距离,快速规划最优站牌路径

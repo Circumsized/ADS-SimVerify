@@ -4,7 +4,7 @@
 GPS 高精引导与视觉指纹降级定位双轨并网
 =================================================================
 */
-use dora_node_api::arrow::array::{FixedSizeListArray, Float32Array, StructArray};
+use dora_node_api::arrow::array::{Array, FixedSizeListArray, Float32Array, StructArray};
 use dora_node_api::{DoraNode, Event, MetadataParameters};
 use eyre::eyre;
 use std::time::Instant;
