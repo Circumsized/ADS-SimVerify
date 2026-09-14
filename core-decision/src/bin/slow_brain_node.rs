@@ -38,16 +38,18 @@ struct SlowBrainStateMachine {
 
 fn recover_history_visual_fingerprint(node: &TopologicalNode) -> Vec<SparseFeature> {
     if node.descriptors.is_empty()
-        || node.descriptors.len() % XFEAT_DESCRIPTOR_DIM != 0
+        || !node.descriptors.len().is_multiple_of(XFEAT_DESCRIPTOR_DIM)
         || node.keypoints.len()
             != (node.descriptors.len() / XFEAT_DESCRIPTOR_DIM) * KEYPOINT_COORD_DIM
     {
         return Vec::new();
     }
 
-    node.descriptors
-        .chunks_exact(XFEAT_DESCRIPTOR_DIM)
-        .zip(node.keypoints.chunks_exact(KEYPOINT_COORD_DIM))
+    let (descriptor_chunks, _) = node.descriptors.as_chunks::<XFEAT_DESCRIPTOR_DIM>();
+    let (keypoint_chunks, _) = node.keypoints.as_chunks::<KEYPOINT_COORD_DIM>();
+    descriptor_chunks
+        .iter()
+        .zip(keypoint_chunks.iter())
         .map(|(descriptor, keypoint)| SparseFeature {
             x: keypoint[0],
             y: keypoint[1],
@@ -170,12 +172,12 @@ async fn main() -> eyre::Result<()> {
             (4, "终点冲刺站牌", 0.52, 4.11, 0.0),
         ];
         for (id, name, x, y, yaw) in waymarks {
-            let mut node = core_decision::topo_graph::node::TopologicalNode::default();
-            node.id = id;
-            node.name = name.to_string();
-            node.pose.x = x;
-            node.pose.y = y;
-            node.pose.yaw = yaw;
+            let node = core_decision::topo_graph::node::TopologicalNode {
+                id,
+                name: name.to_string(),
+                pose: core_decision::topo_graph::node::Pose { x, y, yaw },
+                ..Default::default()
+            };
             // 冷启动路点只提供度量目标;视觉重定位必须等待真实 XFeat 描述子和 keypoints 成对写入。
             brain_memory.add_node(node);
         }
@@ -295,66 +297,62 @@ async fn main() -> eyre::Result<()> {
                     }
 
                     // 视觉稀疏特征点流入 (来自前视单目 XFeat 提取)
-                    "xfeat_features" => {
-                        // 视觉重放模式的核心定位机制:
-                        // 只有在北斗失效、视觉接管时,才启动重度 XFeat / RANSAC 对齐,保障 CPU 资源
-                        if state.current_mode == NavigationMode::PuppetReplay {
-                            let struct_array = match data.as_any().downcast_ref::<StructArray>() {
-                                Some(array) => array,
-                                None => {
-                                    eprintln!(
+                    // 视觉重放模式的核心定位机制:
+                    // 只有在北斗失效、视觉接管时,才启动重度 XFeat / RANSAC 对齐,保障 CPU 资源
+                    "xfeat_features" if state.current_mode == NavigationMode::PuppetReplay => {
+                        let struct_array = match data.as_any().downcast_ref::<StructArray>() {
+                            Some(array) => array,
+                            None => {
+                                eprintln!(
                                         "[SlowBrain] xfeat_features is not a StructArray; dropping frame"
                                     );
-                                    continue;
-                                }
-                            };
-                            let current_frame_features = match decode_xfeat_struct(struct_array) {
-                                Ok(features) => features,
-                                Err(error) => {
-                                    eprintln!(
+                                continue;
+                            }
+                        };
+                        let current_frame_features = match decode_xfeat_struct(struct_array) {
+                            Ok(features) => features,
+                            Err(error) => {
+                                eprintln!(
                                         "[SlowBrain] rejected malformed xfeat_features; dropping frame: {error}"
                                     );
-                                    continue;
-                                }
-                            };
+                                continue;
+                            }
+                        };
 
-                            // 检索当前要追踪的历史站牌指纹
-                            let target_node_id = state.nav_route[state.current_target_index];
-                            if let Some(target_node) = state.topo_memory.nodes.get(&target_node_id)
-                            {
-                                // 将扁平化的一维描述子恢复成 64D 数组;缺少 keypoints 的历史指纹直接跳过。
-                                let history_features =
-                                    recover_history_visual_fingerprint(target_node);
-                                if history_features.len() < 8 {
-                                    continue;
-                                }
+                        // 检索当前要追踪的历史站牌指纹
+                        let target_node_id = state.nav_route[state.current_target_index];
+                        if let Some(target_node) = state.topo_memory.nodes.get(&target_node_id) {
+                            // 将扁平化的一维描述子恢复成 64D 数组;缺少 keypoints 的历史指纹直接跳过。
+                            let history_features = recover_history_visual_fingerprint(target_node);
+                            if history_features.len() < 8 {
+                                continue;
+                            }
 
-                                // 运行双向余弦交叉匹配
-                                let matches = BiomimeticMatcher::cross_match(
-                                    &current_frame_features,
-                                    &history_features,
-                                    0.75,
-                                );
-                                if matches.len() >= 8 {
-                                    // 几何 RANSAC 过滤
-                                    if let Ok(clean_matches) =
-                                        BiomimeticMatcher::geometry_correction_filter(
+                            // 运行双向余弦交叉匹配
+                            let matches = BiomimeticMatcher::cross_match(
+                                &current_frame_features,
+                                &history_features,
+                                0.75,
+                            );
+                            if matches.len() >= 8 {
+                                // 几何 RANSAC 过滤
+                                if let Ok(clean_matches) =
+                                    BiomimeticMatcher::geometry_correction_filter(
+                                        &current_frame_features,
+                                        &history_features,
+                                        &matches,
+                                        3.0,
+                                    )
+                                {
+                                    if clean_matches.len() >= 5 {
+                                        // 单目一般场景匹配没有尺度,不能把像素差直接写入米制里程计。
+                                        // 此处只确认存在稳定的几何重定位证据;度量校正必须等待带尺度地图或地面特征标记。
+                                        let _ = BiomimeticMatcher::estimate_homography(
                                             &current_frame_features,
                                             &history_features,
-                                            &matches,
+                                            &clean_matches,
                                             3.0,
-                                        )
-                                    {
-                                        if clean_matches.len() >= 5 {
-                                            // 单目一般场景匹配没有尺度,不能把像素差直接写入米制里程计。
-                                            // 此处只确认存在稳定的几何重定位证据;度量校正必须等待带尺度地图或地面特征标记。
-                                            let _ = BiomimeticMatcher::estimate_homography(
-                                                &current_frame_features,
-                                                &history_features,
-                                                &clean_matches,
-                                                3.0,
-                                            );
-                                        }
+                                        );
                                     }
                                 }
                             }
@@ -416,6 +414,21 @@ mod tests {
         Arc::new(FixedSizeListArray::new(field, dim, values, None))
     }
 
+    fn f32_field(name: &str) -> Arc<Field> {
+        Arc::new(Field::new(name, DataType::Float32, false))
+    }
+
+    fn descriptor_field() -> Arc<Field> {
+        Arc::new(Field::new(
+            "descriptor",
+            DataType::FixedSizeList(
+                Arc::new(Field::new("item", DataType::Float32, false)),
+                XFEAT_DESCRIPTOR_DIM as i32,
+            ),
+            false,
+        ))
+    }
+
     fn xfeat_struct(
         x: ArrayRef,
         y: ArrayRef,
@@ -423,10 +436,10 @@ mod tests {
         descriptor: ArrayRef,
     ) -> StructArray {
         StructArray::from(vec![
-            ("x".to_string(), x),
-            ("y".to_string(), y),
-            ("score".to_string(), score),
-            ("descriptor".to_string(), descriptor),
+            (f32_field("x"), x),
+            (f32_field("y"), y),
+            (f32_field("score"), score),
+            (descriptor_field(), descriptor),
         ])
     }
 
@@ -447,8 +460,8 @@ mod tests {
     #[test]
     fn decode_rejects_missing_column() {
         let array = StructArray::from(vec![
-            ("x".to_string(), f32_column(vec![1.0])),
-            ("y".to_string(), f32_column(vec![1.0])),
+            (f32_field("x"), f32_column(vec![1.0])),
+            (f32_field("y"), f32_column(vec![1.0])),
         ]);
         assert!(decode_xfeat_struct(&array).is_err());
     }
@@ -458,9 +471,9 @@ mod tests {
         // StructArray 保证子列等长,故长度不符无法用合法构造触发;
         // 这里覆盖可达的 descriptor 缺失分支。
         let array = StructArray::from(vec![
-            ("x".to_string(), f32_column(vec![1.0])),
-            ("y".to_string(), f32_column(vec![1.0])),
-            ("score".to_string(), f32_column(vec![1.0])),
+            (f32_field("x"), f32_column(vec![1.0])),
+            (f32_field("y"), f32_column(vec![1.0])),
+            (f32_field("score"), f32_column(vec![1.0])),
         ]);
         assert!(decode_xfeat_struct(&array).is_err());
     }
