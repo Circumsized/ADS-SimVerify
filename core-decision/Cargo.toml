@@ -1,0 +1,16 @@
+[package]
+name = "core-decision"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# 继承自根目录 workspace 声明,保持全栈版本一致性
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 视觉与通信底座依赖
+opencv = { workspace = true }
+dora-node-api = "0.3.13"
+eyre = "0.6"
+core-perception = { path = "../core-perception" }

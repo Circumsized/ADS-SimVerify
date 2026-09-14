@@ -1,0 +1,12 @@
+[package]
+name = "core-perception"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+opencv = { workspace = true }
+ort = { workspace = true, features = ["cuda"] }
+tokio = { workspace = true }
+serde = { workspace = true }
+dora-node-api = "0.3.13"
+eyre = "0.6"
