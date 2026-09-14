@@ -1,0 +1,106 @@
+nodes:
+  - id: isaac_sim_env
+    path: ${ISAAC_SIM_PYTHON_SH}
+    args: simulation-env/isaac_dora_node.py
+    env:
+      DISPLAY: ${DISPLAY}
+      WAYLAND_DISPLAY: ${WAYLAND_DISPLAY}
+      XDG_SESSION_TYPE: ${XDG_SESSION_TYPE}
+      LD_LIBRARY_PATH: ${ISAAC_SIM_LD_LIBRARY_PATH}
+      FSD_CONTROL_INPUT: safe_control
+    inputs:
+      safe_control: safety_supervisor/safe_control
+    outputs:
+      - xfeat_features
+      - odometry
+      - jpeg_image
+      - bev_grid
+
+  - id: core_perception
+    path: target/release/perception_node
+    build: cargo build -p core-perception --release --bin perception_node
+    env:
+      ORT_DYLIB_PATH: ${ORT_DYLIB_PATH}
+      PIDNET_MODEL_PATH: model/pidnet_s.onnx
+      XFEAT_MODEL_PATH: model/xfeat_640x640.onnx
+      XFEAT_FRAME_INTERVAL: "10"
+      CAMERA_IMAGE_WIDTH: "640"
+      CAMERA_IMAGE_HEIGHT: "480"
+      CAMERA_FX: "204.25533"
+      CAMERA_FY: "153.19150"
+      CAMERA_CX: "319.5"
+      CAMERA_CY: "239.5"
+      CAMERA_FORWARD_OFFSET_M: "0.06935859"
+      CAMERA_LEFT_OFFSET_M: "-0.00000002"
+      CAMERA_HEIGHT_M: "0.13328385"
+      CAMERA_YAW_RAD: "0.076109"
+      CAMERA_PITCH_RAD: "0.168662"
+      CAMERA_ROLL_RAD: "0.0"
+      BEV_METERS_PER_CELL: "0.1041666667"
+      BEV_MIN_FORWARD_M: "0.20"
+      BEV_EGO_ROW: "95.5"
+      BEV_EGO_COL: "95.5"
+    inputs:
+      jpeg_image:
+        source: isaac_sim_env/jpeg_image
+        queue_size: 1
+    outputs:
+      - bev_grid
+      - bev_semantic
+      - xfeat_features
+
+  - id: optical_reflex_node
+    path: uv
+    args: run --cache-dir ${UV_CACHE_DIR} simulation-env/optical_reflex_node.py
+    inputs:
+      jpeg_image: isaac_sim_env/jpeg_image
+      odometry: isaac_sim_env/odometry
+      bev_grid: core_perception/bev_grid
+    outputs:
+      - ttc
+
+  - id: slow_brain_mapper
+    path: target/release/slow_brain_node
+    build: cargo build -p core-decision --release --bin slow_brain_node
+    env:
+      RUST_LOG: info
+    inputs:
+      xfeat_features: core_perception/xfeat_features
+      odometry: isaac_sim_env/odometry
+    outputs:
+      - human_prior
+
+  - id: fast_brain_nmpc
+    path: target/release/fast_brain_node
+    build: cargo build -p core-control --release --bin fast_brain_node
+    env:
+      RUST_LOG: info
+      DORA_RUNTIME_TYPE_CHECK: warn
+      LD_LIBRARY_PATH: ${ACADOS_LIBRARY_PATH}:${ACADOS_GENERATED_LIBRARY_PATH}
+    inputs:
+      odometry: isaac_sim_env/odometry
+      human_prior: slow_brain_mapper/human_prior
+      ttc: optical_reflex_node/ttc
+      bev_grid: core_perception/bev_grid
+    outputs:
+      - control_cmd
+
+  - id: safety_supervisor
+    path: target/release/safety_supervisor_node
+    build: cargo build -p core-control --release --bin safety_supervisor_node
+    env:
+      RUST_LOG: info
+    inputs:
+      control_cmd: fast_brain_nmpc/control_cmd
+      safety_request: operator_safety/safety_request
+    outputs:
+      - safe_control
+      - safety_state
+
+  - id: operator_safety
+    path: uv
+    args: run --cache-dir ${UV_CACHE_DIR} simulation-env/operator_safety_node.py
+    inputs:
+      tick: dora/timer/millis/50
+    outputs:
+      - safety_request

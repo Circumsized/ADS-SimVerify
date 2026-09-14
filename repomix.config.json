@@ -1,0 +1,67 @@
+{
+  "$schema": "https://repomix.com/schemas/latest/schema.json",
+  "input": {
+    "maxFileSize": 1048576
+  },
+  "output": {
+    "filePath": "fsd-simverify.xml",
+    "style": "xml",
+    "parsableStyle": false,
+    "compress": false,
+    "headerText": "这是我 FSD-SimVerify 项目当前的最新全量源码,当前的我开始打算从零开始自研一套FSD自动驾驶架构，来实现小车的纯视觉下能自动化导航驾驶到目标点位！我的愿景是从成本、效率、速度、安全进行开发",
+    "fileSummary": true,
+    "directoryStructure": true,
+    "files": true,
+    "removeComments": false,
+    "removeEmptyLines": true,
+    "showLineNumbers": false,
+    "copyToClipboard": false,
+    "includeEmptyDirectories": false,
+    "includeFullDirectoryStructure": false,
+    "truncateBase64": true,
+    "topFilesLength": 5,
+    "tokenBudget": 100000,
+    "git": {
+      "sortByChanges": true,
+      "sortByChangesMaxCommits": 100,
+      "includeDiffs": false,
+      "includeLogs": false,
+      "includeLogsCount": 50
+    }
+  },
+  "include": [
+    "**/*.rs",
+    "**/*.py",
+    "**/Cargo.toml",
+    "**/*.md",
+    "dora_dataflow.yaml",
+    "**/.gitignore"
+  ],
+  "ignore": {
+    "useGitignore": true,
+    "useDotIgnore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": [
+      "**/target/**",
+      "**/lib_dylib/**",
+      "**/model/**",
+      "**/acados/**",
+      "**/c_generated_code/**",
+      "**/Cargo.lock",
+      "**/repomix-output.xml",
+      "fsd-simverify.xml",
+      "artifacts/**",
+      "assets/**",
+      "simulation-env/acados_ocp.json",
+      "4.py",
+      "showcase/src/main.rs",
+      "simulation-env/isaac_purity_node.py"
+    ]
+  },
+  "security": {
+    "enableSecurityCheck": true
+  },
+  "tokenCount": {
+    "encoding": "o200k_base"
+  }
+}

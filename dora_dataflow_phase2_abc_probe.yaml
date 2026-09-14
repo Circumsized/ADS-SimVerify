@@ -1,0 +1,87 @@
+# Phase 2 A/B/C passive perception probe. Only bc_brain owns control_cmd.
+nodes:
+  - id: isaac_sim_env
+    path: ${ISAAC_SIM_PYTHON_SH}
+    args: simulation-env/isaac_dora_node.py
+    env:
+      DISPLAY: ${DISPLAY}
+      WAYLAND_DISPLAY: ${WAYLAND_DISPLAY}
+      XDG_SESSION_TYPE: ${XDG_SESSION_TYPE}
+      LD_LIBRARY_PATH: ${ISAAC_LD_LIBRARY_PATH}
+      FSD_PHASE2_PROBE: "1"
+      UV_CACHE_DIR: ${UV_CACHE_DIR}
+    inputs:
+      control_cmd: bc_brain/control_cmd
+    outputs:
+      - human_prior
+      - odometry
+      - jpeg_image
+      - bev_grid
+      - bev_grid_semantic_gt
+      - semantic_gt_valid
+
+  - id: bc_brain
+    path: ${ISAAC_SIM_PYTHON_SH}
+    args: simulation-env/ppo_brain_node.py
+    env:
+      LD_LIBRARY_PATH: ${ISAAC_LD_LIBRARY_PATH}
+      UV_CACHE_DIR: ${UV_CACHE_DIR}
+    inputs:
+      odometry: isaac_sim_env/odometry
+      human_prior: isaac_sim_env/human_prior
+    outputs:
+      - control_cmd
+
+  - id: core_perception
+    path: target/release/perception_node
+    env:
+      PIDNET_MODEL_PATH: ${PIDNET_MODEL_PATH}
+      XFEAT_MODEL_PATH: ${XFEAT_MODEL_PATH}
+      XFEAT_FRAME_INTERVAL: "10"
+      CAMERA_IMAGE_WIDTH: "640"
+      CAMERA_IMAGE_HEIGHT: "480"
+      CAMERA_FX: "204.25533"
+      CAMERA_FY: "153.19150"
+      CAMERA_CX: "319.5"
+      CAMERA_CY: "239.5"
+      CAMERA_FORWARD_OFFSET_M: "0.06935859"
+      CAMERA_LEFT_OFFSET_M: "-0.00000002"
+      CAMERA_HEIGHT_M: "0.13328385"
+      CAMERA_YAW_RAD: "0.076109"
+      CAMERA_PITCH_RAD: "0.168662"
+      CAMERA_ROLL_RAD: "0.0"
+      BEV_METERS_PER_CELL: "0.10416666666666667"
+      BEV_MIN_FORWARD_M: "0.20"
+      BEV_EGO_ROW: "95.5"
+      BEV_EGO_COL: "95.5"
+    inputs:
+      jpeg_image:
+        source: isaac_sim_env/jpeg_image
+        queue_size: 1
+    outputs:
+      - bev_grid
+      - bev_semantic
+      - xfeat_features
+
+  - id: phase2_abc_probe
+    path: uv
+    args: run simulation-env/phase2_abc_probe_node.py
+    env:
+      PHASE2_PROBE_OUTPUT: ${PHASE2_PROBE_OUTPUT}
+      UV_CACHE_DIR: ${UV_CACHE_DIR}
+    inputs:
+      oracle_bev:
+        source: isaac_sim_env/bev_grid
+        queue_size: 1
+      semantic_gt_bev:
+        source: isaac_sim_env/bev_grid_semantic_gt
+        queue_size: 1
+      semantic_gt_valid:
+        source: isaac_sim_env/semantic_gt_valid
+        queue_size: 1
+      jpeg_image:
+        source: isaac_sim_env/jpeg_image
+        queue_size: 1
+      pidnet_bev:
+        source: core_perception/bev_grid
+        queue_size: 1

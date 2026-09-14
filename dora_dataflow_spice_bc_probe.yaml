@@ -1,0 +1,54 @@
+# FSD-SimVerify: Spice BC closed-loop validation with passive safety probe.
+# Collects synchronized cmd/odom/goal/BEV evidence before tuning.
+nodes:
+  - id: isaac_sim_env
+    path: ${ISAAC_SIM_PYTHON_SH}
+    args: simulation-env/isaac_dora_node.py
+    env:
+      DISPLAY: ${DISPLAY}
+      WAYLAND_DISPLAY: ${WAYLAND_DISPLAY}
+      XDG_SESSION_TYPE: ${XDG_SESSION_TYPE}
+      LD_LIBRARY_PATH: ${ISAAC_LD_LIBRARY_PATH}
+      UV_CACHE_DIR: ${UV_CACHE_DIR}
+    inputs:
+      control_cmd: bc_brain/control_cmd
+    outputs:
+      - human_prior
+      - odometry
+      - jpeg_image
+      - bev_grid
+
+  - id: bc_brain
+    path: ${ISAAC_SIM_PYTHON_SH}
+    args: simulation-env/ppo_brain_node.py
+    env:
+      LD_LIBRARY_PATH: ${ISAAC_LD_LIBRARY_PATH}
+      UV_CACHE_DIR: ${UV_CACHE_DIR}
+    inputs:
+      odometry: isaac_sim_env/odometry
+      human_prior: isaac_sim_env/human_prior
+    outputs:
+      - control_cmd
+
+  - id: bc_safety_probe
+    path: uv
+    args: run simulation-env/bc_safety_probe_node.py
+    env:
+      UV_CACHE_DIR: ${UV_CACHE_DIR}
+    inputs:
+      odometry: isaac_sim_env/odometry
+      human_prior: isaac_sim_env/human_prior
+      bev_grid: isaac_sim_env/bev_grid
+      control_cmd: bc_brain/control_cmd
+
+  - id: goal_hud
+    path: uv
+    args: run simulation-env/goal_hud_node.py
+    env:
+      DISPLAY: ${DISPLAY}
+      WAYLAND_DISPLAY: ${WAYLAND_DISPLAY}
+      XDG_SESSION_TYPE: ${XDG_SESSION_TYPE}
+      UV_CACHE_DIR: ${UV_CACHE_DIR}
+    inputs:
+      odometry: isaac_sim_env/odometry
+      human_prior: isaac_sim_env/human_prior

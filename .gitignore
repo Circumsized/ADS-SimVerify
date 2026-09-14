@@ -1,0 +1,57 @@
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.tmp
+*.bak
+
+# Local configuration and Python environments
+.env
+.venv/
+.uv/
+.python-version
+__pycache__/
+*.py[cod]
+
+# Rust, Dora and generated native code
+**/target/
+**/out/
+dora-coordinator.txt
+dora-daemon.txt
+simulation-env/acados/
+simulation-env/c_generated_code/
+simulation-env/acados_ocp.json
+simulation-env/*.log
+simulation-env/MUJOCO_LOG.TXT
+nmpc_telemetry.csv
+topo_memory.json
+
+# Private datasets and reproducible raw evidence
+/dataset/
+**/artifacts/
+*.csv
+
+# Generated reports
+fsd-simverify.xml
+repomix-output.*
+dora_dataflow_phase5i_control-graph.html
+
+# Model policy: publish only the two active deployment models.
+*.onnx
+*.onnx.data
+*.pth
+/model/*
+!/model/warehouse_nav14_candidate.onnx
+!/model/warehouse_nav14_candidate.json
+!/model/xfeat_640x640.onnx
+!/model/DELIVERY.json
+
+# Native binaries and archives
+*.so
+*.so.*
+*.a
+*.lib
+*.dll
+*.dylib
+*.tgz
