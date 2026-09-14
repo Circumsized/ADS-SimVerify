@@ -1,0 +1,63 @@
+{
+  "schema_version": "phase5g-contract-v1",
+  "status": "frozen_before_execution",
+  "parent_status": "contracts/phase5/phase5f_status.json",
+  "scope": {
+    "domain": "Isaac warehouse visual simulation plus deterministic 20 Hz differential-drive kinematics",
+    "command_owner": "warehouse_nav14 perception -> candidate BEV -> candidate acados NMPC",
+    "global_reference": "Phase 5-A USD Oracle A* path only",
+    "oracle_role": "independent swept-collision supervisor with allow-or-abort authority",
+    "oracle_command_override_allowed": false,
+    "real_vehicle_control_allowed": false
+  },
+  "scenarios": [
+    "straight_aisle",
+    "diagonal_turn",
+    "pallet_detour",
+    "crossing_cart"
+  ],
+  "dynamic_scenario": {
+    "name": "crossing_cart",
+    "object_class": "robot_or_cart",
+    "world_x_m": 3.8,
+    "start_y_m": -0.5,
+    "velocity_y_mps": -0.3,
+    "stop_y_m": -2.6,
+    "half_extent_m": 0.225,
+    "continuity": "world-time trajectory; never regenerated relative to ego"
+  },
+  "supervisor": {
+    "samples_per_control_step": 5,
+    "checks": [
+      "candidate perception validity",
+      "candidate solver status and finite bounded command",
+      "yaw-aware swept robot footprint against raw USD occupancy",
+      "yaw-aware swept robot footprint against the moving cart"
+    ],
+    "response": "abort before applying the unsafe command; never replace it"
+  },
+  "acceptance": {
+    "required_scenarios": 4,
+    "reached_scenarios": 4,
+    "supervisor_aborts": 0,
+    "static_collision_count": 0,
+    "dynamic_collision_count": 0,
+    "solver_failures": 0,
+    "candidate_command_applied_ratio_min": 1.0,
+    "candidate_valid_ratio_mean_min": 0.99,
+    "candidate_pipeline_p95_ms_max": 50.0,
+    "path_error_p95_m_max": 0.30,
+    "terminal_position_error_m_max": 0.10,
+    "terminal_yaw_error_rad_max": 0.08,
+    "dynamic_encounter_frames_min": 10
+  },
+  "latency_boundary": {
+    "hard_gate": "JPEG encode/decode + candidate inference + depth-lift + NMPC solve",
+    "reported_not_gated": "Isaac Replicator render wall time; offline simulation may run slower than real time"
+  },
+  "promotion": {
+    "simulation_kinematic_takeover_allowed": true,
+    "isaac_articulation_takeover_allowed": false,
+    "real_vehicle_control_allowed": false
+  }
+}

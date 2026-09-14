@@ -1,0 +1,97 @@
+{
+  "schema_version": "phase5e-status-v1",
+  "status": "phase5e_live_passed_real_calibration_blocked_control_closed",
+  "frozen_at": "2026-07-15T21:57:47+08:00",
+  "phase5d_status": {
+    "path": "contracts/phase5/phase5d_status.json",
+    "sha256": "4ba70a35cc0f7ad13bfb719b05d478a0f8c2c7f53cf807bab43fdf8b25945ce4"
+  },
+  "contract": {
+    "path": "contracts/phase5/phase5e_contract.json",
+    "sha256": "b13d7d1bb4cac60397fb1f971ea89633bb4e3c59f899aead83472f9b811472d1"
+  },
+  "control_authority": {
+    "owner": "Phase 5-A USD Oracle NMPC",
+    "candidate_controls_vehicle": false,
+    "control_output_declared": false,
+    "control_promotion_allowed": false
+  },
+  "implementation": {
+    "calibration_auditor": {
+      "path": "contracts/phase5/phase5e_real_calibration_audit.py",
+      "sha256": "f37911a05259242b15a9eceb4cff32431f5ed958a03e501b832f7f82d9d6fad3"
+    },
+    "calibration_schema": {
+      "path": "contracts/phase5/phase5e_real_calibration.schema.json",
+      "sha256": "089495c00d616c4595fc3aca21898cf57d7319e1b48ac5aacfd0ebb89775ca00"
+    },
+    "live_source": {
+      "path": "contracts/phase5/phase5e_live_isaac_source.py",
+      "sha256": "409d59e67622884baf10732627233cae7fd24edee09058986ad8a583777def6b"
+    },
+    "live_shadow_node": {
+      "path": "contracts/phase5/phase5e_live_shadow_node.py",
+      "sha256": "874b598ca8996ba319fb1087d249b3e3d68694d33e58544c5fa6b60203d6bf78"
+    },
+    "live_sink": {
+      "path": "contracts/phase5/phase5e_live_sink.py",
+      "sha256": "f5a8ef5278245382514eccefef76161a64845d889b8acf4ee0db2fa1486a5f64"
+    },
+    "live_dataflow": {
+      "path": "contracts/phase5/dora_dataflow_phase5e_live.yaml",
+      "sha256": "41a91d7b69d6493740ce3bbc93768acd4330032d5f7f87d02366c6db83279e1f"
+    },
+    "calibration_tests": {
+      "path": "contracts/phase5/test_phase5e_calibration.py",
+      "sha256": "dfe839d273661deb5b7bc1eaa683dd56dce5c9da87ae68995573a3a56a5e68a0"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5e.py",
+      "sha256": "4c47daa8f2bab1f666007a041df0771b7cccbca6c08b49903236733f6b59e23b"
+    }
+  },
+  "real_calibration": {
+    "gate_passed": false,
+    "summary": {
+      "path": "artifacts/phase5e_calibration/20260715_214835/summary.json",
+      "sha256": "7fe5d7e90ce682d4f3bf44956a2c15d077a7515bba1e72b7ac5dd52db6a5edbb"
+    },
+    "blockers": [
+      "no /dev/video* real camera or depth device is present",
+      "no serial-bound intrinsic calibration is available",
+      "no target-based T_body_camera evidence is available",
+      "no RGB-registered metric-depth scale evidence is available"
+    ]
+  },
+  "live_shadow": {
+    "gate_passed": true,
+    "summary": {
+      "path": "artifacts/phase5e_live/20260715_215112/summary.json",
+      "sha256": "5d48d3ade58f734a14687bb1470b39715c63b7b1448d57d49761067607a6c265"
+    },
+    "telemetry": {
+      "path": "artifacts/phase5e_live/20260715_215112/frames.csv",
+      "sha256": "c211ba4567f4e841357945368330874c61c56861e648c6e19c9e69e3cc4bd740"
+    },
+    "frames": 1000,
+    "occupied_iou_mean": 0.5767229325793882,
+    "free_iou_mean": 0.9418379745898744,
+    "false_free_rate_mean": 0.02883708239838221,
+    "false_occupied_rate_mean": 0.02346421889613962,
+    "dynamic_true_stop": 400,
+    "dynamic_missed_stop": 0,
+    "dynamic_true_go": 592,
+    "dynamic_false_stop": 8,
+    "valid_ratio_mean": 1.0,
+    "latency_p95_ms": 26.7640045,
+    "latency_max_ms": 51.228336,
+    "tail_latency_risk": "one or more frames exceeded the 50 ms control period; p95 gate passed"
+  },
+  "gate": {
+    "real_calibration_passed": false,
+    "live_isaac_shadow_passed": true,
+    "phase5e_passed": false,
+    "control_promotion_allowed": false
+  },
+  "next_gate": "Connect the final RGB-depth device, collect serial-bound intrinsic and target-based T_body_camera evidence, then rerun the calibration audit before any real-camera live shadow run"
+}

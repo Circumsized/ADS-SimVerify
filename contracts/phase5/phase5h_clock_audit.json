@@ -1,0 +1,14 @@
+{
+  "schema_version": "phase5h-clock-audit-v1",
+  "status": "rejected_before_formal_freeze",
+  "failed_run": {
+    "summary": "artifacts/phase5h_articulation/20260716_080409/summary.json",
+    "summary_sha256": "04b5a7ac583f58b670cd613903c00dd6c235b4968fead83c336a51e3489e778e",
+    "crossing_cart_telemetry": "artifacts/phase5h_articulation/20260716_080409/crossing_cart.csv",
+    "crossing_cart_telemetry_sha256": "c751bb994842e03bffe9b8988ad51764b6a03b5aa8784f70b90b9ab562d7d998"
+  },
+  "observed_failure": "crossing_cart aborted at step 71 with one physical overlap; straight root speed was about 1.8 times measured wheel odometry",
+  "root_cause": "World used physics_dt=0.01 and rendering_dt=0.05. A rendered World.step advanced five physics substeps, then four additional non-rendered steps were executed, producing nine physics steps per declared 0.05 second control period.",
+  "repair": "World rendering_dt now equals physics_dt=0.01. Each 20 Hz control cycle executes one rendered plus four non-rendered physics steps. A frozen root-path/wheel-odometry ratio gate detects recurrence.",
+  "thresholds_changed_to_obtain_pass": false
+}

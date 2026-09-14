@@ -1,0 +1,71 @@
+{
+  "schema_version": "phase5c-status-v1",
+  "status": "phase5c_gt_upper_bound_frozen_geometry_blocked",
+  "frozen_at": "2026-07-15T17:32:05+08:00",
+  "phase5b_status": {
+    "path": "contracts/phase5/phase5b_status.json",
+    "sha256": "97182b57c7f0bd1dbe53d5be28ab8cd29874e7d203354aaadc433d8cb0f991f9"
+  },
+  "control_authority": {
+    "owner": "Phase 5-A USD Oracle NMPC",
+    "counterfactual_dynamic_obstacle_controls_vehicle": false,
+    "candidate_model_trained": false,
+    "candidate_model_promoted": false
+  },
+  "implementation": {
+    "dynamic_upper_bound": {
+      "path": "contracts/phase5/phase5c_dynamic_upper_bound.py",
+      "sha256": "240eaf91871abdc2487fa2badd3240c72a43bd52f950ade0b99c12e11e4fe452"
+    },
+    "unit_tests": {
+      "path": "contracts/phase5/test_phase5c_dynamic.py",
+      "sha256": "dacd81c3a890755b74cc702082f7407304b920c6971f2ca3bdc55e7e45acf3f9"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5c.py",
+      "sha256": "385dd8e2e12ec70d68ec91d1cad18fd0936370287f301ce32a6abcd0e93f14df"
+    }
+  },
+  "documentation": {
+    "path": "阶段1-阶段5b总结.md",
+    "sha256": "dcd55f488a8adebafec5acb0808e0b4338ab47e9097b5488ecc13efb3ba31caa"
+  },
+  "upper_bound_evidence": {
+    "summary": {
+      "path": "artifacts/phase5c_upper_bound/20260715_173205/summary.json",
+      "sha256": "4c9babfca25c7fcf33b6199401b70742362accbba01f25fe84455ed18b8f607a"
+    },
+    "telemetry": {
+      "path": "artifacts/phase5c_upper_bound/20260715_173205/frames.csv",
+      "sha256": "4ae9a293188e34a239691687b940ea4ee4ebd47682468c16316ce16a7589a5f4"
+    },
+    "frames": 1000,
+    "center_stop_frames": 400,
+    "go_frames": 600,
+    "evidence_images": 20
+  },
+  "measured_result": {
+    "dynamic_stop_decision": {
+      "true_stop": 400,
+      "missed_stop": 0,
+      "true_go": 600,
+      "false_stop": 0,
+      "stop_recall": 1.0,
+      "go_specificity": 1.0,
+      "gate_passed": true
+    },
+    "gt_semantic_depth_bev_micro": {
+      "occupied_iou": 0.4116351836829297,
+      "free_iou": 0.9139175403396728,
+      "false_free_rate": 0.4473315699393185,
+      "false_occupied_rate": 0.039249004812548276,
+      "gate_passed": false
+    },
+    "depth_latency_p95_ms": 10.357920549999998,
+    "common_roi_coverage_mean": 0.6170756578947368,
+    "gt_upper_bound_passed": false,
+    "model_training_allowed": false
+  },
+  "blocking_reason": "Perfect warehouse semantic labels cannot pass the frozen BEV metric gate through the current camera/depth-to-BEV geometry; a learned segmenter cannot exceed this teacher upper bound reliably.",
+  "next_gate": "Repair and revalidate the metric depth-to-BEV geometry, then rerun this exact 1000-frame upper-bound suite before warehouse model training"
+}

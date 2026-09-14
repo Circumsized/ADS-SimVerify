@@ -1,0 +1,77 @@
+{
+  "schema_version": "phase5g-status-v1",
+  "status": "phase5g_simulated_takeover_passed_real_control_closed",
+  "frozen_at": "2026-07-16T00:00:05+08:00",
+  "phase5f_status": {
+    "path": "contracts/phase5/phase5f_status.json",
+    "sha256": "72f0a69dc07999c15b267dfb7d48411f9a996478e93f618a8e6c5f7936287d4f"
+  },
+  "contract": {
+    "path": "contracts/phase5/phase5g_contract.json",
+    "sha256": "39c02a2ba40cb9c7b1e5db538e633059b796d1ad93fea0ad4aecb9533852e911"
+  },
+  "implementation": {
+    "controlled_takeover": {
+      "path": "contracts/phase5/phase5g_controlled_takeover.py",
+      "sha256": "8bbdfb6ad97f0fe29a73281d17225f03cffa3796037de28fc46b6cccb471a65b"
+    },
+    "unit_tests": {
+      "path": "contracts/phase5/test_phase5g_takeover.py",
+      "sha256": "e7f506e8caa40e8439731e5ba1d0a20327ab81e6bec5db0da6b1a649612a5f64"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5g.py",
+      "sha256": "5d646a801b32a626a59047e4eb939f56e0a845394bc01abbba51f6c682e3933f"
+    },
+    "warehouse_model_manifest": {
+      "path": "model/warehouse_nav14_candidate.json",
+      "sha256": "c8fdaad98a97963f36a2579ca9496d2fb841a3ee459272ed5efecdd32f76a595"
+    },
+    "production_obstacle_adapter": {
+      "path": "core-control/src/control_safety.rs",
+      "sha256": "5f0c6ab0ab9123ddbe087db00d2e48fa96149ffa81a73ef07d77badbd173612b"
+    }
+  },
+  "takeover": {
+    "summary": {
+      "path": "artifacts/phase5g_takeover/20260715_235038/summary.json",
+      "sha256": "646e8edf33b63e770d63cfb313dc5ec0bf48833e7ca4993e95c9000f4918f4df"
+    },
+    "evidence": {
+      "path": "artifacts/phase5g_takeover/20260715_235038/evidence.png",
+      "sha256": "4d041294db447d854a578cdc94c025f81a3ae4acdd96d720b5c36ecae146e162"
+    },
+    "scenarios": 4,
+    "reached_scenarios": 4,
+    "candidate_command_steps": 1473,
+    "candidate_command_applied_ratio": 1.0,
+    "supervisor_aborts": 0,
+    "static_collision_count": 0,
+    "dynamic_collision_count": 0,
+    "solver_failures": 0,
+    "maximum_candidate_pipeline_p95_ms": 32.445755999999996,
+    "maximum_sensor_to_command_p95_ms": 229.113943,
+    "maximum_path_error_p95_m": 0.043478043476227905,
+    "crossing_cart_encounter_frames": 205,
+    "crossing_cart_minimum_center_distance_m": 0.5977247573748212
+  },
+  "control_authority": {
+    "owner": "warehouse_nav14 candidate perception and candidate acados NMPC",
+    "candidate_controls_simulation": true,
+    "oracle_role": "allow-or-abort swept collision supervisor",
+    "oracle_command_override_count": 0,
+    "isaac_articulation_control_allowed": false,
+    "real_vehicle_control_allowed": false
+  },
+  "hardware_boundary": {
+    "perception_execution": "ONNX Runtime CUDAExecutionProvider",
+    "nmpc_execution": "CPU acados SQP-RTI",
+    "control_period_ms": 50.0,
+    "measured_candidate_pipeline_p95_ms_max": 32.445755999999996,
+    "measured_sensor_to_command_p95_ms_max": 229.113943,
+    "full_pipeline_realtime_20hz_passed": false,
+    "gpu_memory_peak_measured": false,
+    "completed_on": "GeForce RTX 3060 12 GB, i5-13600KF, 32 GB RAM"
+  },
+  "next_gate": "Phase 5-H must move candidate commands into Isaac articulation/wheel physics and reduce live sensor-to-command p95 below the 50 ms control period; real vehicle control remains forbidden"
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": "phase5a-status-v1",
+  "status": "phase5a_oracle_nmpc_frozen",
+  "frozen_at": "2026-07-15T16:34:51+08:00",
+  "phase4_status": {
+    "path": "contracts/phase4/phase4_status.json",
+    "sha256": "ec2f888530e000ef8a566a69c4068031e9c39c84e8f0970bf80349d00e1925fd"
+  },
+  "scope": {
+    "planner": "8-connected A* over circumscribed-radius inflated USD oracle occupancy",
+    "controller": "20 Hz acados SQP-RTI NMPC",
+    "collision_acceptance": "yaw-aware expanded rectangle against raw USD oracle occupancy",
+    "learned_perception_in_control_loop": false
+  },
+  "implementation": {
+    "oracle_map_builder": {
+      "path": "contracts/phase5/build_oracle_map.py",
+      "sha256": "5eb404005435bce88538a291da45eedf3ef23a4df815d33ef93e4b40503be4c5"
+    },
+    "closed_loop_runner": {
+      "path": "contracts/phase5/oracle_nmpc_closed_loop.py",
+      "sha256": "f79daed11ac144b30f72595a86227d6b4823bb760c7328b6d7b3e71be4913a35"
+    },
+    "unit_tests": {
+      "path": "contracts/phase5/test_oracle_nmpc.py",
+      "sha256": "cfcdf9cf07681e726f96cf41f76b2a9eb8d315e4cac205873756fe1c6a29fc52"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5a.py",
+      "sha256": "f0d03adf29623759876dcd552f726e2d10900e68cf49d445b8172d1c62416ff8"
+    },
+    "nmpc_model": {
+      "path": "simulation-env/nmpc_model.py",
+      "sha256": "2d16c37e66183ac35c3f3c522e74eaa8e995233125d89e47efb23f1276e2f536"
+    },
+    "solver_generator": {
+      "path": "simulation-env/generate_solver.py",
+      "sha256": "509b827657d9dc1589f150bd57fc298166a7ad629cefed6135a1f13f8778e55a"
+    }
+  },
+  "generated_solver": {
+    "json": {
+      "path": "simulation-env/acados_ocp.json",
+      "sha256": "6077c177d965e71d4d351ae63b8c7a7f95d1caf1ba7bb81253551d86a0c0d0bf"
+    },
+    "shared_library": {
+      "path": "simulation-env/c_generated_code/libacados_ocp_solver_diff_drive_car.so",
+      "sha256": "e62a1e964fcc43a8de2ed8186e09a21ab7c03d19386633e2e0fff5783bcc5d83"
+    },
+    "velocity_state_contract": {
+      "state_index": 3,
+      "lower_mps": 0.0,
+      "upper_mps": 0.8,
+      "applies_to": "intermediate and terminal prediction stages"
+    }
+  },
+  "oracle_map": {
+    "manifest": {
+      "path": "artifacts/phase5a_oracle/20260715_161731/manifest.json",
+      "sha256": "0f25a07f2008520d8b1e99a7e8b0efcef890e4ebdf047a80b88741c48e40b8be"
+    },
+    "archive": {
+      "path": "artifacts/phase5a_oracle/20260715_161731/oracle_map.npz",
+      "sha256": "9679f340ec6c52c397521964630a238ebab515716b6d55d983f57d541b70c654"
+    },
+    "preview": {
+      "path": "artifacts/phase5a_oracle/20260715_161731/oracle_map.png",
+      "sha256": "ed96ded764123fb117c89028a582d4991ad1e71ee00b761d480c2d04d52ee8eb"
+    }
+  },
+  "closed_loop": {
+    "summary": {
+      "path": "artifacts/phase5a_closed_loop/20260715_163451/summary.json",
+      "sha256": "23132c567eaecd7781e2bd62a9d3da3d54a9cf42630b409a676bb5cec5b34915"
+    },
+    "evidence": {
+      "path": "artifacts/phase5a_closed_loop/20260715_163451/evidence.png",
+      "sha256": "3d9e85171a58ed88fe94161f75986e4eccc91909829bf4c6851f940a5d59a9a3"
+    },
+    "result": "3/3 scenarios passed; zero collisions; zero solver failures"
+  },
+  "hardware_boundary": {
+    "solver_execution": "CPU",
+    "measured_worst_scenario_p95_ms": 2.0823135999999995,
+    "control_period_ms": 50.0,
+    "gpu_memory_required": false
+  },
+  "next_gate": "Phase 5-B may compare depth-lift or candidate perception in shadow mode; Oracle remains the control baseline"
+}

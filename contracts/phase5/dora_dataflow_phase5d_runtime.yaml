@@ -1,0 +1,39 @@
+nodes:
+  - id: phase5d_fixture_source
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5d_runtime_source.py
+    env:
+      PHASE5D_FIXTURE: ${PHASE5D_FIXTURE}
+    inputs:
+      tick: dora/timer/millis/50
+    outputs:
+      - jpeg_image
+      - metric_depth
+
+  - id: warehouse_candidate_shadow
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5d_runtime_node.py
+    inputs:
+      jpeg_image:
+        source: phase5d_fixture_source/jpeg_image
+        queue_size: 2
+      metric_depth:
+        source: phase5d_fixture_source/metric_depth
+        queue_size: 2
+    outputs:
+      - shadow_bev_grid
+      - shadow_health
+
+  - id: phase5d_runtime_sink
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5d_runtime_sink.py
+    env:
+      PHASE5D_FIXTURE: ${PHASE5D_FIXTURE}
+      PHASE5D_RUNTIME_OUTPUT: ${PHASE5D_RUNTIME_OUTPUT}
+    inputs:
+      shadow_bev_grid:
+        source: warehouse_candidate_shadow/shadow_bev_grid
+        queue_size: 2
+      shadow_health:
+        source: warehouse_candidate_shadow/shadow_health
+        queue_size: 2

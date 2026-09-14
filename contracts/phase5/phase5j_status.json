@@ -1,0 +1,83 @@
+{
+  "schema_version": "phase5j-status-v1",
+  "status": "phase5j_dora_endurance_fault_injection_passed",
+  "frozen_at": "2026-07-16T11:25:00+08:00",
+  "phase5i_status": {
+    "path": "contracts/phase5/phase5i_status.json",
+    "sha256": "dd8b06ec88ae5e75ad9201147fb5eec3cdff832c885240a4fd0e26bb59bc4af7"
+  },
+  "contract": {
+    "path": "contracts/phase5/phase5j_contract.json",
+    "sha256": "067a369036fb932548494d659c7d725344d02bb4f16021ace354d865de6983b9"
+  },
+  "implementation": {
+    "rejected_v1_contract": {"path": "contracts/phase5/phase5j_contract_v1_rejected.json", "sha256": "904855e22495f42921361ce96a7ef0a0a48b1fc6fca02d17aaf7af1d7ea9b0ec"},
+    "dora_topology": {"path": "contracts/phase5/dora_dataflow_phase5j_resilience.yaml", "sha256": "648d4a05b022c538a442f1c65a43d8ceae3e643606a577e5348352f285d6a255"},
+    "fault_contract_helpers": {"path": "contracts/phase5/phase5j_faults.py", "sha256": "6120eaaf59d24e6f194874eb005964d63479c44f06b7473215f20977f40c5bfd"},
+    "runtime_helpers": {"path": "contracts/phase5/phase5j_runtime.py", "sha256": "93faaa922aed587421c136b50ac5719050c7933438bbd835ebb668f7eaa9cd88"},
+    "safety_relay": {"path": "contracts/phase5/phase5j_safety_relay.py", "sha256": "5c30208069273dd23e98fbe9cd36e74d88d5e92fb15b82c0428765c2d5de8d35"},
+    "isaac_plant": {"path": "contracts/phase5/phase5j_isaac_plant.py", "sha256": "69185f65de45ffff2253c1b815dae67b539bca62af13679907c105a33ec91cf6"},
+    "controller": {"path": "contracts/phase5/phase5j_controller.py", "sha256": "055dcb0245e9cafb41301a459b94eaab8999ffb0f414fd7fcd69fe579fe37850"},
+    "safety_supervisor": {"path": "contracts/phase5/phase5j_safety_node.py", "sha256": "56eabb51912d202a6ff50135d343df672afbb39136dd73808f5e8587cee75941"},
+    "fault_injector": {"path": "contracts/phase5/phase5j_fault_injector.py", "sha256": "d624b735fc078513bed832dea26c5cbdcb4e3959ef6eb4a964fd99cc06983264"},
+    "evidence_sink": {"path": "contracts/phase5/phase5j_evidence_sink.py", "sha256": "7dc738b888a882092d4042a42c7b48d23f010b727289d0f217767903da95e27c"},
+    "fault_tests": {"path": "contracts/phase5/test_phase5j_faults.py", "sha256": "c6928bf04bb4adae3115347d6f9a4374b9274ad1b46b5361031f07f04d2ef1c6"},
+    "runtime_tests": {"path": "contracts/phase5/test_phase5j_runtime.py", "sha256": "80acdd9e0abc6961547df1aa663d82eb308d8076dc5751b9db6e7d46b0c710b9"},
+    "safety_relay_tests": {"path": "contracts/phase5/test_phase5j_safety_relay.py", "sha256": "aa7ce465e79437c125d21fabd02e2f99965068e8cfea74f05bbd6ac250760d1f"},
+    "evidence_tests": {"path": "contracts/phase5/test_phase5j_evidence.py", "sha256": "8d31a8dd8aabc58a5a742b6a6ee9cbcc3f71cf74f0f233f211789cfd4401e9cc"},
+    "topology_tests": {"path": "contracts/phase5/test_phase5j_topology.py", "sha256": "6de5d226d08d2873a7c43ef7cd04a1c69b739c785f7584c39075829737543195"},
+    "validation_tests": {"path": "contracts/phase5/test_phase5j_validation.py", "sha256": "e56338381d6c248902111019cfea151f43a1498a66b174e68ea15b703b3aa828"},
+    "validator": {"path": "contracts/phase5/validate_phase5j.py", "sha256": "8b0e02525556d21c34e818e6e9d2aae8c94c14911dadad419d9a803a4cfc4151"}
+  },
+  "runs": {
+    "endurance": {"path": "artifacts/phase5j_resilience/final_endurance_v2_20260716/summary.json", "sha256": "62a72fd556c78b7afb6462fe6ee41e2b9301d265b95d78a58866f558bdbf4384"},
+    "controller_sigkill": {"path": "artifacts/phase5j_resilience/final_controller_sigkill_v2_20260716/summary.json", "sha256": "a88621391bdfd206a1f9c008ba4047613cc2a9ee051d30d967f9fa13e0ac5872"},
+    "supervisor_sigkill": {"path": "artifacts/phase5j_resilience/final_supervisor_sigkill_v2_20260716/summary.json", "sha256": "de8e97df5589067250b551cba46e9858446bbdfec5a028365db0a0d324645b70"},
+    "sensor_freeze": {"path": "artifacts/phase5j_resilience/final_sensor_freeze_v2_20260716/summary.json", "sha256": "b9040bda1aa36f11a6fa9ff8d5d185094bb61c199f319005438a5daad616836e"},
+    "restart_recovery": {"path": "artifacts/phase5j_resilience/final_restart_recovery_20260716/summary.json", "sha256": "86344e0eae91c50bd2ec0dac0ae314e95799d545b212deb11e3045b71c29ae8a"}
+  },
+  "aggregate": {
+    "run_modes": ["endurance", "controller_sigkill", "supervisor_sigkill", "sensor_freeze", "restart_recovery"],
+    "frames": 5600,
+    "collision_count": 0,
+    "maximum_fault_stop_latency_frames": 3,
+    "wrong_generation_commands": 0,
+    "all_run_gates_passed": true,
+    "restart_used_new_controller_process": true
+  },
+  "endurance": {
+    "frames": 4400,
+    "duration_s": 220.0,
+    "scenario_cycles": 2,
+    "episodes": 8,
+    "active_frames": 4387,
+    "sensor_to_wheel_p95_ms": 37.4165542602539
+  },
+  "fault_evidence": {
+    "controller_sigkill_pid": 1042745,
+    "supervisor_sigkill_pid": 1167576,
+    "restart_controller_pid": 1078970,
+    "sensor_frozen_frames": 8,
+    "sensor_freeze_reset_events": 1,
+    "maximum_stop_latency_ms_upper_bound": 150.0
+  },
+  "control_authority": {
+    "safety_supervisor_is_only_dora_wheel_authority": true,
+    "plant_actuator_watchdog_survives_supervisor_death": true,
+    "controller_and_fault_injector_have_no_wheel_output": true,
+    "real_vehicle_control_allowed": false
+  },
+  "hardware_boundary": {
+    "completed_on": "GeForce RTX 3060 12 GB, i5-13600KF, 32 GB RAM",
+    "perception_execution": "ONNX Runtime CUDAExecutionProvider",
+    "nmpc_execution": "CPU acados SQP-RTI",
+    "physics_execution": "Isaac PhysX 100 Hz",
+    "control_rate_hz": 20
+  },
+  "known_environment_warnings": [
+    "Isaac reports the intel_pstate governor name as powersave although powerprofilesctl was set to performance",
+    "Isaac optional asset-converter extension cannot load libxml2.so.2; the tested USD, PhysX and rendering path remains operational",
+    "Expected SIGKILL fault runs make dora start return nonzero even when the independent evidence gate passes"
+  ],
+  "next_gate": "Phase 5-K should add daemon/coordinator loss, disk-pressure evidence durability and GPU OOM/degraded-perception recovery; real vehicle control remains forbidden"
+}

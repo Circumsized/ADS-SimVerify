@@ -1,0 +1,119 @@
+nodes:
+  - id: phase5k_isaac_plant
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5k_isaac_plant.py
+    env:
+      PHASE5J_OUTPUT: ${PHASE5K_OUTPUT}
+      PHASE5J_RUN_MODE: ${PHASE5K_RUN_MODE}
+      PHASE5J_GENERATION: ${PHASE5K_GENERATION}
+      PHASE5J_MAX_FRAMES: ${PHASE5K_MAX_FRAMES}
+      PHASE5K_OUTPUT: ${PHASE5K_OUTPUT}
+      PHASE5K_RUN_MODE: ${PHASE5K_RUN_MODE}
+    inputs:
+      tick: dora/timer/millis/50
+      safe_control:
+        source: phase5k_safety_supervisor/safe_control
+        queue_size: 2
+      fault_command:
+        source: phase5k_fault_injector/fault_command
+        queue_size: 2
+    outputs:
+      - control_rgb
+      - metric_depth
+      - vehicle_state
+      - plant_telemetry
+      - localization_image_640
+      - run_complete
+
+  - id: phase5k_controller
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5j_controller.py
+    env:
+      PHASE5J_RUN_MODE: ${PHASE5K_RUN_MODE}
+      PHASE5J_GENERATION: ${PHASE5K_GENERATION}
+    inputs:
+      control_rgb:
+        source: phase5k_isaac_plant/control_rgb
+        queue_size: 2
+      metric_depth:
+        source: phase5k_isaac_plant/metric_depth
+        queue_size: 2
+      vehicle_state:
+        source: phase5k_isaac_plant/vehicle_state
+        queue_size: 2
+      run_complete:
+        source: phase5k_isaac_plant/run_complete
+        queue_size: 1
+    outputs:
+      - proposed_control
+      - controller_heartbeat
+
+  - id: phase5k_safety_supervisor
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5j_safety_node.py
+    env:
+      PHASE5J_GENERATION: ${PHASE5K_GENERATION}
+    inputs:
+      tick: dora/timer/millis/50
+      proposed_control:
+        source: phase5k_controller/proposed_control
+        queue_size: 2
+      safety_request:
+        source: phase5k_fault_injector/safety_request
+        queue_size: 2
+      run_complete:
+        source: phase5k_isaac_plant/run_complete
+        queue_size: 1
+    outputs:
+      - safe_control
+      - safety_state
+      - supervisor_heartbeat
+
+  - id: phase5k_fault_injector
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5k_fault_injector.py
+    env:
+      PHASE5K_OUTPUT: ${PHASE5K_OUTPUT}
+      PHASE5K_RUN_MODE: ${PHASE5K_RUN_MODE}
+    inputs:
+      plant_telemetry:
+        source: phase5k_isaac_plant/plant_telemetry
+        queue_size: 4
+      controller_heartbeat:
+        source: phase5k_controller/controller_heartbeat
+        queue_size: 2
+      supervisor_heartbeat:
+        source: phase5k_safety_supervisor/supervisor_heartbeat
+        queue_size: 2
+      run_complete:
+        source: phase5k_isaac_plant/run_complete
+        queue_size: 1
+    outputs:
+      - fault_command
+      - safety_request
+      - fault_event
+
+  - id: phase5k_evidence_sink
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5k_evidence_sink.py
+    env:
+      PHASE5K_OUTPUT: ${PHASE5K_OUTPUT}
+      PHASE5K_RUN_MODE: ${PHASE5K_RUN_MODE}
+      PHASE5K_GENERATION: ${PHASE5K_GENERATION}
+      PHASE5K_MAX_FRAMES: ${PHASE5K_MAX_FRAMES}
+    inputs:
+      plant_telemetry:
+        source: phase5k_isaac_plant/plant_telemetry
+        queue_size: 8
+      fault_event:
+        source: phase5k_fault_injector/fault_event
+        queue_size: 4
+      controller_heartbeat:
+        source: phase5k_controller/controller_heartbeat
+        queue_size: 2
+      supervisor_heartbeat:
+        source: phase5k_safety_supervisor/supervisor_heartbeat
+        queue_size: 2
+      run_complete:
+        source: phase5k_isaac_plant/run_complete
+        queue_size: 1

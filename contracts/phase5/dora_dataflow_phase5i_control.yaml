@@ -1,0 +1,67 @@
+nodes:
+  - id: phase5i_articulation_runtime
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5i_dora_articulation.py
+    env:
+      PHASE5I_OUTPUT: ${PHASE5I_OUTPUT}
+      PHASE5I_RUN_MODE: ${PHASE5I_RUN_MODE}
+      PHASE5I_MAX_FRAMES: ${PHASE5I_MAX_FRAMES}
+    inputs:
+      tick: dora/timer/millis/50
+      safe_control:
+        source: phase5i_safety_supervisor/safe_control
+        queue_size: 2
+    outputs:
+      - proposed_control
+      - runtime_health
+      - articulation_telemetry
+      - localization_image_640
+      - run_complete
+
+  - id: phase5i_safety_supervisor
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5i_safety_node.py
+    inputs:
+      proposed_control:
+        source: phase5i_articulation_runtime/proposed_control
+        queue_size: 2
+      safety_request:
+        source: phase5i_operator_safety/safety_request
+        queue_size: 2
+      run_complete:
+        source: phase5i_articulation_runtime/run_complete
+        queue_size: 1
+    outputs:
+      - safe_control
+      - safety_state
+
+  - id: phase5i_operator_safety
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5i_operator_safety_node.py
+    env:
+      PHASE5I_RUN_MODE: ${PHASE5I_RUN_MODE}
+    inputs:
+      tick: dora/timer/millis/50
+      run_complete:
+        source: phase5i_articulation_runtime/run_complete
+        queue_size: 1
+    outputs:
+      - safety_request
+
+  - id: phase5i_evidence_sink
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5i_evidence_sink.py
+    env:
+      PHASE5I_OUTPUT: ${PHASE5I_OUTPUT}
+      PHASE5I_RUN_MODE: ${PHASE5I_RUN_MODE}
+      PHASE5I_MAX_FRAMES: ${PHASE5I_MAX_FRAMES}
+    inputs:
+      articulation_telemetry:
+        source: phase5i_articulation_runtime/articulation_telemetry
+        queue_size: 4
+      localization_image_640:
+        source: phase5i_articulation_runtime/localization_image_640
+        queue_size: 2
+      safety_state:
+        source: phase5i_safety_supervisor/safety_state
+        queue_size: 4

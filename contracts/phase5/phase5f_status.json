@@ -1,0 +1,92 @@
+{
+  "schema_version": "phase5f-status-v2",
+  "status": "phase5f_perception_nmpc_shadow_passed_control_closed",
+  "frozen_at": "2026-07-16T00:00:05+08:00",
+  "phase5e_status": {
+    "path": "contracts/phase5/phase5e_status.json",
+    "sha256": "f1e066abb94b5254cbe0f23f383f9d766f16b8f9493e725fe8525fa91fe5dc93"
+  },
+  "contract": {
+    "path": "contracts/phase5/phase5f_contract.json",
+    "sha256": "84a132905ae9ae3fc94f6c128bfc188cb19b757dc6c75e9b73305818ec04a6eb"
+  },
+  "rejected_v1_audit": {
+    "path": "contracts/phase5/phase5f_contract_v1_rejected.json",
+    "sha256": "c2792172992acb1fa504d5497cf79618fe37cf2caa6e9931aad5d8a1fe0bc764"
+  },
+  "invalidated_v2_audit": {
+    "path": "contracts/phase5/phase5f_v2_invalidated.json",
+    "sha256": "ea0f46768b5dc67c5aad64bbee8d0ae2ff45cf1f5908d56e65060e6cbcaee3ef"
+  },
+  "implementation": {
+    "dual_nmpc_shadow": {
+      "path": "contracts/phase5/phase5f_dual_nmpc_shadow.py",
+      "sha256": "cf2812c4b3e6dcfddbcaff1453b484b3f5539e00fbe99d3a545c9c9f0a1736bc"
+    },
+    "unit_tests": {
+      "path": "contracts/phase5/test_phase5f_shadow.py",
+      "sha256": "26cb6429287719a69d55e05c0310fb47bc09419e194cd37fba423949f9dc11b1"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5f.py",
+      "sha256": "fd75623e053a1d7bb4353ecec0913af99f152b663c37bf0519a119f74b283560"
+    },
+    "dataflow": {
+      "path": "contracts/phase5/dora_dataflow_phase5f_shadow.yaml",
+      "sha256": "ac3ea16dcff14cb3e6dac2dac761000629cc230bf8e52bb2fc9459bc52cdf282"
+    },
+    "live_isaac_source": {
+      "path": "contracts/phase5/phase5e_live_isaac_source.py",
+      "sha256": "409d59e67622884baf10732627233cae7fd24edee09058986ad8a583777def6b"
+    },
+    "live_perception_shadow": {
+      "path": "contracts/phase5/phase5e_live_shadow_node.py",
+      "sha256": "874b598ca8996ba319fb1087d249b3e3d68694d33e58544c5fa6b60203d6bf78"
+    },
+    "production_obstacle_adapter": {
+      "path": "core-control/src/control_safety.rs",
+      "sha256": "5f0c6ab0ab9123ddbe087db00d2e48fa96149ffa81a73ef07d77badbd173612b"
+    }
+  },
+  "shadow": {
+    "summary": {
+      "path": "artifacts/phase5f_shadow/20260715_234420/summary.json",
+      "sha256": "7db4582f99b2927d4ffbf4962ffcfad73085ca455978ec992c657593ddeb126d"
+    },
+    "telemetry": {
+      "path": "artifacts/phase5f_shadow/20260715_234420/frames.csv",
+      "sha256": "235f40d08f3a20a88e8ae50c9f15e83fb0721271725a1ab17ae45ba446d8cd74"
+    },
+    "evidence": {
+      "path": "artifacts/phase5f_shadow/20260715_234420/evidence.png",
+      "sha256": "f7cb8303d7bc22787013a600da38090c0cffea58045deb6fdcd8e5497d76c6fd"
+    },
+    "frames": 1000,
+    "control_action_eligible_frames": 400,
+    "oracle_solver_success_ratio": 1.0,
+    "candidate_solver_success_ratio": 1.0,
+    "runtime_valid_ratio": 1.0,
+    "candidate_valid_ratio_mean": 1.0,
+    "candidate_total_latency_p95_ms": 23.679550950000003,
+    "acceleration_mae_mps2": 0.002192345463126779,
+    "omega_mae_radps": 0.0037913264104931193,
+    "oracle_hard_brake_recall": 1.0,
+    "oracle_release_specificity": 1.0,
+    "eligible_steering_direction_agreement": 1.0
+  },
+  "control_authority": {
+    "owner": "Phase 5-A USD Oracle NMPC",
+    "candidate_controls_vehicle": false,
+    "control_output_declared": false,
+    "control_promotion_allowed": false
+  },
+  "hardware_boundary": {
+    "perception_provider": "ONNX Runtime CUDAExecutionProvider with CPU fallback",
+    "nmpc_execution": "two CPU acados SQP-RTI solvers",
+    "measured_candidate_pipeline_p95_ms": 23.679550950000003,
+    "control_period_ms": 50.0,
+    "gpu_memory_peak_measured": false,
+    "completed_on": "GeForce RTX 3060 12 GB, i5-13600KF, 32 GB RAM"
+  },
+  "next_gate": "Phase 5-G may run candidate-perception NMPC as the simulated command source behind an independent USD Oracle allow-or-abort supervisor; no real vehicle promotion is allowed"
+}

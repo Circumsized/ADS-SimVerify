@@ -1,0 +1,52 @@
+{
+  "schema_version": "phase5c3-contract-v1",
+  "status": "frozen_before_capture",
+  "taxonomy_id": "warehouse_nav14_v1",
+  "candidate": {
+    "architecture": "torchvision LRASPP-MobileNetV3-Large",
+    "initialization": "COCO_WITH_VOC_LABELS_V1 pretrained backbone and new 14-class head",
+    "input": {
+      "name": "input",
+      "shape": [1, 3, 240, 320],
+      "color_order": "RGB",
+      "normalization_mean": [0.485, 0.456, 0.406],
+      "normalization_std": [0.229, 0.224, 0.225]
+    },
+    "output": {
+      "name": "output",
+      "shape": [1, 14, 240, 320],
+      "layout": "NCHW logits"
+    }
+  },
+  "dataset": {
+    "train_frames": 1200,
+    "validation_frames": 300,
+    "image_size": [320, 240],
+    "split_strategy": "disjoint 2 m world-space blocks",
+    "phase5_gate_trajectory_exclusion_m": 0.75,
+    "seed": 20260715,
+    "synthetic_dynamic_classes": [
+      "curb_or_step",
+      "person",
+      "robot_or_cart",
+      "forklift_or_heavy_vehicle"
+    ],
+    "phase4_smoke_as_training_data": false,
+    "phase5_gate_frames_as_training_data": false
+  },
+  "training": {
+    "epochs": 15,
+    "batch_size": 8,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "mixed_precision": true,
+    "selection_metric": "validation mean IoU over classes present in validation"
+  },
+  "promotion": {
+    "training_may_start": true,
+    "control_promotion_allowed": false,
+    "required_shadow_frames": 1000,
+    "reuse_phase5c2_geometry_and_dynamic_gate": true
+  }
+}

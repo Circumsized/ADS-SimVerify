@@ -1,0 +1,79 @@
+{
+  "schema_version": "phase5c2-status-v1",
+  "status": "phase5c2_geometry_frozen_training_open_control_closed",
+  "frozen_at": "2026-07-15T18:19:12+08:00",
+  "phase5c_status": {
+    "path": "contracts/phase5/phase5c_status.json",
+    "sha256": "3796b477b4c22440a068dafbe121f23be55eff3cc6e59c3dbbf752d0067ba1f9"
+  },
+  "control_authority": {
+    "owner": "Phase 5-A USD Oracle NMPC",
+    "perception_oracle_controls_vehicle": false,
+    "learned_perception_controls_vehicle": false,
+    "model_training_allowed": true,
+    "control_promotion_allowed": false
+  },
+  "implementation": {
+    "depth_geometry": {
+      "path": "contracts/phase5/depth_bev_geometry.py",
+      "sha256": "65fc6cbe8124e2e5397e7bdcfecaf3abb6c0e123aee65ede008d88e288da80ae"
+    },
+    "oracle_builder": {
+      "path": "contracts/phase5/build_perception_oracle_map.py",
+      "sha256": "c2f3236f0172641ee8917a9965f11a8946ed8e0158fb39db0d3478aa2b773bcb"
+    },
+    "upper_bound_runner": {
+      "path": "contracts/phase5/phase5c2_geometry_upper_bound.py",
+      "sha256": "81880fb3cc6bb4f1f787d9ad7e59e66a7af20057353cb8afeed60ac319a79107"
+    },
+    "unit_tests": {
+      "path": "contracts/phase5/test_phase5c2_geometry.py",
+      "sha256": "6dfa2132fdfaec5c2890768d2e0575c2402596fa40eddaef44bcc5e4db58607e"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5c2.py",
+      "sha256": "3b23dfca5187b30f4f07e7090b1a2c4829702a6a9c3b232b7701fd63b30fa91a"
+    }
+  },
+  "perception_oracle": {
+    "role": "scoring_only_exact_mesh_height_slice",
+    "height_band_m": [0.02, 0.35],
+    "manifest": {
+      "path": "artifacts/phase5c2_oracle/20260715_180806/manifest.json",
+      "sha256": "211d7c008f7840ea584531caaf55680657d05ef51e12c4b1b1ed4bf7e884ae3b"
+    },
+    "archive": {
+      "path": "artifacts/phase5c2_oracle/20260715_180806/perception_oracle_map.npz",
+      "sha256": "720108bf3e4c1c695e952b2041a2f725127996d762a91b4994aa5991220439e1"
+    },
+    "preview": {
+      "path": "artifacts/phase5c2_oracle/20260715_180806/perception_oracle_map.png",
+      "sha256": "ab650c965da91ad1231aa93f2e4a384edbe5717ea2f9c3f947f1e710ec537d19"
+    }
+  },
+  "evidence": {
+    "frames": 1000,
+    "summary": {
+      "path": "artifacts/phase5c2_geometry/20260715_181401/summary.json",
+      "sha256": "c9fb34673fe1ba7c5550dfaf33734e6bb9dbef4e2d4321399eeda375dbfaf319"
+    },
+    "telemetry": {
+      "path": "artifacts/phase5c2_geometry/20260715_181401/frames.csv",
+      "sha256": "121fbc7e94898e3cd2048ae8836bf7089a72a6644fcefe70a16ea4390155ac37"
+    }
+  },
+  "measured_result": {
+    "occupied_iou_mean": 0.6524763387457884,
+    "free_iou_mean": 0.9534267234589952,
+    "false_free_rate_mean": 0.031020424411402174,
+    "false_occupied_rate_mean": 0.010908218974288043,
+    "depth_latency_p95_ms": 8.83053005,
+    "common_roi_coverage_mean": 0.6051809210526314,
+    "dynamic_true_stop": 400,
+    "dynamic_missed_stop": 0,
+    "dynamic_true_go": 600,
+    "dynamic_false_stop": 0,
+    "teacher_upper_bound_passed": true
+  },
+  "next_gate": "Adapt a warehouse_nav14 semantic model on disjoint train/validation data, then replay the candidate in shadow mode against this frozen teacher and dynamic suite"
+}

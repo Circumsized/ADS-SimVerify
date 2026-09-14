@@ -1,0 +1,61 @@
+{
+  "schema_version": "phase5i-contract-v2",
+  "status": "frozen_before_execution",
+  "parent_status": "contracts/phase5/phase5h_status.json",
+  "scope": {
+    "domain": "Isaac warehouse simulation through the formal Dora control topology",
+    "command_owner": "warehouse_nav14 perception -> metric depth-lift BEV -> acados NMPC",
+    "wheel_command_authority": "phase5i_safety_supervisor only",
+    "oracle_role": "global path plus allow-or-abort swept-collision supervisor",
+    "real_vehicle_control_allowed": false
+  },
+  "sensor_pipeline": {
+    "source_resolution": [640, 480],
+    "xfeat_input_resolution": [640, 480],
+    "semantic_control_resolution": [320, 240],
+    "semantic_depth_resize": "nearest-neighbor with correspondingly scaled intrinsics",
+    "xfeat_rate_hz": 2,
+    "xfeat_on_control_critical_path": false,
+    "reason": "XFeat consumes full-resolution localization images independently; warehouse semantic perception has a native 320x240 control input"
+  },
+  "timing": {
+    "physics_rate_hz": 100,
+    "control_rate_hz": 20,
+    "control_period_ms": 50.0,
+    "supervisor_watchdog_ms": 150.0,
+    "actuator_watchdog_ms": 150.0,
+    "startup_warmup_frames": 5,
+    "sensor_to_wheel_p95_ms_max": 50.0,
+    "required_linux_power_profile": "performance"
+  },
+  "safety": {
+    "startup_order": ["articulation_ready", "sensor_valid", "perception_valid", "solver_valid", "ready", "active"],
+    "emergency_stop": "latched zero command until explicit reset followed by a fresh warmup",
+    "watchdog": "stale health, proposal, supervisor output or actuator command fails closed to zero",
+    "shutdown": "terminal zero wheel targets"
+  },
+  "multirun_gate": {
+    "runs": ["nominal", "emergency_stop_reset", "watchdog_reset"],
+    "frames_per_run": 180,
+    "exact_frame_sequence_required": true,
+    "startup_zero_frames_min": 5,
+    "emergency_stop_events_min": 1,
+    "watchdog_stop_events_min": 1,
+    "successful_resets_min": 2,
+    "active_command_ratio_min": 0.60,
+    "deadline_miss_ratio_max": 0.02,
+    "sensor_to_wheel_p95_ms_max": 50.0,
+    "sensor_to_wheel_jitter_p95_ms_max": 15.0,
+    "static_collision_count": 0,
+    "dynamic_collision_count": 0
+  },
+  "promotion": {
+    "formal_dora_simulation_control_allowed": true,
+    "real_vehicle_control_allowed": false
+  },
+  "supersedes": {
+    "contract": "contracts/phase5/phase5i_contract_v1_rejected.json",
+    "reason": "v1 used an unsupported 1 percent deadline-miss threshold; the 180-frame baseline passed the frozen p95 and jitter gates but measured 2/180 deadline misses",
+    "rejected_evidence": "artifacts/phase5i_dora/nominal_performance_20260716/summary.json"
+  }
+}

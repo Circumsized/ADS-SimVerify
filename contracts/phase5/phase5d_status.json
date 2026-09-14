@@ -1,0 +1,125 @@
+{
+  "schema_version": "phase5d-status-v1",
+  "status": "phase5d_robustness_runtime_passed_control_closed",
+  "frozen_at": "2026-07-15T21:30:35+08:00",
+  "phase5c3_status": {
+    "path": "contracts/phase5/phase5c3_status.json",
+    "sha256": "c9c01fccf67d685447c6ac620e1c97fa3043c6b40a8f90e01e5ff0bec1c69eec"
+  },
+  "contract": {
+    "path": "contracts/phase5/phase5d_contract.json",
+    "sha256": "3dc60ea90db6d631119bf9ddda2ce2635d6a5be4e50116146a35a18f52e4188a"
+  },
+  "control_authority": {
+    "owner": "Phase 5-A USD Oracle NMPC",
+    "candidate_controls_vehicle": false,
+    "control_output_declared": false,
+    "control_promotion_allowed": false
+  },
+  "implementation": {
+    "robustness_runner": {
+      "path": "contracts/phase5/phase5d_multiseed_robustness.py",
+      "sha256": "02d0e1bd522dde1f699e1c369358fdfe942a8b753686a9daa1ee8c8d7a976209"
+    },
+    "runtime_source": {
+      "path": "contracts/phase5/phase5d_runtime_source.py",
+      "sha256": "76be94265276334894883192afa747393b7b697e6b9ece904c05c06603fa33f6"
+    },
+    "runtime_node": {
+      "path": "contracts/phase5/phase5d_runtime_node.py",
+      "sha256": "6f7d04547cc5c0e0c0690a4eceb6bb6d0ee6ecf75fdde1fd0ea86523cf303473"
+    },
+    "runtime_sink": {
+      "path": "contracts/phase5/phase5d_runtime_sink.py",
+      "sha256": "ae9fd83abe58e882abafb4b5da16a8793f8291e3ec5cb97a1da0d42b079602cc"
+    },
+    "runtime_tests": {
+      "path": "contracts/phase5/test_phase5d_runtime.py",
+      "sha256": "41dfb019a97481ebe0b4a862f9ea39b29ccc1d7df0e44a65bfbd60049305ffb9"
+    },
+    "runtime_dataflow": {
+      "path": "contracts/phase5/dora_dataflow_phase5d_runtime.yaml",
+      "sha256": "da6ec30d44eb9e03108a3041611d4ec4e150fef88441481ee5f6da36a2ba090e"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5d.py",
+      "sha256": "15b888d890610ea7b1b7b53c04cedb093991a653d0201a53de51eea9ec4e5132"
+    }
+  },
+  "robustness": {
+    "summary": {
+      "path": "artifacts/phase5d_robustness/20260715_211454/summary.json",
+      "sha256": "11d2255eddd18f1a8ac1587cef841681d60d592e478c20ce8be8f642a51d65b1"
+    },
+    "telemetry": {
+      "photometric_depth_a": {
+        "path": "artifacts/phase5d_robustness/20260715_211454/seed_2026071511.csv",
+        "sha256": "7128c9cb1d8d0908f46aab5f1c63c27908936226a652610034c859148857edda"
+      },
+      "camera_high_left": {
+        "path": "artifacts/phase5d_robustness/20260715_211454/seed_2026071529.csv",
+        "sha256": "0c7ff1588258da09971cf458ddf420d4f729568538dea9764fccdc07617ee811"
+      },
+      "camera_low_right": {
+        "path": "artifacts/phase5d_robustness/20260715_211454/seed_2026071547.csv",
+        "sha256": "b58ebd25d379dfc559d433151826be8f60198f4a60f4c83730e3c8d30cffc4a1"
+      }
+    },
+    "profiles": {
+      "photometric_depth_a": {
+        "occupied_iou_mean": 0.5821204443873731,
+        "false_free_rate_mean": 0.01994583344437487,
+        "stop_recall": 1.0,
+        "go_specificity": 0.9966666666666667,
+        "valid_ratio_mean": 0.9924787892602814,
+        "latency_p95_ms": 21.35581805
+      },
+      "camera_high_left": {
+        "occupied_iou_mean": 0.6186282192387812,
+        "false_free_rate_mean": 0.02236176491167113,
+        "stop_recall": 1.0,
+        "go_specificity": 0.9883333333333333,
+        "valid_ratio_mean": 0.9938416467338138,
+        "latency_p95_ms": 21.427717299999998
+      },
+      "camera_low_right": {
+        "occupied_iou_mean": 0.5076293329774172,
+        "occupied_iou_margin": 0.007629332977417192,
+        "false_free_rate_mean": 0.019070099849742853,
+        "stop_recall": 1.0,
+        "go_specificity": 0.9966666666666667,
+        "valid_ratio_mean": 0.993705585391183,
+        "latency_p95_ms": 21.726354699999998
+      }
+    }
+  },
+  "runtime": {
+    "summary": {
+      "path": "artifacts/phase5d_runtime/20260715_212658/summary.json",
+      "sha256": "29bd1f2af0ec50007f3c3e691af851ba73ef3182e18d2503a1c7bc9027decb2b"
+    },
+    "fixture_tree_sha256": "de682d27a95f3261acbe1e0f1cae59d798da3107f09c1d24d75a20c3b0848a09",
+    "frames": 100,
+    "source_frame_match_ratio": 1.0,
+    "occupancy_exact_match_ratio": 1.0,
+    "valid_ratio": 1.0,
+    "latency_p95_ms": 25.0177153,
+    "latency_max_ms": 38.386702
+  },
+  "audit_history": {
+    "rejected_probe": {
+      "path": "artifacts/phase5d_robustness/20260715_205945/summary.json",
+      "sha256": "6f16f3ce3e15a30468356712a6c5c0b7d8c36a90b29d7a0bdb8242c101801522",
+      "reason": "probe used whole Oracle ROI as visibility denominator and rendered perturbed camera extrinsics while projecting depth with stale nominal extrinsics"
+    },
+    "runtime_cold_start_observation_ms": 357.443572,
+    "runtime_fix": "three ONNX warmup inferences complete before the Dora node declares readiness"
+  },
+  "hardware_boundary": {
+    "gpu": "NVIDIA GeForce RTX 3060 12GB",
+    "observed_isaac_process_vram_mib": 1944,
+    "runtime_frequency_hz": 20.0,
+    "runtime_period_ms": 50.0
+  },
+  "next_gate": "Real-camera intrinsic/extrinsic calibration and live Isaac metric-depth shadow integration must pass before any control promotion"
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "phase5e-contract-v1",
+  "status": "frozen_before_execution",
+  "parent_status": "contracts/phase5/phase5d_status.json",
+  "real_camera_calibration": {
+    "required": true,
+    "image_size": [640, 480],
+    "device_identity_required": ["vendor_id", "product_id", "serial"],
+    "intrinsics": {
+      "minimum_checkerboard_views": 20,
+      "minimum_occupied_image_bins_3x3": 6,
+      "rms_reprojection_error_px_max": 0.5,
+      "per_view_p95_error_px_max": 0.8,
+      "distortion_model": "opencv_radtan_k1_k2_p1_p2_k3"
+    },
+    "extrinsics": {
+      "frame": "T_body_camera: OpenCV camera frame to body x-forward,y-left,z-up",
+      "target_based_measurement_required": true,
+      "translation_uncertainty_m_max": 0.002,
+      "rotation_uncertainty_deg_max": 0.5,
+      "rotation_orthogonality_error_max": 0.001
+    },
+    "metric_depth": {
+      "registered_to_rgb_required": true,
+      "units": "meters",
+      "valid_range_m": [0.05, 20.0],
+      "plane_scale_relative_error_max": 0.02,
+      "paired_frame_ratio_min": 0.99
+    }
+  },
+  "live_isaac_shadow": {
+    "frames": 1000,
+    "source": "live Isaac Replicator RGB8 plus distance_to_image_plane",
+    "trajectory": "frozen Phase 5-A Oracle NMPC closed-loop trajectory",
+    "pairing_key": "source_frame_id",
+    "acceptance": {
+      "exact_frame_ratio_min": 1.0,
+      "occupied_iou_mean_min": 0.5,
+      "free_iou_mean_min": 0.7,
+      "false_free_rate_mean_max": 0.05,
+      "false_occupied_rate_mean_max": 0.2,
+      "stop_recall_min": 0.95,
+      "go_specificity_min": 0.95,
+      "candidate_valid_ratio_mean_min": 0.99,
+      "latency_p95_ms_max": 50.0
+    }
+  },
+  "promotion": {
+    "requires_both_gates": true,
+    "candidate_controls_vehicle": false,
+    "control_promotion_allowed": false
+  }
+}

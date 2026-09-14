@@ -1,0 +1,57 @@
+{
+  "schema_version": "phase5f-contract-v3",
+  "status": "frozen_after_phase5g_footprint_audit_before_v3_execution",
+  "parent_status": "contracts/phase5/phase5e_status.json",
+  "supersedes": "contracts/phase5/phase5f_contract_v1_rejected.json",
+  "invalidated_v2": "contracts/phase5/phase5f_v2_invalidated.json",
+  "scope": {
+    "domain": "Isaac warehouse simulation only",
+    "trajectory": "frozen Phase 5-A Oracle NMPC closed-loop trajectory",
+    "global_reference": "identical Phase 5-A A* polyline for both NMPC solvers",
+    "only_independent_variable": "local obstacle parameters extracted from Oracle BEV versus warehouse candidate BEV",
+    "frames": 1000,
+    "control_rate_hz": 20
+  },
+  "obstacle_adapter": {
+    "coordinate_frame": "body x-forward,y-left",
+    "roi_m": {
+      "forward_min": 0.1,
+      "forward_max": 2.2,
+      "abs_left_max": 0.8
+    },
+    "sectors": ["left:y>0.15", "center:-0.15<=y<=0.15", "right:y<-0.15"],
+    "selection": "nearest forward occupied and valid BEV cell is the obstacle point; the ellipse axes are the point-robot Minkowski safety inflation",
+    "ellipse_axes_m": [0.35, 0.25],
+    "production_reference": "core-control/src/control_safety.rs::extract_bev_obstacle_candidates"
+  },
+  "acceptance": {
+    "exact_frame_ratio_min": 1.0,
+    "runtime_valid_ratio_min": 1.0,
+    "candidate_valid_ratio_mean_min": 0.99,
+    "oracle_solver_success_ratio_min": 1.0,
+    "candidate_solver_success_ratio_min": 0.99,
+    "candidate_total_latency_p95_ms_max": 50.0,
+    "oracle_brake_recall_min": 0.95,
+    "oracle_release_specificity_min": 0.95,
+    "steering_direction_agreement_min": 0.90,
+    "acceleration_mae_mps2_max": 0.35,
+    "omega_mae_radps_max": 0.25
+  },
+  "metric_definitions": {
+    "control_action_eligible_modes": ["far_go", "absent_go"],
+    "control_action_eligible_frames": 400,
+    "all_frame_metrics": "all 1000 frames remain mandatory for pairing, validity, solver success and latency",
+    "excluded_from_action_equivalence": "center_stop teleports into footprint contact; side_go_left/right permit multiple safe bypass directions; their perception decisions remain gated by Phase 5-C3/D/E and their continuous control behavior by Phase 5-G",
+    "oracle_brake_recall": "Oracle hard-brake frames have acceleration <= -0.5 m/s^2; candidate must also hard brake",
+    "oracle_release_specificity": "Oracle release frames have acceleration >= 0.0 m/s^2; candidate must not hard brake; moderate Oracle deceleration is excluded",
+    "steering_direction_agreement": "compare sign only outside center_stop and when abs(Oracle omega) >= 0.1 rad/s; center obstacle bypass side and near-zero sign are non-unique"
+  },
+  "authority": {
+    "owner": "Phase 5-A USD Oracle NMPC",
+    "candidate_output_role": "counterfactual shadow telemetry only",
+    "control_output_declared": false,
+    "candidate_controls_vehicle": false,
+    "control_promotion_allowed": false
+  },
+  "interpretation_note": "Phase 5-F is a counterfactual shadow gate, not a continuous dynamic-control gate. Phase 5-G owns physically continuous takeover acceptance."
+}

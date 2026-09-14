@@ -1,0 +1,67 @@
+{
+  "schema_version": "phase6-status-v1",
+  "status": "phase6_final_simulation_matrix_passed",
+  "frozen_at": "2026-07-16T16:46:00+08:00",
+  "phase5k_status": {
+    "path": "contracts/phase5/phase5k_status.json",
+    "sha256": "c83c3dcda1048d8f25e2f890e05024a6ce07f96c4d449878382ff83fce389535"
+  },
+  "contract": {
+    "path": "contracts/phase6/phase6_contract.json",
+    "sha256": "24a2755a182c6dca59b9c4d1313447e3ac9ba2582981d45f624d8b95cd876c4f"
+  },
+  "implementation": {
+    "matrix": {"path": "contracts/phase6/phase6_matrix.py", "sha256": "79d6728e3b2b0df415fb3ddf26ca744febf5458da4e52c391fe317e7a7cc8203"},
+    "runner": {"path": "contracts/phase6/run_phase6_matrix.py", "sha256": "87ffeedb9d39bc5848dd3a010df87907db0e958617f479008d1bb7f48dbac88b"},
+    "validator": {"path": "contracts/phase6/validate_phase6.py", "sha256": "4de4682c1ac122e44df59c0604ee3673b93a0d5faced41f798212ff704f1fddf"},
+    "matrix_tests": {"path": "contracts/phase6/test_phase6_matrix.py", "sha256": "6a5b761c2a9605594767dfc1e5352767a883de3a77b7565b1d20b9408cde86a0"},
+    "runner_tests": {"path": "contracts/phase6/test_phase6_runner.py", "sha256": "5ff1011293bbd1ef53b2264b395f8536d31d74d8d834212482bd40cc1ab8e512"},
+    "validation_tests": {"path": "contracts/phase6/test_phase6_validation.py", "sha256": "f3caaa2c2283e4799819e4025cb194b2b1730e75916530d8e3b4e3c24b07f71d"}
+  },
+  "matrix_evidence": {
+    "path": "artifacts/phase6_matrix/final_20260716_1642/summary.json",
+    "sha256": "4cba61cf6d703a6ea975d3b534d489e813e83f271530bd1286a8d3310a595c53"
+  },
+  "aggregate": {
+    "cases": 12,
+    "unique_cases": 12,
+    "reached_cases": 12,
+    "goal_reach_rate": 1.0,
+    "collision_count": 0,
+    "supervisor_aborts": 0,
+    "solver_failures": 0,
+    "candidate_valid_ratio_mean_min": 1.0,
+    "sensor_to_wheel_p95_ms_max": 33.061333399999995,
+    "path_error_p95_m_max": 0.09135130608362248,
+    "terminal_position_error_m_max": 0.10139184580410124,
+    "terminal_yaw_error_rad_max": 0.10977076975176292,
+    "wheel_command_delta_p95_max": 0.23321184327824143,
+    "inherited": {
+      "hour_frames": 72000,
+      "hour_duration_s": 3611.331572029,
+      "hour_collision_count": 0,
+      "maximum_fault_recovery_frames": 1
+    },
+    "gate_passed": true
+  },
+  "matrix_coverage": {
+    "seeds": [2026071601, 2026071602, 2026071603],
+    "scenarios": ["straight_aisle", "diagonal_turn", "pallet_detour", "crossing_cart"],
+    "profiles": ["balanced_day", "dim_warm_high_left", "bright_cool_low_right"],
+    "dimensions": ["start_goal", "lighting", "material", "jpeg_rgb", "metric_depth", "camera_extrinsics", "dynamic_obstacle"]
+  },
+  "dynamic_obstacle": {
+    "crossing_cases": 3,
+    "minimum_center_distance_m": 0.5559362858392638,
+    "maximum_center_distance_m": 0.6423850562621481
+  },
+  "hardware_boundary": {
+    "completed_on": "GeForce RTX 3060 12 GB, i5-13600KF, 32 GB RAM",
+    "render_resolution": [320, 240],
+    "physics_rate_hz": 100,
+    "control_rate_hz": 20
+  },
+  "simulation_release_candidate_allowed": true,
+  "real_vehicle_control_allowed": false,
+  "next_gate": "Phase 7 hardware sizing and deployment profiling; no further Phase 6 subphases are planned"
+}

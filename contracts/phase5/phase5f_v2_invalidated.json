@@ -1,0 +1,17 @@
+{
+  "schema_version": "phase5f-v2-invalidation-v1",
+  "status": "invalidated_by_phase5g_footprint_audit",
+  "previous_status": {
+    "path": "contracts/phase5/phase5f_status.json",
+    "sha256_before_invalidation": "55d036c76f3391419e6a6c4d9e4ace2a2051c8103d3452d64d6c05b44d0b8fe4"
+  },
+  "unsafe_assumption": "Shifting the observed obstacle point forward by the ellipse half-axis removed point-robot Minkowski footprint inflation from the local NMPC constraint.",
+  "phase5g_counterexample": "The continuous crossing cart reached a swept yaw-aware footprint collision at step 99 while the candidate NMPC still allowed motion.",
+  "corrected_adapter_rejection": {
+    "summary": "artifacts/phase5f_shadow/20260715_233542/summary.json",
+    "summary_sha256": "a19948aa2189f15d846a70f44d6f4ebef699c380b00c28b359ea8c6d558ce2c8",
+    "telemetry": "artifacts/phase5f_shadow/20260715_233542/frames.csv",
+    "telemetry_sha256": "8f0123ee0ab0e19dcc55073cfd909e9853c777f7295caaa7d44eaf9ed5fc4e14"
+  },
+  "test_design_finding": "The ego-relative center_stop schedule teleports an obstacle into footprint contact and is valid for perception STOP/GO scoring, not sequential SQP-RTI command equivalence. Near side obstacles also admit non-unique safe steering directions."
+}

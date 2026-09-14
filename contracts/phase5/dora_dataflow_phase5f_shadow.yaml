@@ -1,0 +1,52 @@
+nodes:
+  - id: phase5f_live_isaac_source
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5e_live_isaac_source.py
+    env:
+      PHASE5E_MAX_FRAMES: ${PHASE5F_MAX_FRAMES}
+    inputs:
+      tick: dora/timer/millis/50
+    outputs:
+      - jpeg_image
+      - metric_depth
+      - oracle_bev
+      - oracle_valid
+      - depth_reference_valid
+
+  - id: phase5f_perception_shadow
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5e_live_shadow_node.py
+    inputs:
+      jpeg_image:
+        source: phase5f_live_isaac_source/jpeg_image
+        queue_size: 2
+      metric_depth:
+        source: phase5f_live_isaac_source/metric_depth
+        queue_size: 2
+    outputs:
+      - shadow_bev_grid
+      - shadow_valid
+      - shadow_health
+
+  - id: phase5f_dual_nmpc_shadow
+    path: /home/zhz/isaacsim/python.sh
+    args: phase5f_dual_nmpc_shadow.py
+    env:
+      PHASE5F_OUTPUT: ${PHASE5F_OUTPUT}
+      PHASE5F_MAX_FRAMES: ${PHASE5F_MAX_FRAMES}
+    inputs:
+      oracle_bev:
+        source: phase5f_live_isaac_source/oracle_bev
+        queue_size: 2
+      oracle_valid:
+        source: phase5f_live_isaac_source/oracle_valid
+        queue_size: 2
+      depth_reference_valid:
+        source: phase5f_live_isaac_source/depth_reference_valid
+        queue_size: 2
+      shadow_bev_grid:
+        source: phase5f_perception_shadow/shadow_bev_grid
+        queue_size: 2
+      shadow_valid:
+        source: phase5f_perception_shadow/shadow_valid
+        queue_size: 2

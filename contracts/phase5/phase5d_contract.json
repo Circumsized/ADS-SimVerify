@@ -1,0 +1,73 @@
+{
+  "schema_version": "phase5d-contract-v1",
+  "status": "frozen_before_execution",
+  "parent_status": "contracts/phase5/phase5c3_status.json",
+  "candidate": "model/warehouse_nav14_candidate.onnx",
+  "robustness": {
+    "frames_per_seed": 1000,
+    "camera_delta_interpretation": "known mount variation with synchronized depth-lift extrinsics; residual calibration error is a separate deployment gate",
+    "profiles": [
+      {
+        "name": "photometric_depth_a",
+        "seed": 2026071511,
+        "camera_delta": {"height_m": 0.0, "yaw_deg": 0.0, "pitch_deg": 0.0}
+      },
+      {
+        "name": "camera_high_left",
+        "seed": 2026071529,
+        "camera_delta": {"height_m": 0.01, "yaw_deg": 1.5, "pitch_deg": -1.0}
+      },
+      {
+        "name": "camera_low_right",
+        "seed": 2026071547,
+        "camera_delta": {"height_m": -0.01, "yaw_deg": -1.5, "pitch_deg": 1.0}
+      }
+    ],
+    "per_frame_perturbation": {
+      "rgb_gain": [0.75, 1.25],
+      "rgb_offset": [-16.0, 16.0],
+      "gamma": [0.85, 1.15],
+      "gaussian_noise_sigma_u8": [0.0, 6.0],
+      "motion_blur_probability": 0.15,
+      "jpeg_quality": [70, 95],
+      "depth_scale": [0.99, 1.01],
+      "depth_noise_sigma_m": [0.0, 0.005],
+      "depth_dropout_probability": [0.0, 0.003],
+      "dynamic_forward_jitter_m": [-0.04, 0.04],
+      "dynamic_lateral_jitter_m": [-0.08, 0.08]
+    },
+    "acceptance": {
+      "evaluation_scope": "every seed independently",
+      "occupied_iou_mean_min": 0.5,
+      "free_iou_mean_min": 0.7,
+      "false_free_rate_mean_max": 0.05,
+      "false_occupied_rate_mean_max": 0.2,
+      "stop_recall_min": 0.95,
+      "go_specificity_min": 0.95,
+      "candidate_valid_ratio_mean_min": 0.99,
+      "latency_p95_ms_max": 50.0
+    }
+  },
+  "runtime": {
+    "fixture_frames": 100,
+    "frequency_hz": 20.0,
+    "pairing_key": "source_frame_id",
+    "max_pending_frames": 4,
+    "jpeg_contract": "encoded JPEG bytes with BGR8 decode",
+    "metric_depth_contract": "640x480 Float32 meters, distance_to_image_plane",
+    "outputs": ["shadow_bev_grid", "shadow_health"],
+    "acceptance": {
+      "exact_output_frames": 100,
+      "source_frame_match_ratio_min": 1.0,
+      "occupancy_exact_match_ratio_min": 1.0,
+      "valid_ratio_min": 1.0,
+      "latency_p95_ms_max": 50.0,
+      "control_outputs_allowed": false,
+      "control_consumers_allowed": false
+    }
+  },
+  "promotion": {
+    "candidate_controls_vehicle": false,
+    "control_promotion_allowed": false
+  }
+}

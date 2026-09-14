@@ -1,0 +1,48 @@
+{
+  "schema_version": "real-vehicle-acceptance-contract-v1",
+  "status": "frozen_pre_hardware",
+  "parent": "contracts/phase7/phase7_status.json",
+  "scope": "Remove USD Oracle from runtime authority and admit real camera, localization, global planning, collision supervision and actuator evidence",
+  "thresholds": {
+    "camera": {
+      "paired_frame_ratio_min": 0.99,
+      "depth_scale_relative_error_max": 0.02
+    },
+    "localization": {
+      "duration_s_min": 600.0,
+      "ate_rmse_m_max": 0.1,
+      "rpe_translation_p95_m_max": 0.08,
+      "yaw_error_p95_deg_max": 3.0,
+      "dropout_ratio_max": 0.01,
+      "relocalization_success_ratio_min": 0.95,
+      "relocalization_p95_s_max": 2.0
+    },
+    "global_planning": {
+      "routes_min": 8,
+      "route_success_ratio_min": 1.0,
+      "invalid_or_occupied_waypoints_max": 0
+    },
+    "collision_supervisor": {
+      "physical_cases_min": 40,
+      "stop_recall_min": 0.99,
+      "go_specificity_min": 0.95,
+      "minimum_stop_margin_m_min": 0.1
+    },
+    "actuator": {
+      "velocity_tracking_p95_mps_max": 0.08,
+      "yaw_rate_tracking_p95_radps_max": 0.12,
+      "watchdog_stop_p95_ms_max": 150.0,
+      "emergency_stop_p95_ms_max": 150.0,
+      "zero_command_creep_mps_max": 0.01
+    }
+  },
+  "authority": {
+    "global_map_source_required": "real_slam_occupancy_map",
+    "independent_safety_source_required": "independent_metric_depth_guard",
+    "forbidden_runtime_dependencies": ["isaac_sim_env", "simulation-env", "usd", "oracle"],
+    "all_six_gates_required": true,
+    "missing_evidence_policy": "fail_closed"
+  },
+  "current_hardware_state": "not_present",
+  "real_vehicle_control_allowed": false
+}

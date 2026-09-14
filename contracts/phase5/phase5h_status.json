@@ -1,0 +1,88 @@
+{
+  "schema_version": "phase5h-status-v1",
+  "status": "phase5h_isaac_articulation_passed_real_control_closed",
+  "frozen_at": "2026-07-16T08:13:00+08:00",
+  "phase5g_status": {
+    "path": "contracts/phase5/phase5g_status.json",
+    "sha256": "dfad387afe7ef28b088f949f3fa32316e5edb924a589b84fe409fbcb457971da"
+  },
+  "contract": {
+    "path": "contracts/phase5/phase5h_contract.json",
+    "sha256": "fb7bab660675485a48a15054ecee269746b1c5e2e343ce323e9bf344f5e1874a"
+  },
+  "rejected_clock_audit": {
+    "path": "contracts/phase5/phase5h_clock_audit.json",
+    "sha256": "d85635f926e98655d58ec8004c6a5057daca5c3ca4e01f8a468a3d30faa9706e"
+  },
+  "implementation": {
+    "articulation_takeover": {
+      "path": "contracts/phase5/phase5h_articulation_takeover.py",
+      "sha256": "2d40a04a68b6ca4860d04c53345e8bb04211fc26b9d204c64ae9da1f29576b22"
+    },
+    "unit_tests": {
+      "path": "contracts/phase5/test_phase5h_articulation.py",
+      "sha256": "c8dbeeb409a617215f783b59a8574e4babd0f0f12fb138b22a5989c4117ed5a9"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5h.py",
+      "sha256": "e5278413b13146b4117a734545be09855f2381384ab3c93796a55d4397f96890"
+    },
+    "warehouse_model_manifest": {
+      "path": "model/warehouse_nav14_candidate.json",
+      "sha256": "c8fdaad98a97963f36a2579ca9496d2fb841a3ee459272ed5efecdd32f76a595"
+    },
+    "jetbot_source": {
+      "path": "assets/fsd_car_racetrack.usd",
+      "sha256": "a7d7a896e5ea597411ba69e50ec6f96f1d7e9197b985630d8c59d220df09af73"
+    }
+  },
+  "takeover": {
+    "summary": {
+      "path": "artifacts/phase5h_articulation/20260716_081754/summary.json",
+      "sha256": "0979215d7452bef87787742698d20baf9dc4678eee530133b80f1b59386a630b"
+    },
+    "evidence": {
+      "path": "artifacts/phase5h_articulation/20260716_081754/evidence.png",
+      "sha256": "5bdc195fe75ad818c441607e93b3022bee834e6cd4f5c0621b17e7c595a9f54b"
+    },
+    "scenarios": 4,
+    "reached_scenarios": 4,
+    "wheel_command_steps": 1454,
+    "wheel_command_applied_ratio": 1.0,
+    "physics_feedback_ratio": 1.0,
+    "supervisor_aborts": 0,
+    "static_collision_count": 0,
+    "dynamic_collision_count": 0,
+    "solver_failures": 0,
+    "maximum_sensor_to_wheel_p95_ms": 37.96888635,
+    "maximum_path_error_p95_m": 0.049209734697156046,
+    "wheel_odometry_ratio_range": [0.979163957384322, 0.9812429502820508],
+    "crossing_cart_encounter_frames": 206,
+    "crossing_cart_minimum_center_distance_m": 0.597926430122257
+  },
+  "control_authority": {
+    "owner": "warehouse_nav14 candidate perception and candidate acados NMPC",
+    "candidate_controls_isaac_articulation": true,
+    "state_feedback": "Isaac articulation root pose and measured wheel velocities",
+    "oracle_role": "global path plus allow-or-abort swept collision supervisor",
+    "oracle_command_override_count": 0,
+    "real_vehicle_control_allowed": false
+  },
+  "hardware_boundary": {
+    "perception_execution": "ONNX Runtime CUDAExecutionProvider",
+    "nmpc_execution": "CPU acados SQP-RTI",
+    "physics_execution": "Isaac PhysX 100 Hz",
+    "sensor_control_rate_hz": 20,
+    "render_resolution": [320, 240],
+    "measured_sensor_to_wheel_p95_ms_max": 37.96888635,
+    "control_period_ms": 50.0,
+    "full_pipeline_realtime_20hz_passed": true,
+    "gpu_memory_peak_measured": false,
+    "completed_on": "GeForce RTX 3060 12 GB, i5-13600KF, 32 GB RAM"
+  },
+  "known_environment_warnings": [
+    "CPU governor is powersave",
+    "Isaac optional asset-converter extension cannot load libxml2.so.2; the tested USD/physics/render path remains operational"
+  ],
+  "next_gate": "Phase 5-I should package the passed articulation loop into the production Dora topology with watchdog, emergency-stop and deterministic startup/shutdown; real vehicle control remains forbidden"
+}

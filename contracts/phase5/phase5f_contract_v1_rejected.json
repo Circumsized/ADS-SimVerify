@@ -1,0 +1,37 @@
+{
+  "schema_version": "phase5f-contract-v1-rejected",
+  "status": "rejected_after_1000_frame_execution",
+  "parent_status": "contracts/phase5/phase5e_status.json",
+  "scope": {
+    "domain": "Isaac warehouse simulation only",
+    "trajectory": "frozen Phase 5-A Oracle NMPC closed-loop trajectory",
+    "global_reference": "identical Phase 5-A A* polyline for both NMPC solvers",
+    "only_independent_variable": "local obstacle parameters extracted from Oracle BEV versus warehouse candidate BEV",
+    "frames": 1000,
+    "control_rate_hz": 20
+  },
+  "acceptance": {
+    "exact_frame_ratio_min": 1.0,
+    "runtime_valid_ratio_min": 1.0,
+    "candidate_valid_ratio_mean_min": 0.99,
+    "oracle_solver_success_ratio_min": 1.0,
+    "candidate_solver_success_ratio_min": 0.99,
+    "candidate_total_latency_p95_ms_max": 50.0,
+    "oracle_brake_recall_min": 0.95,
+    "oracle_release_specificity_min": 0.95,
+    "steering_direction_agreement_min": 0.90,
+    "acceleration_mae_mps2_max": 0.35,
+    "omega_mae_radps_max": 0.25
+  },
+  "rejection_evidence": {
+    "summary": "artifacts/phase5f_shadow/20260715_224746/summary.json",
+    "summary_sha256": "4d38bffff3e32d0b388ba344ee7d860abe95c386664d794acff885ba6ff9a627",
+    "telemetry": "artifacts/phase5f_shadow/20260715_224746/frames.csv",
+    "telemetry_sha256": "05335673641c4d40cb23238a336ae39402d3d50edf23a7a1894e1ff7c6cb2061",
+    "failed_metrics": {
+      "oracle_release_specificity": 0.9268585131894485,
+      "steering_direction_agreement": 0.8353413654618473
+    }
+  },
+  "audit_finding": "v1 incorrectly classified moderate Oracle deceleration as release and treated near-zero or symmetric bypass steering sign as a unique ground truth. Threshold values were retained; v2 corrects only event eligibility."
+}

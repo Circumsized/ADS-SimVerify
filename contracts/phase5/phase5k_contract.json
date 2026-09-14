@@ -1,0 +1,48 @@
+{
+  "schema_version": "phase5k-contract-v1",
+  "status": "frozen_before_execution",
+  "parent_status": "contracts/phase5/phase5j_status.json",
+  "scope": {
+    "domain": "Dora control/data plane and host resource resilience",
+    "real_vehicle_control_allowed": false
+  },
+  "timing": {
+    "control_rate_hz": 20,
+    "control_period_ms": 50.0,
+    "supervisor_watchdog_ms": 100.0,
+    "actuator_watchdog_ms": 100.0,
+    "sensor_to_wheel_p95_ms_max": 50.0
+  },
+  "hour_endurance": {
+    "frames": 72000,
+    "duration_s": 3600.0,
+    "active_ratio_min": 0.98,
+    "missing_input_reset_cooldown_frames": 4,
+    "scenarios": ["straight_aisle", "diagonal_turn", "pallet_detour", "crossing_cart"],
+    "collision_count": 0,
+    "wrong_generation_commands": 0
+  },
+  "fault_gate": {
+    "runs": ["coordinator_sigkill", "daemon_sigkill", "gpu_oom_recovery", "disk_full_recovery"],
+    "frames_per_recoverable_run": 300,
+    "injection_frame": 80,
+    "reset_not_before_frame": 92,
+    "resource_release_required_before_reset": true,
+    "coordinator_loss_policy": "local_data_plane_fail_safe_stop_then_full_stack_restart",
+    "daemon_loss_policy": "host_out_of_band_signal_stops_actual_articulation",
+    "stop_latency_frames_max": 3,
+    "out_of_band_stop_latency_ms_max": 100.0,
+    "gpu_oom_signature_required": true,
+    "disk_errno_required": 28,
+    "collision_count": 0
+  },
+  "evidence": {
+    "daemon_loss": "preallocated mmap actuator safety ledger outside Dora routing",
+    "disk_full": "Linux /dev/full ENOSPC plus reserved safety ledger",
+    "gpu_oom": "real CUDA allocation failure receipt followed by memory release"
+  },
+  "promotion": {
+    "simulation_infrastructure_resilience_allowed": true,
+    "real_vehicle_control_allowed": false
+  }
+}

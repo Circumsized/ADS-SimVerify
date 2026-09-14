@@ -1,0 +1,111 @@
+{
+  "schema_version": "phase5c3-status-v1",
+  "status": "phase5c3_candidate_shadow_passed_control_closed",
+  "frozen_at": "2026-07-15T19:37:06+08:00",
+  "phase5c2_status": {
+    "path": "contracts/phase5/phase5c2_status.json",
+    "sha256": "62d9847a260f3a407ba5e56d8f85fe0f5528457e96eb0a16b2ed820bee10e964"
+  },
+  "contract": {
+    "path": "contracts/phase5/phase5c3_contract.json",
+    "sha256": "34a8b9da5309cbdfa1e9bdd756aea8610634a0a052a8b328453b1257583889d6"
+  },
+  "control_authority": {
+    "owner": "Phase 5-A USD Oracle NMPC",
+    "candidate_controls_vehicle": false,
+    "control_output_declared": false,
+    "control_promotion_allowed": false
+  },
+  "implementation": {
+    "dataset_generator": {
+      "path": "contracts/phase5/generate_phase5c3_dataset.py",
+      "sha256": "da2b9c3d8494220cacc85cc5dd151e8c0cda4a92173c0864e61e034f43e1fa18"
+    },
+    "trainer": {
+      "path": "contracts/phase5/train_phase5c3_model.py",
+      "sha256": "c6db425492a6388a4afd663b6f6e4edac80786292623218004ba9500dbdd4732"
+    },
+    "shadow_runner": {
+      "path": "contracts/phase5/phase5c3_candidate_shadow.py",
+      "sha256": "6ce615002d929ca8a367ea335314e43779c8da1038ac4ce0db5659b553cc2ade"
+    },
+    "unit_tests": {
+      "path": "contracts/phase5/test_phase5c3_candidate.py",
+      "sha256": "7d00de6dd08110f29926462e0139827020cbc7c8884fa9bd331ca4f38ff05b19"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5c3.py",
+      "sha256": "0656aa2c63bec36ff9dba143eca81da4adebfb312655b86b775160d5cf702224"
+    }
+  },
+  "dataset": {
+    "train_frames": 1200,
+    "validation_frames": 300,
+    "spatial_blocks_disjoint": true,
+    "phase5_gate_frames_used": false,
+    "all_14_classes_present": true,
+    "summary": {
+      "path": "artifacts/phase5c3_dataset/20260715_191641/summary.json",
+      "sha256": "437ea15e8a50081b74db853feaf7e4352f8ee66e0da5d2be9cee1dc8693d0da8"
+    },
+    "manifest": {
+      "path": "artifacts/phase5c3_dataset/20260715_191641/frames.csv",
+      "sha256": "be2c39ac89f2c60631608d99fceace600af967a6b33f9109cf8429665ec7fc29"
+    }
+  },
+  "training": {
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "epochs": 15,
+    "best_validation_miou": 0.6631151226784,
+    "summary": {
+      "path": "artifacts/phase5c3_training/20260715_192050/summary.json",
+      "sha256": "a3d4c04bb089d04e9a51e1bf9ed72c2cbc3fe900510811e96862a2372f9f9d5f"
+    },
+    "checkpoint": {
+      "path": "artifacts/phase5c3_training/20260715_192050/warehouse_nav14_best.pth",
+      "sha256": "f538b89969d90cf04aabd5318da2587424c75efa03b16d974fcd02b91267571d"
+    },
+    "onnx": {
+      "path": "artifacts/phase5c3_training/20260715_192050/warehouse_nav14_candidate.onnx",
+      "sha256": "7f55627ba329ff736bed0990a6042434959cfe357b5744acd78160588e70a821"
+    }
+  },
+  "candidate": {
+    "role": "warehouse_nav14_shadow_only",
+    "model": {
+      "path": "model/warehouse_nav14_candidate.onnx",
+      "sha256": "7f55627ba329ff736bed0990a6042434959cfe357b5744acd78160588e70a821"
+    },
+    "manifest": {
+      "path": "model/warehouse_nav14_candidate.json",
+      "sha256": "c8fdaad98a97963f36a2579ca9496d2fb841a3ee459272ed5efecdd32f76a595"
+    }
+  },
+  "shadow": {
+    "frames": 1000,
+    "summary": {
+      "path": "artifacts/phase5c3_shadow/20260715_192726/summary.json",
+      "sha256": "f44d4532bcd0bf6e931a946411e487435c319f82ba969c2b74ec008e9134e3b9"
+    },
+    "telemetry": {
+      "path": "artifacts/phase5c3_shadow/20260715_192726/frames.csv",
+      "sha256": "a2d93db5531c6421b3f0b9fe9f8be9d3d51bce79861a8a82f21b80b609180685"
+    }
+  },
+  "measured_result": {
+    "candidate_occupied_iou_mean": 0.588695481644625,
+    "candidate_free_iou_mean": 0.9433869102791789,
+    "candidate_false_free_rate_mean": 0.02876532287788148,
+    "candidate_false_occupied_rate_mean": 0.022089744134755014,
+    "candidate_inference_p95_ms": 7.370583249999998,
+    "candidate_total_p95_ms": 14.3927965,
+    "dynamic_true_stop": 400,
+    "dynamic_missed_stop": 0,
+    "dynamic_true_go": 599,
+    "dynamic_false_stop": 1,
+    "candidate_shadow_gate_passed": true,
+    "control_promotion_allowed": false
+  },
+  "next_gate": "Run a separate promotion phase with multi-seed, perturbation and runtime integration evidence before candidate perception can affect control"
+}

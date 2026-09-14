@@ -1,0 +1,101 @@
+{
+  "schema_version": "phase7-contract-v1",
+  "status": "frozen_before_execution",
+  "parent_status": "contracts/phase6/phase6_status.json",
+  "scope": {
+    "domain": "deployment performance profile without Isaac Sim",
+    "active_control_stack": "warehouse_nav14 ONNX -> metric depth-lift BEV -> acados NMPC",
+    "slow_localization_stack": "XFeat ONNX at 2 Hz outside the 20 Hz control-critical path",
+    "excluded_models": ["model/pidnet_s.onnx", "model/spiced_brain.onnx"],
+    "real_vehicle_control_allowed": false
+  },
+  "benchmark": {
+    "fixture": "artifacts/phase5d_robustness/20260715_211454/runtime_fixture",
+    "warmup_iterations": 5,
+    "control_iterations": 100,
+    "xfeat_iterations": 20,
+    "cpu_fallback_iterations": 10,
+    "semantic_model": "model/warehouse_nav14_candidate.onnx",
+    "semantic_resolution": [320, 240],
+    "semantic_rate_hz": 20,
+    "xfeat_model": "model/xfeat_640x640.onnx",
+    "xfeat_model_resolution": [640, 640],
+    "xfeat_source_resolution": [640, 480],
+    "xfeat_rate_hz": 2,
+    "preferred_provider": "CUDAExecutionProvider",
+    "fallback_provider": "CPUExecutionProvider"
+  },
+  "stream_bandwidth": {
+    "native_rgb": {"shape": [480, 640, 3], "bytes_per_element": 1, "rate_hz": 20},
+    "metric_depth": {"shape": [480, 640], "bytes_per_element": 4, "rate_hz": 20},
+    "semantic_bev": {"shape": [192, 192, 14], "bytes_per_element": 4, "rate_hz": 20},
+    "xfeat_tensor": {"shape": [640, 640], "bytes_per_element": 4, "rate_hz": 2}
+  },
+  "acceptance": {
+    "control_pipeline_p95_ms_max": 50.0,
+    "xfeat_p95_ms_max": 500.0,
+    "nmpc_p95_ms_max": 10.0,
+    "cuda_provider_required": true,
+    "profile_evidence_required": true
+  },
+  "recommended_requirements": {
+    "memory_gb_min": 16,
+    "memory_bandwidth_gbps_min": 100.0,
+    "ai_tops_min": 100,
+    "module_power_w_max": 40
+  },
+  "hardware_candidates": [
+    {
+      "id": "jetson_orin_nano_super_8gb",
+      "name": "NVIDIA Jetson Orin Nano Super Developer Kit",
+      "memory_gb": 8,
+      "memory_bandwidth_gbps": 102.0,
+      "ai_tops": 67,
+      "module_power_w_max": 25,
+      "role": "minimum prototype only",
+      "official_source": "https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/nano-super-developer-kit/"
+    },
+    {
+      "id": "jetson_orin_nx_16gb_super",
+      "name": "NVIDIA Jetson Orin NX 16GB Super",
+      "memory_gb": 16,
+      "memory_bandwidth_gbps": 102.0,
+      "ai_tops": 157,
+      "module_power_w_max": 40,
+      "role": "recommended deployment target",
+      "official_source": "https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/"
+    },
+    {
+      "id": "jetson_agx_orin_32gb",
+      "name": "NVIDIA Jetson AGX Orin 32GB",
+      "memory_gb": 32,
+      "memory_bandwidth_gbps": 204.8,
+      "ai_tops": 200,
+      "module_power_w_max": 40,
+      "role": "high-headroom option",
+      "official_source": "https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/"
+    }
+  ],
+  "sensor_candidate": {
+    "id": "realsense_d455",
+    "name": "RealSense Depth Camera D455",
+    "interface": "USB-C 3.1 Gen 1",
+    "depth_resolution_max": [1280, 720],
+    "depth_fps_max": 90,
+    "rgb_resolution_max": [1280, 800],
+    "rgb_fps_max": 30,
+    "global_shutter_depth_and_rgb": true,
+    "ideal_range_m": [0.6, 6.0],
+    "official_source": "https://www.realsenseai.com/products/real-sense-depth-camera-d455f/"
+  },
+  "lifecycle": {
+    "jetson_orin_modules_available_through": "2032-01",
+    "official_source": "https://developer.nvidia.com/embedded/lifecycle",
+    "developer_kit_is_for_prototyping_only": true
+  },
+  "promotion": {
+    "hardware_purchase_recommendation_allowed_after_pass": true,
+    "target_hardware_benchmark_required_after_purchase": true,
+    "real_vehicle_control_allowed": false
+  }
+}

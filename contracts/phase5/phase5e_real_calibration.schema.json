@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase5e-real-camera-calibration-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "device_identity",
+    "image_size",
+    "intrinsics",
+    "extrinsics",
+    "metric_depth",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase5e-real-camera-calibration-v1"},
+    "device_identity": {
+      "type": "object",
+      "required": ["vendor_id", "product_id", "serial"],
+      "properties": {
+        "vendor_id": {"type": "string", "minLength": 1},
+        "product_id": {"type": "string", "minLength": 1},
+        "serial": {"type": "string", "minLength": 1}
+      }
+    },
+    "image_size": {
+      "type": "array",
+      "prefixItems": [{"const": 640}, {"const": 480}],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "intrinsics": {
+      "type": "object",
+      "required": ["camera_matrix", "distortion", "quality"],
+      "properties": {
+        "camera_matrix": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {"type": "number"}
+          }
+        },
+        "distortion": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {"type": "number"}
+        },
+        "quality": {
+          "type": "object",
+          "required": [
+            "checkerboard_views",
+            "occupied_image_bins_3x3",
+            "rms_reprojection_error_px",
+            "per_view_p95_error_px"
+          ],
+          "properties": {
+            "checkerboard_views": {"type": "integer", "minimum": 20},
+            "occupied_image_bins_3x3": {"type": "integer", "minimum": 6, "maximum": 9},
+            "rms_reprojection_error_px": {"type": "number", "minimum": 0.0},
+            "per_view_p95_error_px": {"type": "number", "minimum": 0.0}
+          }
+        }
+      }
+    },
+    "extrinsics": {
+      "type": "object",
+      "required": [
+        "T_body_camera",
+        "target_based_measurement",
+        "translation_uncertainty_m",
+        "rotation_uncertainty_deg"
+      ],
+      "properties": {
+        "T_body_camera": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {"type": "number"}
+          }
+        },
+        "target_based_measurement": {"const": true},
+        "translation_uncertainty_m": {"type": "number", "minimum": 0.0},
+        "rotation_uncertainty_deg": {"type": "number", "minimum": 0.0}
+      }
+    },
+    "metric_depth": {
+      "type": "object",
+      "required": [
+        "registered_to_rgb",
+        "units",
+        "plane_scale_relative_error",
+        "paired_frame_ratio"
+      ],
+      "properties": {
+        "registered_to_rgb": {"const": true},
+        "units": {"const": "meters"},
+        "plane_scale_relative_error": {"type": "number", "minimum": 0.0},
+        "paired_frame_ratio": {"type": "number", "minimum": 0.0, "maximum": 1.0}
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    }
+  }
+}

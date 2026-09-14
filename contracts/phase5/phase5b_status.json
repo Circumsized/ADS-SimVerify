@@ -1,0 +1,91 @@
+{
+  "schema_version": "phase5b-status-v1",
+  "status": "phase5b_shadow_frozen_candidate_rejected",
+  "frozen_at": "2026-07-15T17:04:34+08:00",
+  "phase5a_status": {
+    "path": "contracts/phase5/phase5a_status.json",
+    "sha256": "31d08150513eabe3b75beaec3626d54090009dd4595c6c4f653bcce57ceb057f"
+  },
+  "control_authority": {
+    "owner": "Phase 5-A USD Oracle NMPC",
+    "shadow_control_outputs": false,
+    "candidate_promoted": false
+  },
+  "implementation": {
+    "shadow_replay": {
+      "path": "contracts/phase5/phase5b_shadow_replay.py",
+      "sha256": "5b5e5358973f4f83e93a9339ea9acda5b18ebd8d31f982474dcbd82083dc57b0"
+    },
+    "unit_tests": {
+      "path": "contracts/phase5/test_phase5b_shadow.py",
+      "sha256": "ef72677a7b65cf7fadfc7fcae8b55898ba81ba4687af86d78323d917ddffb3ae"
+    },
+    "validator": {
+      "path": "contracts/phase5/validate_phase5b.py",
+      "sha256": "993a29fd276467ae58e3681dc9245ba12aec2c6417f16eaae6697876d74057a2"
+    }
+  },
+  "candidate_model": {
+    "path": "model/pidnet_s.onnx",
+    "sha256": "bddf1a3f0ff3634531ae085646473faa2000271b1f45f57ede4cb7b07878d348"
+  },
+  "shadow_evidence": {
+    "summary": {
+      "path": "artifacts/phase5b_shadow/20260715_170434/summary.json",
+      "sha256": "9ea7d8c2e6a452bef03f1a209801f2abdb179ce29738f8eefc170f116c1d7dc7"
+    },
+    "telemetry": {
+      "path": "artifacts/phase5b_shadow/20260715_170434/frames.csv",
+      "sha256": "df057d2f6b0a482d76ab666a59e4fc4819b7b51c38c501b912f65a13e081df37"
+    },
+    "frames": 1143,
+    "exact_frame_ratio": 1.0,
+    "common_roi_coverage_mean": 0.906274462402726,
+    "evidence_images": 18
+  },
+  "measured_result": {
+    "infrastructure": {
+      "evidence_volume_passed": true,
+      "pidnet_latency_p95_ms": 9.986658899999991,
+      "depth_lift_latency_p95_ms": 15.536673099999994,
+      "latency_budget_ms": 50.0
+    },
+    "pidnet_flat_micro": {
+      "occupied_iou": 0.12573292536629418,
+      "free_iou": 0.5621183531421203,
+      "false_free_rate": 0.2823235237545682,
+      "false_occupied_rate": 0.4236025059707175,
+      "nuisance_false_stop_frames": 876,
+      "metric_gate_passed": false
+    },
+    "pidnet_depth_micro": {
+      "occupied_iou": 0.1336409699601882,
+      "free_iou": 0.5790554067581095,
+      "false_free_rate": 0.26135795345258706,
+      "false_occupied_rate": 0.4073275414488941,
+      "nuisance_false_stop_frames": 672,
+      "metric_gate_passed": false
+    },
+    "gt_depth_lift_micro": {
+      "occupied_iou": 0.41860688243571703,
+      "false_free_rate": 0.4964800923254472,
+      "metric_gate_passed": false
+    },
+    "risk_positive_coverage": {
+      "oracle_stop_frames": 0,
+      "dangerous_false_go_claim_allowed": false
+    }
+  },
+  "hardware_boundary": {
+    "gpu": "NVIDIA GeForce RTX 3060 12 GiB",
+    "sampled_process_gpu_memory_mib": 2063,
+    "pidnet_execution_provider": "CUDAExecutionProvider"
+  },
+  "blockers": [
+    "Cityscapes PIDNet has no warehouse_nav14 semantic adaptation",
+    "static Oracle trajectories contain no emergency-stop-positive frame",
+    "real camera distortion coefficients remain unfrozen",
+    "GT depth-lift still misses vertical occupancy under the current camera geometry"
+  ],
+  "next_gate": "Train/adapt a warehouse segmentation candidate and add dynamic obstacle positive-stop shadow scenarios before any perception control promotion"
+}

@@ -1,0 +1,96 @@
+{
+  "schema_version": "fsd-simverify-runtime-contract-v1",
+  "status": "frozen",
+  "frozen_at": "2026-09-03",
+  "purpose": "冻结 Phase 5-I/Phase 5-J/Phase 5-K 白盒通过的 Dora 仿真主链节点边界、启动条件与失败模式。docs/evidence/final_metrics.json 与 HANDOFF.md 仍负责总体指标与交接说明,本文件只描述运行时契约。",
+  "control_authority": {
+    "wheel_publisher": "phase5i_safety_supervisor",
+    "wheel_publisher_dora_stream_id": "safe_control",
+    "actuator_local_watchdog_ms": 150,
+    "real_vehicle_control_allowed": false
+  },
+  "nodes": {
+    "phase5k_isaac_plant": {
+      "type": "python-isaac",
+      "script": "contracts/phase5/phase5k_isaac_plant.py",
+      "loop_hz": 20,
+      "publishes": ["control_rgb", "metric_depth", "vehicle_state", "plant_telemetry", "localization_image_640", "run_complete"],
+      "consumes": ["dora/timer/millis/50", "phase5k_safety_supervisor/safe_control", "phase5k_fault_injector/fault_command"],
+      "side_effects": ["writes artifacts/phase5k/<run_mode>/"],
+      "env": ["PHASE5K_OUTPUT", "PHASE5K_RUN_MODE", "PHASE5K_GENERATION", "PHASE5K_MAX_FRAMES", "ISAAC_SIM_PYTHON_SH"]
+    },
+    "phase5k_controller": {
+      "type": "python-nmpc",
+      "script": "contracts/phase5/phase5j_controller.py",
+      "loop_hz": 20,
+      "publishes": ["proposed_control", "controller_heartbeat"],
+      "consumes": ["control_rgb", "metric_depth", "vehicle_state", "run_complete"],
+      "env": ["PHASE5J_RUN_MODE", "PHASE5J_GENERATION"]
+    },
+    "phase5k_safety_supervisor": {
+      "type": "python-supervisor",
+      "script": "contracts/phase5/phase5j_safety_node.py",
+      "loop_hz": 20,
+      "publishes": ["safe_control", "safety_state", "supervisor_heartbeat"],
+      "consumes": ["dora/timer/millis/50", "proposed_control", "safety_request", "run_complete"],
+      "safety_contracts": {
+        "warmup_healthy_frames_required": 5,
+        "stale_input_cutoff_ms": 150,
+        "emergency_stop_is_latched": true,
+        "reset_requires_explicit_signal": true
+      }
+    },
+    "phase5k_fault_injector": {
+      "type": "python-fault",
+      "script": "contracts/phase5/phase5k_fault_injector.py",
+      "loop_hz": 20,
+      "publishes": ["fault_command", "safety_request", "fault_event"],
+      "consumes": ["plant_telemetry", "controller_heartbeat", "supervisor_heartbeat", "run_complete"]
+    },
+    "phase5k_evidence_sink": {
+      "type": "python-evidence",
+      "script": "contracts/phase5/phase5k_evidence_sink.py",
+      "loop_hz": 50,
+      "publishes": [],
+      "consumes": ["plant_telemetry", "fault_event", "controller_heartbeat", "supervisor_heartbeat", "run_complete"]
+    },
+    "host_watchdog": {
+      "type": "out-of-band-process",
+      "script": "contracts/phase5/phase5k_host_watchdog.py",
+      "loop_hz": null,
+      "publishes": [],
+      "consumes": [],
+      "guarantees": ["signals the Isaac plant and writes a zero command to the pre-allocated mmap ledger when Dora routing becomes unreachable"]
+    }
+  },
+  "stream_fail_safe": {
+    "odometry.world.v1": {"on_missing": "publish zero, mark valid=false"},
+    "bev.occupancy.perception.v1": {"on_missing": "publish occupied/unknown grid, valid=false"},
+    "features.xfeat64.v1": {"on_missing": "skip localization update"},
+    "ttc.optical.v1": {"on_missing": "publish ttc=NaN; safety supervisor forces safe_control=zero"},
+    "control.autonomous.v1": {"on_missing": "supervisor latches emergency stop; actuator watchdog stops wheel after 150 ms"}
+  },
+  "startup_sequence": [
+    "phase5k_evidence_sink ready",
+    "phase5k_fault_injector ready",
+    "phase5k_controller ready and writing controller_heartbeat",
+    "phase5k_safety_supervisor receives 5 consecutive healthy proposed_control frames",
+    "phase5k_isaac_plant receives safe_control and issues first wheel command"
+  ],
+  "shutdown_sequence": [
+    "phase5k_isaac_plant finishes run_complete broadcast",
+    "phase5k_evidence_sink flushes pre-allocated ledger",
+    "phase5k_fault_injector and phase5k_safety_supervisor drop subscriptions",
+    "host_watchdog stops asserting mmap zero-command"
+  ],
+  "known_blockers": [
+    "real_vehicle_control_allowed must remain false until contracts/real_vehicle/pre_hardware_status.json reports all six gates green",
+    "phase5k_isaac_plant depends on contracts/phase3/domain_scene_baseline.json USD semantic overlay"
+  ],
+  "evidence_anchors": [
+    "contracts/phase5/phase5i_status.json",
+    "contracts/phase5/phase5j_status.json",
+    "contracts/phase5/phase5k_status.json",
+    "docs/evidence/final_metrics.json"
+  ]
+}

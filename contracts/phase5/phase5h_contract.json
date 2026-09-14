@@ -1,0 +1,62 @@
+{
+  "schema_version": "phase5h-contract-v1",
+  "status": "frozen_before_execution",
+  "parent_status": "contracts/phase5/phase5g_status.json",
+  "scope": {
+    "domain": "Isaac warehouse simulation with PhysX Jetbot articulation",
+    "physics_rate_hz": 100,
+    "sensor_control_rate_hz": 20,
+    "command_owner": "warehouse_nav14 perception -> metric depth-lift BEV -> acados NMPC -> differential wheel velocity targets",
+    "state_feedback": "Isaac articulation root pose and measured wheel velocities only",
+    "forbidden_state_update": "direct root-pose integration or teleportation after scenario initialization",
+    "oracle_role": "global A* reference plus independent allow-or-abort swept-collision supervisor",
+    "real_vehicle_control_allowed": false
+  },
+  "robot_fixture": {
+    "source_usd": "assets/fsd_car_racetrack.usd</Root/jetbot>",
+    "articulation_path": "/Phase5HJetbot",
+    "wheel_dofs": ["left_wheel_joint", "right_wheel_joint"],
+    "wheel_radius_m": 0.03362,
+    "wheel_base_m": 0.1125,
+    "camera_path": "/Phase5HJetbot/chassis/rgb_camera/jetbot_camera"
+  },
+  "latency_optimization": {
+    "render_resolution": [320, 240],
+    "camera_fov_preserved_by_scaled_intrinsics": true,
+    "jpeg_round_trip": false,
+    "render_api": "World.step(render=True)",
+    "warmup_frames_excluded": 10,
+    "latency_start": "before the 100 Hz physics plus RGB/depth render step",
+    "latency_end": "after both articulation wheel velocity targets are written"
+  },
+  "scenarios": ["straight_aisle", "diagonal_turn", "pallet_detour", "crossing_cart"],
+  "scenario_poses": {
+    "straight_aisle": {"start": [1.0, -2.0, 0.0], "goal": [7.0, -2.0, 0.0]},
+    "diagonal_turn": {"start": [1.0, -2.0, 1.5707963267948966], "goal": [7.0, 2.0, 0.0]},
+    "pallet_detour": {"start": [-4.0, 13.5, 0.0], "goal": [6.5, 13.5, 0.0]},
+    "crossing_cart": {"start": [1.0, -2.0, 0.0], "goal": [7.0, -2.0, 0.0]}
+  },
+  "acceptance": {
+    "required_scenarios": 4,
+    "reached_scenarios": 4,
+    "supervisor_aborts": 0,
+    "static_collision_count": 0,
+    "dynamic_collision_count": 0,
+    "solver_failures": 0,
+    "wheel_command_applied_ratio_min": 1.0,
+    "physics_feedback_ratio_min": 1.0,
+    "candidate_valid_ratio_mean_min": 0.99,
+    "sensor_to_wheel_p95_ms_max": 50.0,
+    "path_error_p95_m_max": 0.30,
+    "terminal_position_error_m_max": 0.15,
+    "terminal_yaw_error_rad_max": 0.12,
+    "dynamic_encounter_frames_min": 10,
+    "minimum_root_travel_m": 1.0,
+    "wheel_odometry_ratio_min": 0.75,
+    "wheel_odometry_ratio_max": 1.25
+  },
+  "promotion": {
+    "isaac_articulation_takeover_allowed": true,
+    "real_vehicle_control_allowed": false
+  }
+}

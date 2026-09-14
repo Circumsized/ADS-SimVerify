@@ -1,0 +1,340 @@
+{
+  "schema_version": "1.0.0",
+  "status": "frozen",
+  "frozen_at": "2026-07-15",
+  "phase0_baseline": "artifacts/baselines/phase0_20260715_134903",
+  "scope": "DORA transport, coordinate frames, BEV geometry, and policy boundary",
+  "deployment_domain": "unresolved",
+  "coordinate_frames": {
+    "W": {
+      "name": "Isaac world",
+      "handedness": "right-handed",
+      "axes": "x and y span the ground plane; z points up; yaw=0 faces +x; positive yaw is counter-clockwise about +z",
+      "units": "m, rad"
+    },
+    "E": {
+      "name": "ego/body",
+      "handedness": "right-handed",
+      "axes": "x forward, y left, z up",
+      "world_to_ego": "x_e=dx*cos(yaw)+dy*sin(yaw); y_e=-dx*sin(yaw)+dy*cos(yaw)",
+      "units": "m, rad"
+    },
+    "C": {
+      "name": "OpenCV camera",
+      "handedness": "right-handed",
+      "axes": "x right, y down, z forward",
+      "units": "pixel or m as declared by the payload"
+    },
+    "BEV": {
+      "name": "ego-centered raster",
+      "axes": "decreasing row is ego-forward; decreasing column is ego-left",
+      "origin_cell": [95.5, 95.5],
+      "shape": [192, 192],
+      "meters_per_cell": 0.10416666666666667,
+      "physical_extent_m": [20.0, 20.0]
+    }
+  },
+  "streams": {
+    "timer.100ms.v1": {
+      "version": 1,
+      "dtype": "dora.timer",
+      "shape": [1],
+      "fields": ["tick"],
+      "unit": ["event"],
+      "frame": "none",
+      "nominal_hz": 10.0,
+      "freshness": {"max_age_ms": 200, "timestamp": "DORA envelope publish time"},
+      "failure_policy": "No teleop heartbeat is emitted; keyboard bridge remains fail-safe stopped."
+    },
+    "odometry.world.v1": {
+      "version": 1,
+      "dtype": "arrow.float32",
+      "shape": [4],
+      "fields": ["x", "y", "yaw", "linear_speed"],
+      "unit": ["m", "m", "rad", "m/s"],
+      "frame": "W",
+      "nominal_hz": 100.0,
+      "freshness": {"max_age_ms": 250, "timestamp": "DORA envelope publish time"},
+      "validity": "All values finite; yaw normalized by consumers when differenced.",
+      "failure_policy": "Autonomous control publishes [0,0] when stale or invalid."
+    },
+    "image.jpeg.v1": {
+      "version": 1,
+      "dtype": "arrow.uint8",
+      "shape": ["encoded_bytes"],
+      "fields": ["jpeg_payload"],
+      "unit": ["byte"],
+      "frame": "C",
+      "encoding": "JPEG, 640x480, quality=80; decoded OpenCV image contract is BGR8",
+      "nominal_hz": 100.0,
+      "freshness": {"max_age_ms": 200, "timestamp": "DORA envelope publish time"},
+      "failure_policy": "Perception emits occupied/unknown fail-safe BEV; optical TTC emits emergency value."
+    },
+    "bev.occupancy.oracle.v1": {
+      "version": 1,
+      "dtype": "arrow.uint8",
+      "shape": [192, 192],
+      "layout": "row-major flattened on transport",
+      "fields": ["occupancy"],
+      "unit": ["class_id"],
+      "frame": "BEV",
+      "encoding": {"0": "free", "255": "occupied"},
+      "nominal_hz": 100.0,
+      "freshness": {"max_age_ms": 500, "timestamp": "DORA envelope publish time"},
+      "failure_policy": "Missing grid is unknown/occupied; never infer free space from absence."
+    },
+    "bev.occupancy.perception.v1": {
+      "version": 1,
+      "dtype": "arrow.uint8",
+      "shape": [192, 192],
+      "layout": "row-major flattened on transport",
+      "fields": ["occupancy"],
+      "unit": ["class_id"],
+      "frame": "BEV",
+      "encoding": {"0": "observed road/free", "255": "occupied or unknown"},
+      "nominal_hz": 20.0,
+      "freshness": {"max_age_ms": 500, "timestamp": "source_timestamp metadata and DORA envelope"},
+      "required_metadata": ["source_timestamp", "sequence", "shape", "frame", "meters_per_cell", "valid", "latency_ms"],
+      "failure_policy": "Publish a full occupied/unknown grid with valid=false and an error string."
+    },
+    "bev.semantic.cityscapes14.v1": {
+      "version": 1,
+      "dtype": "arrow.uint8",
+      "shape": [14, 192, 192],
+      "layout": "CHW one-hot, row-major planes flattened on transport",
+      "fields": ["road", "sidewalk", "building", "wall", "fence", "pole", "traffic-control", "vegetation", "terrain", "person-or-rider", "car", "heavy-vehicle", "two-wheel-vehicle", "unknown-or-sky"],
+      "unit": ["binary"],
+      "frame": "BEV",
+      "nominal_hz": 20.0,
+      "freshness": {"max_age_ms": 500, "timestamp": "source_timestamp metadata and DORA envelope"},
+      "failure_policy": "Set only unknown-or-sky for every cell and mark metadata valid=false."
+    },
+    "features.xfeat64.v1": {
+      "version": 1,
+      "dtype": "arrow.struct<x:float32,y:float32,score:float32,descriptor:fixed_size_list<float32,64>>",
+      "shape": ["N<=200"],
+      "fields": ["x", "y", "score", "descriptor[64]"],
+      "unit": ["pixel", "pixel", "probability", "unit_l2_descriptor"],
+      "frame": "source image pixels",
+      "nominal_hz": 2.0,
+      "freshness": {"max_age_ms": 1000, "timestamp": "source_timestamp metadata and DORA envelope"},
+      "failure_policy": "Skip localization update; never create a synthetic feature match."
+    },
+    "goal.production.v1": {
+      "version": 1,
+      "dora_stream_id": "human_prior",
+      "dtype": "arrow.float32",
+      "shape": [3],
+      "fields": ["goal_x", "goal_y", "goal_yaw"],
+      "unit": ["m", "m", "rad"],
+      "frame": "W",
+      "nominal_hz": 100.0,
+      "freshness": {"max_age_ms": 5000, "timestamp": "DORA envelope publish time"},
+      "failure_policy": "Autonomous control publishes [0,0] when stale or invalid."
+    },
+    "goal.collection.v1": {
+      "version": 1,
+      "dora_stream_id": "human_prior",
+      "dtype": "arrow.float32",
+      "shape": [3],
+      "fields": ["goal_x", "goal_y", "recording_active"],
+      "unit": ["m", "m", "bool_as_float32"],
+      "frame": "W",
+      "nominal_hz": 10.0,
+      "freshness": {"max_age_ms": 500, "timestamp": "DORA envelope publish time"},
+      "failure_policy": "Logger pauses collection and HUD marks the goal stale."
+    },
+    "ttc.optical.v1": {
+      "version": 1,
+      "dtype": "arrow.float32",
+      "shape": [1],
+      "fields": ["ttc"],
+      "unit": ["s"],
+      "frame": "C/E forward collision corridor",
+      "range": [0.1, 10.0],
+      "nominal_hz": 20.0,
+      "freshness": {"max_age_ms": 250, "timestamp": "DORA envelope publish time"},
+      "failure_policy": "NaN, invalid, missing, or stale TTC forces [0,0]."
+    },
+    "control.autonomous.v1": {
+      "version": 1,
+      "dora_stream_id": "control_cmd",
+      "dtype": "arrow.float32",
+      "shape": [2],
+      "fields": ["linear_velocity", "yaw_rate"],
+      "unit": ["m/s", "rad/s"],
+      "frame": "E",
+      "range": [[0.0, 0.8], [-0.6, 0.6]],
+      "nominal_hz": 20.0,
+      "freshness": {"max_age_ms": 200, "timestamp": "DORA envelope publish time"},
+      "failure_policy": "Consumer sets wheel targets to zero after 200ms without a command."
+    },
+    "control.teleop.v1": {
+      "version": 1,
+      "dora_stream_id": "control_cmd",
+      "dtype": "arrow.float32",
+      "shape": [2],
+      "fields": ["linear_velocity", "yaw_rate"],
+      "unit": ["m/s", "rad/s"],
+      "frame": "E",
+      "range": [[0.0, 0.8], [-1.0, 1.0]],
+      "nominal_hz": 50.0,
+      "freshness": {"max_age_ms": 200, "timestamp": "DORA envelope publish time"},
+      "failure_policy": "Keyboard bridge emits one [0,0] command after UDP staleness; Isaac independently stops after 200ms."
+    },
+    "control.bc_direct.v1": {
+      "version": 1,
+      "dora_stream_id": "control_cmd",
+      "dtype": "arrow.float32",
+      "shape": [2],
+      "fields": ["linear_velocity", "yaw_rate"],
+      "unit": ["m/s", "rad/s"],
+      "frame": "E",
+      "range": [[0.0, 0.8], [-0.9, 0.9]],
+      "nominal_hz": 100.0,
+      "freshness": {"max_age_ms": 200, "timestamp": "DORA envelope publish time"},
+      "failure_policy": "Isaac sets wheel targets to zero after 200ms without a command."
+    }
+  },
+  "policy_boundary": {
+    "observation.logical.v1": {
+      "version": 1,
+      "dtype": "composite",
+      "shape": ["blocks"],
+      "fields": ["ego_state", "local_goal", "bev_semantic"],
+      "unit": ["mixed"],
+      "frame": "E/BEV",
+      "nominal_hz": 20.0,
+      "freshness": {"max_age_ms": 250, "timestamp": "all blocks must be synchronized to the selected observation time"},
+      "failure_policy": "Do not run policy inference; command zero through the safety controller.",
+      "blocks": {
+        "ego_state": {"dtype": "float32", "shape": [2], "fields": ["linear_speed", "yaw_rate"], "unit": ["m/s", "rad/s"]},
+        "local_goal": {"dtype": "float32", "shape": [4], "fields": ["forward", "left", "distance", "bearing"], "unit": ["m", "m", "m", "rad"]},
+        "bev_semantic": {"contract": "bev.semantic.cityscapes14.v1"}
+      },
+      "note": "The transport blocks are frozen. CNN/recurrent latent dimensions are model implementation details and are not transport contracts."
+    },
+    "action.pam.v1": {
+      "version": 1,
+      "dtype": "float32",
+      "shape": [2],
+      "fields": ["desired_speed_normalized", "desired_curvature_normalized"],
+      "unit": ["ratio", "ratio"],
+      "frame": "E",
+      "range": [[0.0, 1.0], [-1.0, 1.0]],
+      "nominal_hz": 20.0,
+      "freshness": {"max_age_ms": 250, "timestamp": "policy inference time"},
+      "failure_policy": "Reject non-finite/out-of-range output and command zero.",
+      "mapping": {"v_des_mps": "a_v*0.8", "kappa_per_m": "a_kappa*1.25"},
+      "ownership": "High-level reference only; NMPC and TTC retain final control authority."
+    }
+  },
+  "topologies": {
+    "dora_dataflow.yaml": [
+      {"source": "fast_brain_nmpc/control_cmd", "target": "isaac_sim_env/control_cmd", "contract": "control.autonomous.v1"},
+      {"source": "isaac_sim_env/jpeg_image", "target": "core_perception/jpeg_image", "contract": "image.jpeg.v1"},
+      {"source": "isaac_sim_env/jpeg_image", "target": "optical_reflex_node/jpeg_image", "contract": "image.jpeg.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "optical_reflex_node/odometry", "contract": "odometry.world.v1"},
+      {"source": "core_perception/bev_grid", "target": "optical_reflex_node/bev_grid", "contract": "bev.occupancy.perception.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "fast_brain_nmpc/odometry", "contract": "odometry.world.v1"},
+      {"source": "slow_brain_mapper/human_prior", "target": "fast_brain_nmpc/human_prior", "contract": "goal.production.v1"},
+      {"source": "optical_reflex_node/ttc", "target": "fast_brain_nmpc/ttc", "contract": "ttc.optical.v1"},
+      {"source": "core_perception/bev_grid", "target": "fast_brain_nmpc/bev_grid", "contract": "bev.occupancy.perception.v1"},
+      {"source": "core_perception/xfeat_features", "target": "slow_brain_mapper/xfeat_features", "contract": "features.xfeat64.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "slow_brain_mapper/odometry", "contract": "odometry.world.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "telemetry_dashboard/odometry", "contract": "odometry.world.v1"},
+      {"source": "core_perception/xfeat_features", "target": "telemetry_dashboard/xfeat_features", "contract": "features.xfeat64.v1"},
+      {"source": "slow_brain_mapper/human_prior", "target": "telemetry_dashboard/human_prior", "contract": "goal.production.v1"},
+      {"source": "fast_brain_nmpc/control_cmd", "target": "telemetry_dashboard/control_cmd", "contract": "control.autonomous.v1"},
+      {"source": "isaac_sim_env/jpeg_image", "target": "telemetry_dashboard/jpeg_image", "contract": "image.jpeg.v1"},
+      {"source": "core_perception/bev_grid", "target": "telemetry_dashboard/bev_grid", "contract": "bev.occupancy.perception.v1"}
+    ],
+    "dora_dataflow_spice.yaml": [
+      {"source": "keyboard_teleop/control_cmd", "target": "isaac_sim_env/control_cmd", "contract": "control.teleop.v1"},
+      {"source": "dora/timer/millis/100", "target": "keyboard_teleop/tick", "contract": "timer.100ms.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "expert_data_logger/odometry", "contract": "odometry.world.v1"},
+      {"source": "isaac_sim_env/human_prior", "target": "expert_data_logger/human_prior", "contract": "goal.collection.v1"},
+      {"source": "isaac_sim_env/bev_grid", "target": "expert_data_logger/bev_grid", "contract": "bev.occupancy.oracle.v1"},
+      {"source": "keyboard_teleop/control_cmd", "target": "expert_data_logger/control_cmd", "contract": "control.teleop.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "goal_hud/odometry", "contract": "odometry.world.v1"},
+      {"source": "isaac_sim_env/human_prior", "target": "goal_hud/human_prior", "contract": "goal.collection.v1"}
+    ],
+    "dora_dataflow_spice_bc.yaml": [
+      {"source": "bc_brain/control_cmd", "target": "isaac_sim_env/control_cmd", "contract": "control.bc_direct.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "bc_brain/odometry", "contract": "odometry.world.v1"},
+      {"source": "isaac_sim_env/human_prior", "target": "bc_brain/human_prior", "contract": "goal.collection.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "goal_hud/odometry", "contract": "odometry.world.v1"},
+      {"source": "isaac_sim_env/human_prior", "target": "goal_hud/human_prior", "contract": "goal.collection.v1"}
+    ],
+    "dora_dataflow_spice_bc_probe.yaml": [
+      {"source": "bc_brain/control_cmd", "target": "isaac_sim_env/control_cmd", "contract": "control.bc_direct.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "bc_brain/odometry", "contract": "odometry.world.v1"},
+      {"source": "isaac_sim_env/human_prior", "target": "bc_brain/human_prior", "contract": "goal.collection.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "bc_safety_probe/odometry", "contract": "odometry.world.v1"},
+      {"source": "isaac_sim_env/human_prior", "target": "bc_safety_probe/human_prior", "contract": "goal.collection.v1"},
+      {"source": "isaac_sim_env/bev_grid", "target": "bc_safety_probe/bev_grid", "contract": "bev.occupancy.oracle.v1"},
+      {"source": "bc_brain/control_cmd", "target": "bc_safety_probe/control_cmd", "contract": "control.bc_direct.v1"},
+      {"source": "isaac_sim_env/odometry", "target": "goal_hud/odometry", "contract": "odometry.world.v1"},
+      {"source": "isaac_sim_env/human_prior", "target": "goal_hud/human_prior", "contract": "goal.collection.v1"}
+    ]
+  },
+  "known_deviations": [
+    {
+      "id": "P1-D001",
+      "severity": "critical",
+      "owner_phase": "Phase 2",
+      "summary": "human_prior[2] is goal_yaw in production but recording_active in collection and BC topologies.",
+      "evidence": ["core-decision/src/bin/slow_brain_node.rs:204", "simulation-env/isaac_dora_node.py:506"]
+    },
+    {
+      "id": "P1-D002",
+      "severity": "high",
+      "owner_phase": "Phase 2",
+      "summary": "Python producers rely on DORA publish timestamps and do not propagate a common source capture timestamp or sequence across odometry, RGB, oracle BEV, goal, control, and TTC.",
+      "evidence": ["simulation-env/isaac_dora_node.py:455", "simulation-env/optical_reflex_node.py:57"]
+    },
+    {
+      "id": "P1-D003",
+      "severity": "high",
+      "owner_phase": "Phase 2",
+      "summary": "Isaac annotator RGB channel order is copied into a variable named bgr_frame before cv2.imencode; channel correctness is unverified.",
+      "evidence": ["simulation-env/isaac_dora_node.py:389", "simulation-env/isaac_dora_node.py:495"]
+    },
+    {
+      "id": "P1-D004",
+      "severity": "high",
+      "owner_phase": "Phase 2",
+      "summary": "Expert CSV rows join latest goal, BEV and odometry on control arrival without source-time synchronization.",
+      "evidence": ["simulation-env/expert_logger_node.py:150", "simulation-env/expert_logger_node.py:177"]
+    },
+    {
+      "id": "P1-D005",
+      "severity": "critical",
+      "owner_phase": "Phase 7",
+      "summary": "Current 15D BC/PPO observation is goal-only and does not satisfy observation.logical.v1; BC also bypasses NMPC and TTC.",
+      "evidence": ["simulation-env/ppo_brain_node.py:70", "dora_dataflow_spice_bc.yaml:25"]
+    },
+    {
+      "id": "P1-D006",
+      "severity": "medium",
+      "owner_phase": "Phase 2",
+      "summary": "Isaac oracle BEV uses primitive centers and fixed raster circles, not semantic GT masks or geometry-accurate footprints.",
+      "evidence": ["simulation-env/isaac_dora_node.py:475", "simulation-env/isaac_dora_node.py:491"]
+    },
+    {
+      "id": "P1-D007",
+      "severity": "medium",
+      "owner_phase": "Phase 2",
+      "summary": "dora_dataflow.yaml references a telemetry_dashboard path that is absent from the current worktree.",
+      "evidence": ["dora_dataflow.yaml:83"]
+    }
+  ],
+  "unresolved_decisions": [
+    {
+      "id": "P1-U001",
+      "gate": "G0",
+      "decision": "First real deployment domain: indoor warehouse/track or outdoor road.",
+      "impact": "Selects semantic taxonomy, high-fidelity USD assets, PIDNet fine-tuning data and acceptance dataset."
+    }
+  ]
+}

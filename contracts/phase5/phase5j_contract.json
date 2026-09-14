@@ -1,0 +1,48 @@
+{
+  "schema_version": "phase5j-contract-v2",
+  "status": "frozen_before_execution",
+  "parent_status": "contracts/phase5/phase5i_status.json",
+  "scope": {
+    "domain": "formal Dora Isaac articulation resilience gate",
+    "wheel_command_authority": "phase5j_safety_supervisor only",
+    "fault_domain_split": "Isaac actuator remains alive when controller or supervisor is SIGKILLed",
+    "real_vehicle_control_allowed": false
+  },
+  "timing": {
+    "physics_rate_hz": 100,
+    "control_rate_hz": 20,
+    "control_period_ms": 50.0,
+    "supervisor_watchdog_ms": 100.0,
+    "actuator_watchdog_ms": 100.0,
+    "startup_warmup_frames": 5,
+    "sensor_to_wheel_p95_ms_max": 50.0
+  },
+  "endurance": {
+    "scenarios": ["straight_aisle", "diagonal_turn", "pallet_detour", "crossing_cart"],
+    "scenario_cycles": 2,
+    "frames_per_episode": 550,
+    "minimum_frames": 4400,
+    "static_collision_count": 0,
+    "dynamic_collision_count": 0
+  },
+  "fault_gate": {
+    "runs": ["controller_sigkill", "supervisor_sigkill", "sensor_freeze", "restart_recovery"],
+    "frames_per_run": 300,
+    "sigkill_frame": 80,
+    "sensor_freeze_start_frame": 80,
+    "sensor_freeze_end_frame": 88,
+    "sensor_reset_frame": 92,
+    "stop_latency_frames_max": 3,
+    "restart_active_frames_min": 100,
+    "wrong_generation_commands": 0,
+    "collision_count": 0
+  },
+  "promotion": {
+    "formal_dora_simulation_resilience_allowed": true,
+    "real_vehicle_control_allowed": false
+  },
+  "supersedes": {
+    "contract": "contracts/phase5/phase5j_contract_v1_rejected.json",
+    "reason": "The dual watchdog deadline is tightened from 150 ms to 100 ms so zero is observable within three 20 Hz telemetry frames"
+  }
+}

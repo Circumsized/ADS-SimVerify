@@ -1,0 +1,59 @@
+{
+  "schema_version": "phase7-status-v1",
+  "status": "phase7_hardware_sizing_and_deployment_profile_passed",
+  "frozen_at": "2026-07-16T17:50:00+08:00",
+  "phase6_status": {
+    "path": "contracts/phase6/phase6_status.json",
+    "sha256": "c2857b06f0bf73dc3e9c04e972a3e3b0ed9c4b331ca20e1506b351abb60f503d"
+  },
+  "contract": {
+    "path": "contracts/phase7/phase7_contract.json",
+    "sha256": "7e5fc4b68f3f35780007ac49b719aed20a990bac64306d6a58ec9079d11dbca1"
+  },
+  "implementation": {
+    "profile_logic": {"path": "contracts/phase7/phase7_profile.py", "sha256": "5f1afa3218ba9dd74442d5b209cb1b50d385a9d64e7a7783c6f0fcfe765792e8"},
+    "profiler": {"path": "contracts/phase7/run_phase7_profile.py", "sha256": "7e9c6886b00fe3f7091e6ca963640add9cacd0216e5720988bd0662c6fc4c542"},
+    "validator": {"path": "contracts/phase7/validate_phase7.py", "sha256": "2fbf96d1f5e8702d212915fbcb49deb424c346848f49723eb7ee05129e8bdbe1"},
+    "profile_tests": {"path": "contracts/phase7/test_phase7_profile.py", "sha256": "bad227ac02ffff3ce82fc1b94c37795708f72d479361b8ec3bf8ce47c117c1ef"},
+    "profiler_tests": {"path": "contracts/phase7/test_phase7_profiler.py", "sha256": "a2e1772e2ac4e6dd20a17fba3979406e93a75b7782c6e74448da743f1e46f0cd"},
+    "validation_tests": {"path": "contracts/phase7/test_phase7_validation.py", "sha256": "301bcc45aa6c74bd3ccefef02a68e85c5bec8878f758ade42755a578f3df10e7"}
+  },
+  "profile_evidence": {
+    "path": "artifacts/phase7_profile/final_20260716_174458/summary.json",
+    "sha256": "9770c120aefe06188d1acc5c1bfa34b7d099abc26ddf04e33b54b6382f0fd8aa"
+  },
+  "deployment_report": {
+    "path": "contracts/phase7/deployment_profile_zh-CN.md",
+    "sha256": "7345074891bd62b2714bea74c06da79e5b67fb8f08d8e1e4aebe1537c5fe8107"
+  },
+  "measured_profile": {
+    "host": "GeForce RTX 3060 12GB, i5-13600KF, 32GB RAM",
+    "control_pipeline_p95_ms": 17.06741735,
+    "semantic_inference_p95_ms": 5.841891599999999,
+    "depth_lift_bev_p95_ms": 8.25620705,
+    "nmpc_p95_ms": 1.2040345,
+    "xfeat_640x640_p95_ms": 3.8491119,
+    "process_rss_incremental_peak_mib": 1211.97265625,
+    "desktop_gpu_vram_incremental_peak_mib": 253.0,
+    "declared_stream_bandwidth_mbps": 87.57248,
+    "cuda_provider_active": true,
+    "gate_passed": true
+  },
+  "recommendation": {
+    "id": "jetson_orin_nx_16gb_super",
+    "name": "NVIDIA Jetson Orin NX 16GB Super",
+    "memory_gb": 16,
+    "memory_bandwidth_gbps": 102.0,
+    "ai_tops": 157,
+    "module_power_w_max": 40,
+    "role": "recommended deployment target",
+    "official_source": "https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/"
+  },
+  "minimum_prototype": "NVIDIA Jetson Orin Nano Super Developer Kit 8GB",
+  "high_headroom_option": "NVIDIA Jetson AGX Orin 32GB",
+  "target_hardware_benchmark_required": true,
+  "real_camera_calibration_required": true,
+  "hardware_purchase_recommendation_allowed": true,
+  "real_vehicle_control_allowed": false,
+  "next_gate": "Purchase and benchmark the target compute module and RGB-D sensor; no additional software phase is planned before hardware exists"
+}

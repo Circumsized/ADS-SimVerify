@@ -1,0 +1,195 @@
+{
+  "schema_version": "1.0.0",
+  "status": "frozen",
+  "frozen_at": "2026-07-15",
+  "phase0_baseline": "artifacts/baselines/phase0_20260715_134903",
+  "phase1_contract": "contracts/v1/data_contracts.json",
+  "phase2_evidence": {
+    "path": "artifacts/phase2_probe/20260715_144936/summary.json",
+    "sha256": "861155cbbf3d226393fcccf69f205f4827d8286adb729c169ba6693bc40f12b5",
+    "frames": 1057,
+    "verdict": "pidnet_sim_domain_collapse",
+    "observed": {
+      "exact_a_ratio": 1.0,
+      "exact_b_ratio": 1.0,
+      "b_valid_ratio": 1.0,
+      "c_valid_ratio": 1.0,
+      "c_latency_p95_ms": 11.249901,
+      "roi_occupied_ratio_c_mean": 0.9997136881939948,
+      "bc_false_occupied_rate_mean": 0.9993564476966902,
+      "bc_free_iou_mean": 0.0006429643511165706
+    }
+  },
+  "resolved_decision": {
+    "id": "P1-U001/G0",
+    "status": "closed",
+    "deployment_domain_id": "indoor_warehouse_closed_track",
+    "summary": "Low-speed indoor AMR navigation on flat hard floors in warehouses and closed test tracks.",
+    "included": [
+      "warehouse aisles and intersections",
+      "painted floor markings and texture variation",
+      "shelves, pallets, boxes, columns, barriers and doors",
+      "people, carts, forklifts and other moving obstacles",
+      "daylight-independent artificial lighting variation"
+    ],
+    "excluded": [
+      "public roads and Cityscapes road semantics",
+      "stairs, elevators and non-planar traversability",
+      "rain, snow and outdoor weather",
+      "operation above 0.8 m/s",
+      "uncontrolled public-space deployment"
+    ]
+  },
+  "scene_roles": {
+    "primary": {
+      "id": "isaac6_warehouse_multiple_shelves",
+      "role": "geometry_visual_baseline",
+      "canonical_asset_uri": "/Isaac/Environments/Simple_Warehouse/warehouse_multiple_shelves.usd",
+      "local_path": "/run/media/zhz/数据/isaac_assets/Assets/Isaac/6.0/Isaac/Environments/Simple_Warehouse/warehouse_multiple_shelves.usd",
+      "sha256": "eb27e4bad446bba981b81c27529a284dfb55a30adc01eaadb80bb0fe997a0dc0",
+      "source_version": "Isaac Sim Assets 6.0",
+      "source_mutability": "immutable_vendor_asset",
+      "integration": "Reference the vendor stage from a project-owned wrapper USD; never edit the vendor asset in place.",
+      "inventory": {
+        "default_prim": "/Root",
+        "up_axis": "Z",
+        "meters_per_unit": 1.0,
+        "prim_count": 8143,
+        "mesh_count": 1878,
+        "collision_api_count": 1878,
+        "material_binding_api_count": 1877,
+        "rect_light_count": 11,
+        "navmesh_volume_count": 7,
+        "semantic_label_binding_count": 0
+      },
+      "semantic_ready": false,
+      "required_overlay": "warehouse_nav14_v1 semantic labels plus project robot, camera and dynamic obstacle layers"
+    },
+    "stress": {
+      "id": "isaac6_full_warehouse",
+      "role": "rendering_and_density_stress_only",
+      "canonical_asset_uri": "/Isaac/Environments/Simple_Warehouse/full_warehouse.usd",
+      "local_path": "/run/media/zhz/数据/isaac_assets/Assets/Isaac/6.0/Isaac/Environments/Simple_Warehouse/full_warehouse.usd",
+      "sha256": "dc190aa40d8dd43079feeecdb89e1dfdae05539dd0b25c2abbc6e2f48c8447d9",
+      "inventory": {
+        "default_prim": "/Root",
+        "up_axis": "Z",
+        "meters_per_unit": 1.0,
+        "prim_count": 26356,
+        "mesh_count": 3473,
+        "collision_api_count": 3473,
+        "material_binding_api_count": 3471,
+        "rect_light_count": 37,
+        "navmesh_volume_count": 17,
+        "semantic_label_binding_count": 1
+      },
+      "semantic_ready": false
+    },
+    "negative_control": {
+      "id": "fsd_car_racetrack_phase2",
+      "role": "synthetic_domain_failure_regression",
+      "local_path": "assets/fsd_car_racetrack.usd",
+      "sha256": "a7d7a896e5ea597411ba69e50ec6f96f1d7e9197b985630d8c59d220df09af73",
+      "inventory": {
+        "default_prim": "/Root",
+        "up_axis": "Z",
+        "meters_per_unit": 1.0,
+        "prim_count": 585,
+        "mesh_count": 107,
+        "collision_api_count": 69,
+        "material_binding_api_count": 201,
+        "semantic_label_binding_count": 55
+      },
+      "training_use": "forbidden",
+      "allowed_use": "A/B/C synchronization and known-domain-collapse regression"
+    }
+  },
+  "sensor_geometry": {
+    "image_size": [640, 480],
+    "decoded_color_order": "BGR8",
+    "camera_frame": "OpenCV x-right,y-down,z-forward",
+    "lens_model": "opencv_pinhole",
+    "intrinsics": {
+      "fx": 204.25533,
+      "fy": 153.1915,
+      "cx": 319.5,
+      "cy": 239.5
+    },
+    "body_extrinsics": {
+      "forward_m": 0.06935859,
+      "left_m": -2e-8,
+      "height_m": 0.13328385,
+      "yaw_rad": 0.076109,
+      "pitch_rad": 0.168662,
+      "roll_rad": 0.0
+    },
+    "distortion": {
+      "status": "real_camera_calibration_required_before_phase4_dataset",
+      "simulation_baseline_coefficients": [0.0, 0.0, 0.0, 0.0, 0.0]
+    }
+  },
+  "bev_contract": {
+    "shape": [192, 192, 14],
+    "physical_extent_m": [20.0, 20.0],
+    "meters_per_cell": 0.10416666666666667,
+    "ego_origin_cell": [95.5, 95.5],
+    "axes": "decreasing row is forward; decreasing column is left",
+    "frequency_hz": 20.0
+  },
+  "semantic_taxonomy": {
+    "id": "warehouse_nav14_v1",
+    "layout": "CHW one-hot",
+    "channels": [
+      {"id": 0, "name": "traversable_floor", "occupancy": "free"},
+      {"id": 1, "name": "floor_marking", "occupancy": "free"},
+      {"id": 2, "name": "curb_or_step", "occupancy": "occupied"},
+      {"id": 3, "name": "wall_or_door", "occupancy": "occupied"},
+      {"id": 4, "name": "fence_or_guardrail", "occupancy": "occupied"},
+      {"id": 5, "name": "shelf_or_rack", "occupancy": "occupied"},
+      {"id": 6, "name": "pole_or_column", "occupancy": "occupied"},
+      {"id": 7, "name": "traffic_control_or_sign", "occupancy": "occupied"},
+      {"id": 8, "name": "pallet_or_load", "occupancy": "occupied"},
+      {"id": 9, "name": "box_or_small_obstacle", "occupancy": "occupied"},
+      {"id": 10, "name": "person", "occupancy": "occupied"},
+      {"id": 11, "name": "robot_or_cart", "occupancy": "occupied"},
+      {"id": 12, "name": "forklift_or_heavy_vehicle", "occupancy": "occupied"},
+      {"id": 13, "name": "unknown_or_unlabeled", "occupancy": "occupied"}
+    ],
+    "compatibility": "Transport shape remains 14x192x192; channel meaning changes require a versioned Phase 4 encoder and policy retraining."
+  },
+  "phase4_perception_gate": {
+    "status": "closed",
+    "threshold_origin": "project engineering acceptance limits; the papers define semantic consistency and error bounds but not these dataset-specific values",
+    "minimum_frames": 1000,
+    "exact_frame_ratio_min": 0.99,
+    "semantic_gt_valid_ratio_min": 0.99,
+    "perception_valid_ratio_min": 0.99,
+    "latency_p95_ms_max": 50.0,
+    "degenerate_roi_occupied_ge_0_99_frame_ratio_max": 0.01,
+    "bc_false_free_rate_mean_max": 0.05,
+    "bc_false_occupied_rate_mean_max": 0.20,
+    "bc_free_iou_mean_min": 0.70,
+    "bc_occupied_iou_mean_min": 0.50,
+    "blockers": [
+      "primary scene semantic overlay is not authored",
+      "real camera distortion coefficients are not frozen",
+      "current PIDNet uses Cityscapes semantics and fails the Phase 2 baseline"
+    ]
+  },
+  "required_phase4_capture": [
+    "source_frame_id and simulation_time",
+    "RGB8 before JPEG plus deployed JPEG",
+    "warehouse_nav14_v1 semantic id image",
+    "metric depth_to_image_plane",
+    "USD geometry oracle BEV",
+    "semantic GT IPM BEV",
+    "candidate perception IPM BEV",
+    "camera intrinsics, distortion and body extrinsics",
+    "odometry and dynamic object world poses"
+  ],
+  "frozen_references": [
+    "/run/media/zhz/数据/开发积累/A、自动驾驶/isaacSim/IsaacSim-README.md",
+    "https://docs.isaacsim.omniverse.nvidia.com/latest/synthetic_data_generation/tutorial_replicator_mobility_gen.html",
+    "https://docs.isaacsim.omniverse.nvidia.com/latest/sensors/isaacsim_sensors_camera.html"
+  ]
+}

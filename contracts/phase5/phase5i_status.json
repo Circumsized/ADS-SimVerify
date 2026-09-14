@@ -1,0 +1,87 @@
+{
+  "schema_version": "phase5i-status-v1",
+  "status": "phase5i_formal_dora_multirun_gate_passed",
+  "frozen_at": "2026-07-16T09:42:39+08:00",
+  "phase5h_status": {
+    "path": "contracts/phase5/phase5h_status.json",
+    "sha256": "84953f8bb5e0bb677b4df8594e0a4d505fd13710a507a610285982d00fcb9ffd"
+  },
+  "contract": {
+    "path": "contracts/phase5/phase5i_contract.json",
+    "sha256": "2d06a45b19099ad5146cf902fcc7e710368be090692cf9334b28114bfdc741d0"
+  },
+  "rejected_contract": {
+    "path": "contracts/phase5/phase5i_contract_v1_rejected.json",
+    "sha256": "dd9c8e910229c7577fcad4175b721f8c83564ceba7de08ef7f105447fc668b6c"
+  },
+  "implementation": {
+    "formal_dora_topology": {"path": "contracts/phase5/dora_dataflow_phase5i_control.yaml", "sha256": "49a461e4dc2d34a6828f3e87dc8348a70ce49406a79a5383427fb23282dd2c79"},
+    "safety_state_machine": {"path": "contracts/phase5/phase5i_safety.py", "sha256": "000129bfdc37db106b25ed887a4bfaa19c34306ed750873fedd59959e5f61b30"},
+    "runtime_helpers": {"path": "contracts/phase5/phase5i_runtime.py", "sha256": "3aa906ec880535a5fe094dd53c87c65d8f9839c1408e339700eebe96e61dc536"},
+    "articulation_runtime": {"path": "contracts/phase5/phase5i_dora_articulation.py", "sha256": "c845fc19acceb4632f697ab5515d18d7d0605bda9490c2357ee7907d67827015"},
+    "safety_supervisor_node": {"path": "contracts/phase5/phase5i_safety_node.py", "sha256": "55eeb1e3e9bd967b36e5150c74d78e46815d293f11f9b56b71e768994fdc2f65"},
+    "operator_safety_node": {"path": "contracts/phase5/phase5i_operator_safety_node.py", "sha256": "ca735ce2ceff5a578bf243feda2fff8088eb609adeeb17aafbd65ecd70c9787e"},
+    "evidence_sink": {"path": "contracts/phase5/phase5i_evidence_sink.py", "sha256": "281cb8715d6afa93350cd3c965c23c07a1434f86c651526a0f25abe581b2cf78"},
+    "safety_tests": {"path": "contracts/phase5/test_phase5i_safety.py", "sha256": "50a9e711594406981f8c4691b84ad1808eddb57aea70deba9b5cc70ac07a1677"},
+    "runtime_tests": {"path": "contracts/phase5/test_phase5i_runtime.py", "sha256": "a5e09be372419633e2db46fbd2afdfde1e22d810f22213ffd80b578f3599c70e"},
+    "operator_tests": {"path": "contracts/phase5/test_phase5i_operator.py", "sha256": "c597e9037860a2ef2e90322dbcb4c34b06ab2698b100788f5dfbf6274c824455"},
+    "topology_tests": {"path": "contracts/phase5/test_phase5i_topology.py", "sha256": "fd420c2c09a7456bc1ba673a8c73b3292933dfc10c0b86d2ce6c6e2e2777bbac"},
+    "evidence_tests": {"path": "contracts/phase5/test_phase5i_evidence.py", "sha256": "4b57a2d9487bf070a37db509707ca3c3470cc3452cdc86c6d0f94727bf65cc11"},
+    "validation_tests": {"path": "contracts/phase5/test_phase5i_validation.py", "sha256": "03c457ac285e1718ac841ef927addd1eada9ee31ece56e188ed0715cadb04d15"},
+    "validator": {"path": "contracts/phase5/validate_phase5i.py", "sha256": "d304ab6bc20c87bf22de4338c12855b94f5790891f60fb7618573ec8c14f176c"}
+  },
+  "runs": {
+    "nominal": {
+      "summary": {"path": "artifacts/phase5i_dora/final_nominal_20260716/summary.json", "sha256": "13ed479f38094136260e0e0e3c98cedde6c91da27d957254b8cffea76b5fefba"},
+      "telemetry": {"path": "artifacts/phase5i_dora/final_nominal_20260716/frames.csv", "sha256": "c8cf7dc35499a3b603355bbdf50cd02d199cc281963b03a602d53af534daac69"}
+    },
+    "emergency_stop_reset": {
+      "summary": {"path": "artifacts/phase5i_dora/final_emergency_stop_reset_20260716/summary.json", "sha256": "55ecd864d8390eac63a7ca2b61ae57b8c74e0a828b828a100e9f9e0a65cb48b5"},
+      "telemetry": {"path": "artifacts/phase5i_dora/final_emergency_stop_reset_20260716/frames.csv", "sha256": "35b5f38918c3b77916dd441225bae700d54f4b837a2f2599b414709ad4d32cb5"}
+    },
+    "watchdog_reset": {
+      "summary": {"path": "artifacts/phase5i_dora/final_watchdog_reset_20260716/summary.json", "sha256": "a7178210044a81b0b1d3fa970bcd9753c7d33da92081167302047d33e4db7418"},
+      "telemetry": {"path": "artifacts/phase5i_dora/final_watchdog_reset_20260716/frames.csv", "sha256": "e33b1e8c7b46dc21fa5609bad3500838c37a31f0d5b3a6b89418009e217063d5"}
+    }
+  },
+  "aggregate": {
+    "run_modes": ["nominal", "emergency_stop_reset", "watchdog_reset"],
+    "frames": 540,
+    "maximum_sensor_to_wheel_p95_ms": 31.6015761375427,
+    "maximum_jitter_p95_ms": 10.139483451843262,
+    "emergency_stop_frames": 10,
+    "watchdog_stop_frames": 5,
+    "reset_events": 2,
+    "static_collision_count": 0,
+    "dynamic_collision_count": 0,
+    "all_run_gates_passed": true
+  },
+  "control_authority": {
+    "supervisor_is_only_wheel_command_authority": true,
+    "startup_requires_five_healthy_frames": true,
+    "emergency_stop_is_latched": true,
+    "supervisor_and_actuator_watchdogs_ms": 150.0,
+    "real_vehicle_control_allowed": false
+  },
+  "sensor_boundary": {
+    "native_sensor_resolution": [640, 480],
+    "xfeat_publish_rate_hz": 2,
+    "validated_native_xfeat_frames_per_run": 18,
+    "semantic_control_resolution": [320, 240],
+    "xfeat_inference_on_control_critical_path": false
+  },
+  "hardware_boundary": {
+    "completed_on": "GeForce RTX 3060 12 GB, i5-13600KF, 32 GB RAM",
+    "linux_power_profile_during_final_runs": "performance",
+    "perception_execution": "ONNX Runtime CUDAExecutionProvider",
+    "nmpc_execution": "CPU acados SQP-RTI",
+    "physics_execution": "Isaac PhysX 100 Hz",
+    "control_rate_hz": 20
+  },
+  "known_environment_warnings": [
+    "Isaac reports the intel_pstate governor name as powersave although powerprofilesctl and energy_performance_preference were set to performance",
+    "Isaac optional asset-converter extension cannot load libxml2.so.2; the tested USD, PhysX and render path remains operational",
+    "Dora 0.3.13 logs a benign broken-pipe warning after run_complete closes the runtime node"
+  ],
+  "next_gate": "Phase 5-J should expand the formal Dora gate from the straight integration route to repeated multi-scenario endurance and process-kill fault injection; real vehicle control remains forbidden"
+}

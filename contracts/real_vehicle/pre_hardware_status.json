@@ -1,0 +1,42 @@
+{
+  "schema_version": "real-vehicle-pre-hardware-status-v1",
+  "status": "software_acceptance_gate_ready_hardware_evidence_blocked",
+  "frozen_at": "2026-07-16T18:24:00+08:00",
+  "phase7_status": {
+    "path": "contracts/phase7/phase7_status.json",
+    "sha256": "fd3d6c60a7610ebaaac744f4f59635755385250817361e4937113cd448eb0a4a"
+  },
+  "contract": {
+    "path": "contracts/real_vehicle/real_vehicle_acceptance_contract.json",
+    "sha256": "a96b565e6c8effd4ff7f013a04139694dc804f0273fd4fb75693a53dbe8ffc68"
+  },
+  "implementation": {
+    "gate_logic": {"path": "contracts/real_vehicle/real_vehicle_acceptance.py", "sha256": "f7861a16651b142309180db532b4fe5bfb69d4ccc2e7832ad8470c4874c9bdbe"},
+    "auditor": {"path": "contracts/real_vehicle/audit_real_vehicle_readiness.py", "sha256": "67d18f296ce56d68a2b92a0f20ac6a57ea885a28ee77831a1dd32e86fd62c758"},
+    "validator": {"path": "contracts/real_vehicle/validate_pre_hardware.py", "sha256": "8667627f84f1b6c6c834fca6d62d9df9b239b8f3b597e19cec39215471959cec"}
+  },
+  "evidence": {
+    "path": "artifacts/real_vehicle_acceptance/pre_hardware_20260716_182135/summary.json",
+    "sha256": "a4d0e74477e6e9a87f6deef03f43d0800d25abfa89b3186f06418e7fbbc25295"
+  },
+  "audit_findings": {
+    "runtime_topology": "dora_dataflow.yaml still contains isaac_sim_env and simulation-env",
+    "global_planning": "Phase 5-H and Phase 6 A* use a USD-derived OracleGrid",
+    "collision_supervisor": "USD geometry supplies the independent allow-or-abort collision truth",
+    "camera": "no /dev/video* device and no real calibration evidence",
+    "localization": "XFeat homography is not converted to metric pose or fused into odometry",
+    "actuator": "only Isaac articulation evidence exists; no encoder, motor driver or physical stop telemetry"
+  },
+  "blocked_gates": [
+    "topology",
+    "camera",
+    "localization",
+    "global_planning",
+    "collision_supervisor",
+    "actuator"
+  ],
+  "software_acceptance_harness_ready": true,
+  "hardware_evidence_present": false,
+  "real_vehicle_control_allowed": false,
+  "next_action": "Acquire target compute, RGB-D camera, IMU/encoders, motor controller and physical emergency stop; then collect the six frozen evidence blocks"
+}
