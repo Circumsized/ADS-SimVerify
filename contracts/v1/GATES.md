@@ -1,4 +1,4 @@
-# ADS 真机准入门禁状态总览
+# ADS-SimVerify 真机准入门禁状态总览
 
 本表把 [`README.md`](../../README.md) 第 9 节「实机部署建议」中
 描述的六项 AND 门禁与本仓库 `contracts/**` 内的现状一一对齐,供工程交接、

@@ -1,8 +1,8 @@
 <div align="center">
 
-# ADS 自动驾驶仿真测试验证
+# ADS-SimVerify 自动驾驶仿真测试验证
 
-**ADS · Autonomous Driving Simulation · 低速室内仓库 AMR · 白盒仿真测试验证项目**
+**ADS-SimVerify · Autonomous Driving Simulation · 低速室内仓库 AMR · 白盒仿真测试验证项目**
 
 [![CI](https://img.shields.io/badge/CI-format%20%7C%20hygiene%20%7C%20contracts%20%7C%20rust-2ea44f)](.github/workflows/ci.yml)
 [![sim](https://img.shields.io/badge/simulation%20RC-frozen-2ea44f)](#6-验证结果)
@@ -48,7 +48,7 @@
 
 ### 1.2 目标与范围
 
-ADS 在**仿真环境**中构建并验证一条完整的低速室内仓库 AMR 自动驾驶主链。选仿真
+ADS-SimVerify 在**仿真环境**中构建并验证一条完整的低速室内仓库 AMR 自动驾驶主链。选仿真
 优先的原因很直接：算法、坐标系、控制律、安全逻辑都能在物理硬件到位前先行验证，且每
 一次运行完全可复现。
 

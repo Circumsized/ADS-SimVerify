@@ -1,4 +1,4 @@
-# ADS Phase 3.3: Human "Spice" data collection topology.
+# ADS-SimVerify Phase 3.3: Human "Spice" data collection topology.
 # NMPC control authority is disabled; the human teleop directly drives the chassis.
 # Compass goal generator and manual reposition loop are coordinated by isaac_dora_node.
 nodes:

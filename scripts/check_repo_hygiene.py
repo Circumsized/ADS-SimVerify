@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""仓库卫生检查 — ADS 验收脚本。
+"""仓库卫生检查 — ADS-SimVerify 验收脚本。
 
 该脚本保证 push 出去的 main 分支始终满足"白盒发布"约束:
 
