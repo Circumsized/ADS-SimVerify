@@ -1,0 +1,21 @@
+{
+  "schema_version": "model-delivery-v1",
+  "active_models": [
+    {
+      "path": "model/warehouse_nav14_candidate.onnx",
+      "sha256": "7f55627ba329ff736bed0990a6042434959cfe357b5744acd78160588e70a821",
+      "role": "warehouse_nav14 semantic perception at 320x240 and 20 Hz"
+    },
+    {
+      "path": "model/xfeat_640x640.onnx",
+      "sha256": "55a50801d21564c3cf5e3afe1d360dbbe8390ab3ca2c167f08d4d476504ac473",
+      "role": "XFeat localization feature extraction at 640x640 and 2 Hz"
+    }
+  ],
+  "inactive_models_not_distributed": [
+    "model/pidnet_s.onnx",
+    "model/spiced_brain.onnx",
+    "bc_anchor.pth",
+    "model/ppo_best_actor.pth"
+  ]
+}

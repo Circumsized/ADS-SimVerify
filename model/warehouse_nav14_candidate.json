@@ -1,0 +1,8 @@
+{
+  "taxonomy_id": "warehouse_nav14_v1",
+  "model": "model/warehouse_nav14_candidate.onnx",
+  "model_sha256": "7f55627ba329ff736bed0990a6042434959cfe357b5744acd78160588e70a821",
+  "training_summary": "artifacts/phase5c3_training/20260715_192050/summary.json",
+  "training_summary_sha256": "a3d4c04bb089d04e9a51e1bf9ed72c2cbc3fe900510811e96862a2372f9f9d5f",
+  "control_promotion_allowed": false
+}
