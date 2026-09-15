@@ -103,7 +103,7 @@ async fn main() -> eyre::Result<()> {
     }));
 
     let ctrl_context = context.clone();
-    let control_handle = tokio::spawn(async move {
+    let mut control_handle = tokio::spawn(async move {
         let mut brain: Box<
             dyn VehicleMotionController<
                     State = (f64, f64, f64, f64),
